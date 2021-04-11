@@ -60,6 +60,11 @@ userSchema.methods.comparePassword = function(plainPassword, cb){
     })
 
 }
+
+userSchema.methods.decryptPassword = function(plainPassword){
+    return bcrypt.decoded(plainPassword)
+}
+
 userSchema.methods.generateToken = function(cb) {
     var user = this;
 
@@ -87,6 +92,7 @@ userSchema.statics.findByToken = function(token, cb){
         })
     })
 }
+
 const User = mongoose.model('User', userSchema)
 
 module.exports = { User }

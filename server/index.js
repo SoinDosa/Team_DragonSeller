@@ -89,7 +89,7 @@ app.get('/api/users/logout', auth, (req, res) => {
 	)
 })
 
-app.post('api/users/find_id', (req, res) => {
+app.post('/api/users/find_id', (req, res) => {
 	User.findOne({email: req.body.email}, (err, user) => {
 		if(!user){
 			return res.json({
@@ -113,7 +113,57 @@ app.post('api/users/find_id', (req, res) => {
 	})
 })
 
+app.post('/api/users/forget_pass', (req, res) => {
+	User.findOne({id : req.body.id}, (err, user) =>{
+		if(!user){
+			return res.json({
+				findPass : false,
+				message : "계정이 존재하지 않습니다"
+			})
+		}
+		User.findOne({email : req.body.email}, (err, user) => {
+			if(!user){
+				return res.json({
+					findPass : false,
+					message : "계정의 이메일이 일치하지 않습니다"
+				})
+			}
+			User.findOne({name : req.body.name}, (err, user) => {
+				if(!user){
+					return res.json({
+						findPass : false,
+						message : "계정의 소유자 이름이 일치하지 않습니다"
+					})
+				}			
+				user.password = "1234567890"
+				user.save((err, userInfo) => {
+					if(err) return res.json({success: false, err}) // 에러 발생
+		
+					return res.status(200).json({
+						success: true,
+						message : "비밀번호가 1234567890으로 초기화"
+					})
+				})
+			})		
 
+		})
+
+	})
+})
+
+app.post('/api/users/change_pass', auth, (req, res) => {
+	User.findOne({id : req.user.id}, (err, user) => {
+		user.password = req.body.password
+		user.save((err, userInfo) => {
+			if(err) return res.json({success : false, err})
+
+			return res.status(200).json({
+				success : true,
+				message : "비밀번호 초기화 완료"
+			})
+		})
+	})
+})
 
 const port = 3000
 app.listen(port, () => {
