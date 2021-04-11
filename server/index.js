@@ -27,6 +27,8 @@ app.get('/', (req, res) => {
 	res.send('Hello world!')
 })
 
+// 사진 업로드 페이지를 위한 라우터
+app.post('/api/product', require('./routes/product'));
 
 const port = 3000
 app.listen(port, () => {
