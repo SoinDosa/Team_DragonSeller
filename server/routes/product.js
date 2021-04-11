@@ -18,7 +18,7 @@ var upload = multer({ storage: storage }).single("file")
 
 
 
-app.post('/image', (req, req) => {
+router.post('/image', (req, res) => {
 
     // 가져온 이미지를 저장  (multer를 사용)
     upload(req, res, err => {
