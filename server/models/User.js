@@ -61,6 +61,9 @@ userSchema.methods.comparePassword = function(plainPassword, cb){
 
 }
 
+userSchema.methods.decryptPassword = function(plainPassword){
+    return bcrypt.decoded(plainPassword)
+}
 
 userSchema.methods.generateToken = function(cb) {
     var user = this;
