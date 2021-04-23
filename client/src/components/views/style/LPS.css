@@ -1,0 +1,49 @@
+#main  {
+    color: rgb(255, 102, 0);
+}
+body{
+
+}
+
+#wrap {
+
+}
+.headerWrap {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 20%;
+}
+
+#containerWrap {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    text-align: center;  
+    alignItems: center;
+    justifyContent: center;
+   
+}
+#footerWrap {
+    width: 100%;
+    height: 25%;
+    border-top: solid;
+    text-align:   center;
+}
+
+.header {
+    padding:1%;
+}
+
+.logo {
+    color: rgb(255, 166, 0);
+}
+
+.header-name {
+    color: red;
+    font-size: 25px;
+
+}
+.Nav {
+
+}

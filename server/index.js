@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.use('/api/users', require('./routes/users'));
-app.use('/api/products', require('./routes/product'));
+app.use('/api/product', require('./routes/product'));
 
 
 const mongoose = require('mongoose')
@@ -24,15 +24,15 @@ mongoose.connect(config.mongoURI ,
 .catch(err=>console.log(err))
 
 
-app.get('/', (req, res) => {
+app.get('/api/hello', (req, res) => {
 	res.send('Hello world!')
 })
 
 // 사진 업로드 페이지를 위한 라우터
-app.post('/api/product', require('./routes/product'));
+//app.post('/api/product', require('./routes/product'));
 
-const port = 3000
+const port = 5000
 app.listen(port, () => {
-	console.log('Example app listening at http://localhost:3000')
+	console.log('Example app listening at http://localhost:5000')
 })
 
