@@ -3,7 +3,7 @@ const router = express.Router();
 const { User } = require("../models/User")
 
 const { auth } = require("../middleware/auth")
-
+const { adminAuth } = require("../middleware/adminAuth")
 
 router.post('/register', (req,res) => { // 계정 등록
 	const user = new User(req.body)
@@ -58,6 +58,19 @@ router.get('/auth', auth, (req, res) => {
 		role : req.user.role,
 	})
 })
+
+router.get('/admin_auth', adminAuth, (req, res) => {
+	res.setMaxListeners(200).json({
+		id : req.user.id,
+		isAdmin : true,
+		isAuth : true,
+		email : req.user.email,
+		name : req.user.name,
+		role : req.user.role,
+	})
+})
+
+
 
 router.get('/logout', auth, (req, res) => {
 	User.findOneAndUpdate(
