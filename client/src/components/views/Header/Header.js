@@ -2,6 +2,7 @@ import { createMedia } from '@artsy/fresnel'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import LogButton from '../Button/Button';
+import Navbar from '../NavBar/NavBar'
 import {
   Button,
   Container,
@@ -62,10 +63,10 @@ class DesktopContainer extends Component {
             >
               <Container>
                 <Menu.Item position='right'>
-                <Header as='h1' color='red'>Dragon Seller</Header>
+                  <Header as='h1' color='red'>Dragon Seller</Header>
                 </Menu.Item>
                 <Menu.Item position='right'>
-                <LogButton/>
+                  <LogButton />
                 </Menu.Item>
               </Container>
             </Menu>
@@ -84,12 +85,7 @@ class DesktopContainer extends Component {
               size='large'
             >
               <Container>
-                <Menu.Item as='a' active>
-                  Home
-                </Menu.Item>
-                <Menu.Item as='a'>Work</Menu.Item>
-                <Menu.Item as='a'>Company</Menu.Item>
-                <Menu.Item as='a'>Careers</Menu.Item>
+                <Navbar />
               </Container>
             </Menu>
           </Segment>
@@ -136,7 +132,7 @@ const HomepageLayout = () => (
               We Make Bananas That Can Dance
             </Header>
             <p style={{ fontSize: '1.33em' }}>
-                배너
+              배너
             </p>
           </Grid.Column>
           <Grid.Column floated='right' width={6}>
