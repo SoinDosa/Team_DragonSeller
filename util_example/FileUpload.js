@@ -7,7 +7,7 @@ import { response } from 'express';
 // front-end 작업이 끝나게 되면 배너 업로드 페이지에서 이미지 업로드로 사용할 예정입니다
 // onDrop 함수에서 파일을 서버로 보내는 역할을 해 줍니다.
 
-function FileUpload() {
+function FileUpload(props) {
 
     const [Images, setImages] = useState([])
 
@@ -28,10 +28,27 @@ function FileUpload() {
                 if(response.data.success){
                     /// ...Images : 이미지 다 넣어준다는 뜻
                     setImages([...Images, response.data.filePath])
+
+                    props.refreshFunction([...Images, response.data.filePath])
+
                 } else {
                     alert('파일 업로드 실패!')
                 }
             })
+    }
+
+    const deleteHandler = (image) => {
+        // 이미지 클릭시 이미지 삭제
+
+        const currentIndex = Images.indexOf(image);
+
+        let newImages = [...Images]
+        newImages.splice(currentIndex, 1)
+
+        setImages(newImages)
+
+        props.refreshFunction(newImages)
+
     }
 
     // 아래는 front 형식
@@ -54,7 +71,7 @@ function FileUpload() {
 
             <div style={{ display: 'flex', width: '350px', height: '240px', overflowX: 'scroll'}}>
                 {Images.map((image, index) => (
-                    <div key={index}>
+                    <div onClick={() => deleteHandler(image)} key={index}>
                         <img style={{ minWidth: '300px', width: '300px', height: '240px' }}
                             src={`http://localhost:5000/${image}`}
                         />
