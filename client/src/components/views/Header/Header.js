@@ -2,6 +2,10 @@ import { createMedia } from '@artsy/fresnel'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import LogButton from '../Button/Button';
+import Banner from '../Banner/Banner'
+import Navbar from '../NavBar/NavBar';
+import SearchBar from '../NavBar/SearchBar'
+
 import {
   Button,
   Container,
@@ -84,12 +88,7 @@ class DesktopContainer extends Component {
               size='large'
             >
               <Container>
-                <Menu.Item as='a' active>
-                  Home
-                </Menu.Item>
-                <Menu.Item as='a'>Work</Menu.Item>
-                <Menu.Item as='a'>Company</Menu.Item>
-                <Menu.Item as='a'>Careers</Menu.Item>
+              <Navbar/>
               </Container>
             </Menu>
           </Segment>
@@ -122,10 +121,11 @@ ResponsiveContainer.propTypes = {
 
 const HomepageLayout = () => (
   <ResponsiveContainer>
-    <Segment style={{ padding: '8em 0em' }} vertical>
+    <Segment style={{ padding: '3em 0em' }} vertical>
       <Grid container stackable verticalAlign='middle'>
         <Grid.Row>
-          <Grid.Column width={8}>
+          <Grid.Column width={16} height = {3}>
+            <Banner/>
             <Header as='h3' style={{ fontSize: '2em' }}>
               We Help Companies and Companions
             </Header>

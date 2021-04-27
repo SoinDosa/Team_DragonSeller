@@ -7,6 +7,7 @@ import { withRouter } from 'react-router-dom';
 import Footer from '../Footer/Footer';
 import LogButton from '../Button/Button';
 import Header from '../Header/Header';
+
 //...
 function LandingPage(props) {
     useEffect(() => {
