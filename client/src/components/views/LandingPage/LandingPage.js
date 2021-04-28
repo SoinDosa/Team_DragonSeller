@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom';
 import Footer from '../Footer/Footer';
 import LogButton from '../Button/Button';
 import Header from '../Header/Header';
-
+import Banner from '../Banner/Banner';
 //...
 function LandingPage(props) {
     useEffect(() => {
@@ -38,7 +38,7 @@ function LandingPage(props) {
                     
                     alert('로그인하는데 실패 했습니다.')
                 }
-            })
+            })  
     }
 
     return (
@@ -55,7 +55,7 @@ function LandingPage(props) {
             </div>
             <div id= 'containerWrap'>
                 <div id='main'>
-                   메인
+                    <Banner/>
                 </div>
             </div>
             <div id='footerWrap'>
