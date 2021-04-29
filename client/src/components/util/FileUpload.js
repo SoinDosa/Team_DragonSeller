@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Dropzone from 'react-dropzone'
 import axios from 'axios';
-import { response } from 'express';
+//import { response } from 'express';
 
 // axios 설치 필요
 // front-end 작업이 끝나게 되면 배너 업로드 페이지에서 이미지 업로드로 사용할 예정입니다
@@ -11,18 +11,15 @@ function FileUpload(props) {
 
     const [Images, setImages] = useState([])
 
-
-
-
-    let formData = new FormData();
-
-    const config = {
-        header: { 'content-type': 'multipart/form-data' }
-    }
-
-    formData.append("file", files[0])
-
     const dropHandler = (files) => {
+        let formData = new FormData();
+
+        const config = {
+            header: { 'content-type': 'multipart/form-data' }
+        }
+
+        formData.append("file", files[0])
+
         axios.post('/api/product/image', formData, config)
             .then(response => {
                 if(response.data.success){
@@ -68,12 +65,12 @@ function FileUpload(props) {
                     </section>
                 )}
             </Dropzone>
-
+            
             <div style={{ display: 'flex', width: '350px', height: '240px', overflowX: 'scroll'}}>
                 {Images.map((image, index) => (
                     <div onClick={() => deleteHandler(image)} key={index}>
                         <img style={{ minWidth: '300px', width: '300px', height: '240px' }}
-                            src={`http://localhost:5000/${image}`}
+                            src={`http://localhost:3000/${image}`}
                         />
                     </div>
                 ))}
