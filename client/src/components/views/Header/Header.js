@@ -30,7 +30,7 @@ const { MediaContextProvider, Media } = createMedia({
  * Neither Semantic UI nor Semantic UI React offer a responsive navbar, however, it can be implemented easily.
  * It can be more complicated, but you can create really flexible markup.
  */
-class DesktopContainer extends Component {
+class DesktopContainerHeader extends Component {
   state = {}
 
   hideFixedMenu = () => this.setState({ fixed: false })
@@ -101,7 +101,7 @@ class DesktopContainer extends Component {
   }
 }
 
-DesktopContainer.propTypes = {
+DesktopContainerHeader.propTypes = {
   children: PropTypes.node,
 }
 
@@ -201,4 +201,4 @@ DesktopContainer.propTypes = {
   {/* </ResponsiveContainer>
 ) */}
 
-export default DesktopContainer
+export default DesktopContainerHeader
