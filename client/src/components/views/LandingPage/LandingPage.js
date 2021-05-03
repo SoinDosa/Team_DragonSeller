@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom'
 import axios from 'axios';
@@ -9,11 +9,25 @@ import LogButton from '../Button/Button';
 import Header from '../Header/Header';
 //...
 function LandingPage(props) {
+
+    const [Products, setProducts] = useState([])
+
     useEffect(() => {
-        axios.get('/api/hello')
-            .then(response => { console.log(response) })
+        // 여기 수정함
+        axios.post('/api/product/products')
+            .then(response => { 
+                if(response.data.success){
+                    setProducts(response.data.productInfo)
+                } else {
+                    alert("상품 정보를 가져오는데 실패했습니다")
+                }
+            })
     }, [])
 
+
+    const renderCards = Products.map((product, index) => {
+        // <a href={`/product/${product._id}`}></a>
+    })
 
     const onClicLogoutkHandler = () => {
         axios.get(`/api/users/logout`)
@@ -54,7 +68,11 @@ function LandingPage(props) {
             </div>
             <div id= 'containerWrap'>
                 <div id='main'>
-                   메인
+                   {/* 이 아래 부분은 상품 불러오기 가안 */}
+                   <div style={{ width: '75%', margin: '3rem auto' }}>
+                    <h2>손님 맞을래요?</h2>
+                    {renderCards}
+                   </div>
                 </div>
             </div>
             <div id='footerWrap'>

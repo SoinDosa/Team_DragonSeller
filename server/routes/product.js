@@ -40,6 +40,31 @@ router.post('/', (req, res) => {
   })
 })
 
+router.post('/products', (req, res) => {
+  // product 컬렉션에 있는 모든 상품 정보 가져오기
+  Product.find()
+    .populate("writer")
+    .exec((err, productInfo) => {
+      if(err) return res.status(400).json({ success: false, err })
+      return res.status(200).json({ success: true, productInfo})
+    })
+})
+
+// 상세 페이지용
+router.get('/products_by_id', (req, res) => {
+
+
+  let type = req.query.type
+  let productId = req.query.id
+  // Product 아이디를 이용해 같은 상품의 정보를 가져온다
+
+  Product.find({ _id: productId })
+  .populate('writer')
+  .exec((err, product) => {
+    if(err) return res.status(400).send(err)
+    return res.status(200).send({ success: true, product })
+  })
+})
 
 
 module.exports = router;
