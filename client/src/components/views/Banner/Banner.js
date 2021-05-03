@@ -24,7 +24,8 @@ export default function SimpleSlider() {
       autoplaySpeed: '100'
     };
     return (
-      <Slider {...settings} style={{background: '#777',
+      <Slider {...settings} style={{
+        background: '#777',
         color: '#fff',
         fontsize: '36px',
         height: '150px',
