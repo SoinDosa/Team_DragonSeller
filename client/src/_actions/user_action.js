@@ -2,7 +2,8 @@ import axios from 'axios';
 import {
     LOGIN_USER,
     REGISTER_USER,
-    AUTH_USER
+    AUTH_USER,
+    AUTH_ADMIN
 } from './types';
 export function loginUser(dataToSubmit) {
 
@@ -33,6 +34,17 @@ export function auth(dataTosubmit) {
 
     return {
         type: AUTH_USER,
+        payload: request
+
+    }
+}
+
+export function adminAuth(dagtTosubmit){
+    const request = axios.get('/api/users/admin_auth')
+        .then(response => response.data)
+
+    return {
+        type: AUTH_ADMIN,
         payload: request
 
     }

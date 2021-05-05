@@ -11,7 +11,7 @@ app.use(cookieParser());
 
 app.use('/api/users', require('./routes/users'));
 app.use('/api/product', require('./routes/product'));
-
+app.use('/api/bannerPosts', require('./routes/bannerPost'));
 
 const mongoose = require('mongoose')
 mongoose.connect(config.mongoURI ,
