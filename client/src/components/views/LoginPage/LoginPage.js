@@ -91,7 +91,10 @@ function LoginPage(props) {
                     <Button type="submit" color='black'>
                         <a style={{ color: "white" }}>로그인</a>
                     </Button>
-
+                    <br />
+                    <div>
+                        <a href="../register">회원가입</a> |<a> 아이디 찾기</a> |<a> 비밀번호 찾기</a>
+                    </div>
                 </Form>
             </div>
         </div >
