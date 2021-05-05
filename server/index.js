@@ -29,7 +29,7 @@ app.get('/api/hello', (req, res) => {
 })
 
 // 사진 업로드 페이지를 위한 라우터
-//app.post('/api/product', require('./routes/product'));
+app.post('/api/product', require('./routes/product'));
 
 const port = 5000
 app.listen(port, () => {

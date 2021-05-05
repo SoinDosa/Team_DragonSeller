@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
 import { Typography, Button, Form, Input} from 'antd';
-import FileUpload from '../../../../util_example/FileUpload';
+import FileUpload from '../../util/FileUpload';
 import axios from 'axios';
+//import { response } from 'express';
 
 const { TextArea } = Input;
 
@@ -52,27 +53,43 @@ function UploadProductPage(props) {
         // 유효성 체크
         // 모든 칸을 채워야
         if(!Title || !Description || !Price || !ComputerPart || !Images) {
-            return alert("모두 입력하셔야 합니다")
+            return alert("왜 값을 채우지 않은 것이지?")
         }
 
         // 서버에 값들을 request
         const body = {
             // 현재 로그인한 사람
-            writer: {},
+            writer: props.user.userData._id,
+            title: Title,
+            description: Description,
+            price: Price,
+            computerPart: ComputerPart,
+            images: Images
         }
-        axios.post("/product", body)
+
+
+        axios.post("/api/product", body)
+            .then(response => {
+                if(response.data.success){
+                    alert("상품 업로드 성공")
+                    props.history.push('/')
+                } else {
+                    alert("상품 업로드 실패")
+                }
+            })
     }
 
     return (
         <div style={{maxWidth: '700px', margin: '2rem auto'}}>
             <div style={{textAlign: 'center', marginBottom: '2rem'}}>
-                <h2>컴퓨터 상품 업로드</h2 >
+                <h2>컴퓨터 상품 업로드</h2>
             </div>
 
             <Form onSubmit={submitHandler}>
 
                 {/*dropzone*/}
                 <FileUpload refreshFunction={uploadImages}/>
+
                 <br />
                 <br />
                 <label>제품명</label>
@@ -94,7 +111,7 @@ function UploadProductPage(props) {
                 </select>
                 <br />
                 <br />
-                <Button type="submit">확인</Button>
+                <Button htmlType="submit" onClick={submitHandler}>Submit</Button>
             </Form>
 
         </div>
