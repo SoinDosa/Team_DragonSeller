@@ -1,10 +1,10 @@
-import React,{useState,useEffect} from 'react';
-import {useSelector} from "react-redux";
-import {withRouter} from 'react-router-dom';
-import axios,{push} from 'axios';
-import { Button } from 'semantic-ui-react';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from "react-redux";
+import { withRouter } from 'react-router-dom';
+import axios, { push } from 'axios';
+import { Button, Segment } from 'semantic-ui-react';
 
-const LogButton = (props) =>{
+const LogButton = (props) => {
     const user = useSelector(state => state.user);
     useEffect(() => {
         axios.get('/api/hello')
@@ -28,7 +28,7 @@ const LogButton = (props) =>{
                     alert('로그아웃 하였습니다.');
                     props.history.push("/login");
                     props.history.push("/")
-                    
+
                 } else {
                     alert('로그아웃 하는데 실패 했습니다.')
                 }
@@ -42,7 +42,7 @@ const LogButton = (props) =>{
                     props.history.push("/login");
                     alert('로그인화면으로 이동합니다.');
                 } else {
-                    
+
                     alert('로그인하는데 실패 했습니다.')
                 }
             })
@@ -55,30 +55,32 @@ const LogButton = (props) =>{
                     props.history.push("/register");
                     alert('회원가입화면으로 이동합니다.');
                 } else {
-                    
+
                     alert('회원가입이동 error')
                 }
             })
     }
-    
-    if( user.userData && !user.userData.isAuth){
-        return (
-        <div>
-            <nav>
-            <Button primary onClick={onClicLoginkHandler}>Login</Button>
-            <Button primary onClick={onClicSignUpHandler}>SignUp</Button>
-            </nav>
-        </div> 
-        )
-    }else{
+
+    if (user.userData && !user.userData.isAuth) {
         return (
             <div>
-            <Button primary onClick={onClicLogoutkHandler}>Logout</Button>
+                <Segment inverted>
+                    <nav>
+                        <Button inverted color='black' primary onClick={onClicLoginkHandler} >로그인</Button>
+                        <Button primary onClick={onClicSignUpHandler} color='black'>회원가입</Button>
+                    </nav>
+                </Segment>
             </div>
-        )        
+        )
+    } else {
+        return (
+            <div>
+                <Button primary onClick={onClicLogoutkHandler} color='black'>Logout</Button>
+            </div>
+        )
 
-    }  
-}   
-    
+    }
+}
+
 
 export default withRouter(LogButton)

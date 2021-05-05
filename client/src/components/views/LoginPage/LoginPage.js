@@ -4,8 +4,17 @@ import axios from 'axios'
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../../../_actions/user_action';
 import { withRouter } from 'react-router-dom';
-import { Button, Icon } from 'semantic-ui-react';
+import { Button, Icon, Form, Input } from 'semantic-ui-react';
+import { createMedia } from '@artsy/fresnel'
+import titleimg from '../../../images/title.png';
 
+const { MediaContextProvider, Media } = createMedia({
+    breakpoints: {
+        mobile: 0,
+        tablet: 768,
+        computer: 1024,
+    },
+})
 
 function LoginPage(props) {
     const dispatch = useDispatch();
@@ -21,8 +30,8 @@ function LoginPage(props) {
         setPassword(event.currentTarget.value)
     }
 
-    const onSubmitHandler = (event) => {
-        event.preventDefault();
+    const onSubmitHandler = (submit) => {
+        submit.preventDefault();
 
         let body = {
             id: Id,
@@ -40,7 +49,7 @@ function LoginPage(props) {
     }
 
     const onSubmitbackHandler = () => {
-        
+
     }
     // const onClickLandingHandler = () => {
     //     axios.get(`/api/users/logout`)
@@ -49,35 +58,43 @@ function LoginPage(props) {
     //                 props.history.push("/register");
     //                 alert('로그인화면으로 이동합니다.');
     //             } else {
-                    
+
     //                 alert('로그인하는데 실패 했습니다.')
     //             }
     //         })
     // }
 
     return (
+        <div style={{ background: '#f1f1f1' }}>
+            <div style={{
+                display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '0 auto'
+                , width: '400px', height: '100vh', flexDirection: 'column', background: 'white'
+            }}>
+                <img src={titleimg} alt="title" height="80vh" weight="80vh" />
 
-        <div style={{
-            display: 'flex', justifyContent: 'center', alignItems: 'center'
-            , width: '100%', height: '100vh', flexDirection: 'column'
-        }}>
-            <form style={{ display: 'flex', flexDirection: 'column' }}
-                onSubmit={onSubmitHandler}>
-                <label>ID</label>
-                <input type="id" value={Id} onChange={onIdHandler} />
-                <label>Password</label>
-                <input type="password" value={Password} onChange={onPasswordHandler} />
-                <br />
-                <Button positive type="submit">
-                    Login
-                </Button>
-            </form>
-            {/* <div style={{display: 'flex', paddig: '10px'}}>
-            <Button positive>
-                <a style={{color:'white'}} href ="/">홈으로 가기</a>
-            </Button>
-            </div> */}
-        </div>
+                <Form style={{ display: 'flex', flexDirection: 'column', marginTop: '50px' }}
+                    onSubmit={onSubmitHandler}>
+                    <Form.Field
+                        id={Id}
+                        control={Input}
+                        placeholder='아이디'
+                        onChange={onIdHandler}
+                    />
+                    <Form.Field
+                        id={Password}
+                        type="password"
+                        control={Input}
+                        placeholder='비밀번호'
+                        onChange={onPasswordHandler}
+                    />
+                    <br />
+                    <Button type="submit" color='black'>
+                        <a style={{ color: "white" }}>로그인</a>
+                    </Button>
+
+                </Form>
+            </div>
+        </div >
     )
 }
 
