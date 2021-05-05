@@ -125,7 +125,7 @@ const HomepageLayout = () => (
       <Grid container stackable verticalAlign='middle'>
         <Grid.Row>
           <Grid.Column width={16} height = {3}>
-            <Banner/>
+            {/*<Banner/>*/}
             <Header as='h3' style={{ fontSize: '2em' }}>
               We Help Companies and Companions
             </Header>
