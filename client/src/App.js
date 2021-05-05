@@ -12,7 +12,6 @@ import RegisterPage from './components/views/RegisterPage/RegisterPage';
 import UploadProductPage from './components/views/UploadProductPage/UploadProductPage';
 import DetailProductPage from './components/views/DetailProductPage/DetailProductPage';
 import Auth from './hoc/auth'
-import AdminAuth from './hoc/adminAuth'
 import 'semantic-ui-css/semantic.min.css'
 
 function App() {
@@ -30,7 +29,7 @@ function App() {
           <Route exact path="/" component={Auth(LandingPage, null )  } />
           <Route exact path="/login" component={Auth(LoginPage, false) } />
           <Route exact path="/register" component={Auth(RegisterPage, false)} />
-          <Route exact path="/product/upload" component={AdminAuth(UploadProductPage, true)} />
+          <Route exact path="/product/upload" component={Auth(UploadProductPage, true)} />
           <Route exact path="/product/:productId" component={Auth(DetailProductPage, null)} />
         </Switch>
       </div>
