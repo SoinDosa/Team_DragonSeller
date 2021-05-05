@@ -66,5 +66,24 @@ router.get('/products_by_id', (req, res) => {
   })
 })
 
+router.post('/getProducts' ,(req, res) => {
+
+  //mongoDB condition 말하는 것
+    let order = req.body.order ? req.body.order: "desc";
+    let sortBy = req.body.sortBy ? req.body.sortBy : "_id";
+    let limit = req.body.limit ? parseInt(req.body.limit) : 100;
+    let skip = parseInt(req.body.skip);
+  
+  // data fetch할때 order, ~대로 sorting, 띄우는 수 제한, skip
+    Product.find()
+      //.populate("Writer")
+      .sort([[sortBy, order]])
+      .limit(limit)
+      .skip(skip)
+      .exec((err,products) => {
+        if(err) return res.status(400).json({success: false, err})
+        res.status(200).json({success:true, products, postSize: products.length})
+      })
+  })
 
 module.exports = router;
