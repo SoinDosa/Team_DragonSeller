@@ -92,8 +92,8 @@ function LoginPage(props) {
                         <a style={{ color: "white" }}>로그인</a>
                     </Button>
                     <br />
-                    <div>
-                        <a href="../register">회원가입</a> |<a> 아이디 찾기</a> |<a> 비밀번호 찾기</a>
+                    <div >
+                        <a href="../register" style={{ color: "black" }} >회원가입</a> |<a href="../findid" style={{ color: "black" }}> 아이디 찾기</a> |<a href="../findpasswd" style={{ color: "black" }}> 비밀번호 찾기</a>
                     </div>
                 </Form>
             </div>
