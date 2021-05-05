@@ -27,15 +27,16 @@ function FindIDPage(props) {
 
         let body = {
             email: Email,
-            nmae: Name
+            name: Name
         }
 
         dispatch(findIdUser(body))
             .then(response => {
-                if (response.payload.success) {
+                if (response.payload.findId) {
                     // props.history.push('/')
-                    const {result} = this.state;
-                    alert('아이디는 ' + result[0].id)
+                    console.log(response.payload.userId)
+                    console.log(response.userId)
+                    alert('아이디는 '+ response.payload.userId);
                 } else {
                     alert('에러뜨죠?ㅅㅂ')
                 }
