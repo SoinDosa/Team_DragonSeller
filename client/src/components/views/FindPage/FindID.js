@@ -34,9 +34,10 @@ function FindIDPage(props) {
             .then(response => {
                 if (response.payload.findId) {
                     // props.history.push('/')
-                    console.log(response.payload.userId)
+                    console.log(response.payload)
                     console.log(response.userId)
                     alert('아이디는 '+ response.payload.userId);
+                    props.history.push("/login")
                 } else {
                     alert('에러뜨죠?ㅅㅂ')
                 }
