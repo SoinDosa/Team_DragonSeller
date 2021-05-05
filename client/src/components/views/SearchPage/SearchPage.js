@@ -86,9 +86,10 @@ const SearchPage = (props) =>{
     //고쳐야됨. responsive랑 배치랑 다 만들어야됨.
     const renderCards = Products.map((product, index) => {
         return (
-               <Grid.Column columns={4} width={4}>
+               <Grid.Column columns={4} width={4} key={index}>
+                   
                     <Card
-                        image={product.image}
+                        image={`http://localhost:5000/${product.images[0]}`}
                         header={product.title}
                         description={product.price}
                         style={{margin:'30px 10px', maxwidth: '30px'}}
