@@ -6,7 +6,7 @@ const { Product } = require('../models/Product');
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, 'upload_example/')
+      cb(null, 'uploads/')
     },
     filename: function (req, file, cb) {
       cb(null, `${Date.now()}_${file.originalname}`)
@@ -20,13 +20,13 @@ var upload = multer({ storage: storage }).single("file")
 
 router.post('/image', (req, res) => {
 
-    // 받아온 정보들을 db에 저장
-    upload(req, res, err => {
-      if(err) {
-        return req.json({ success: false, err})
-      }
-      return res.json({ success: true, filPath: res.req.file.path, fileName: res.req.file.filename})
-    })
+  // 받아온 정보들을 db에 저장
+  upload(req, res, (err) => {
+    if (err) {
+      return req.json({ success: false, err })
+  }
+  return res.json({ success: true, filePath: res.req.file.path, fileName: res.req.file.filename })
+  })
 })
 
 router.post('/', (req, res) => {
@@ -66,5 +66,24 @@ router.get('/products_by_id', (req, res) => {
   })
 })
 
+router.post('/getProducts' ,(req, res) => {
+
+  //mongoDB condition 말하는 것
+    let order = req.body.order ? req.body.order: "desc";
+    let sortBy = req.body.sortBy ? req.body.sortBy : "_id";
+    let limit = req.body.limit ? parseInt(req.body.limit) : 100;
+    let skip = parseInt(req.body.skip);
+  
+  // data fetch할때 order, ~대로 sorting, 띄우는 수 제한, skip
+    Product.find()
+      //.populate("Writer")
+      .sort([[sortBy, order]])
+      .limit(limit)
+      .skip(skip)
+      .exec((err,products) => {
+        if(err) return res.status(400).json({success: false, err})
+        res.status(200).json({success:true, products, postSize: products.length})
+      })
+  })
 
 module.exports = router;
