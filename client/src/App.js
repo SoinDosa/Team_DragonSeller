@@ -14,6 +14,7 @@ import DetailProductPage from './components/views/DetailProductPage/DetailProduc
 import SearchPage from './components/views/SearchPage/SearchPage';
 import FindIDPage from './components/views/FindPage/FindID';
 import FindPWPage from './components/views/FindPage/FindPasswd';
+import ChangePWPage from './components/views/FindPage/ChangePasswd';
 import UploadBannerPage from './components/views/UploadBannerPage/UploadBannerPage'
 import Auth from './hoc/auth'
 import 'semantic-ui-css/semantic.min.css'
@@ -38,6 +39,7 @@ function App() {
           <Route exact path="/search" component={SearchPage} />
           <Route exact path="/findId" component={Auth(FindIDPage, false)} />
           <Route exact path="/findPw" component={Auth(FindPWPage, false)} />
+          <Route exact path="/changePw" component={Auth(ChangePWPage, true)} />
           <Route exact path="/banner/upload" component={Auth(UploadBannerPage, true)} />
         </Switch>
       </div>

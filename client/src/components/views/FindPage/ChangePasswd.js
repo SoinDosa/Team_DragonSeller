@@ -2,52 +2,62 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { useDispatch } from 'react-redux';
-import { findPwUser } from '../../../_actions/user_action';
+import {useSelector} from "react-redux";
+import { changePwUser } from '../../../_actions/user_action';
+import { logoutUser } from '../../../_actions/user_action';
 import { withRouter } from 'react-router-dom';
 import { Button, Icon } from 'semantic-ui-react';
 
 
-function FindPWPage(props) {
+function ChangePWPage(props) {
     const dispatch = useDispatch();
+    const user = useSelector(state => state.user);
+    const [newPassword, setnewPassword] = useState("")
+    const [newcomfirmPassword, setnewcomfirmPassword] = useState("")
 
-    const [Id, setId] = useState("")
-    const [Email, setEmail] = useState("")
-    const [Name, setName] = useState("")
-
-    const onIdHandler = (event) => {
-        setId(event.currentTarget.value)
+    const onnewPasswordHandler = (event) => {
+        setnewPassword(event.currentTarget.value)
     }
 
-    const onEmailHandler = (event) => {
-        setEmail(event.currentTarget.value)
-    }
-
-    const onNameHandler = (event) => {
-        setName(event.currentTarget.value)
+    const onnewcomfirmPasswordHandler = (event) => {
+        setnewcomfirmPassword(event.currentTarget.value)
     }
 
     const onSubmitHandler = (event) => {
         event.preventDefault();
+        if(user.userData && !user.userData.isAuth) {
+            alert('로그인 상태가 아닙니다!');
 
+        }
+        else{
+        if(newPassword !== newcomfirmPassword ) {
+            return alert('비밀번호가 일치하지 않습니다!');
+        }
         let body = {
-            id: Id,
-            email: Email,
-            name: Name
+            password: newcomfirmPassword
         }
 
-        dispatch(findPwUser(body))
+        dispatch(changePwUser(body))
             .then(response => {
                 if (response.payload.success) {
-                    console.log(response.payload)
-                    console.log(response.userId)
-                    alert('비밀번호가 초기화 되었습니다. (변경번호 : 1234qwerasdf)' );
-                    props.history.push('/login')
+                    alert('비밀번호가 변경되었습니다!' );
+                    props.history.push("login");
+                    // axios.get(`/api/users/logout`)
+                    // .then(response => {
+                    //     if(response.data.success){
+                    //         alert('다시 로그인을 해주세요');
+                    //         props.history.push("/login");
+                    //     }
+                    //     else {
+                    //         alert('로그아웃 하는데 실패 했습니다.');
+                    //     }
+                    // })
                 } else {
                     alert('Error')
                 }
             })
     }
-
+    }
     const onSubmitbackHandler = () => {
         
     }
@@ -72,15 +82,13 @@ function FindPWPage(props) {
         }}>
             <form style={{ display: 'flex', flexDirection: 'column' }}
                 onSubmit={onSubmitHandler}>
-                <label>ID</label>
-                <input type="id" value={Id} onChange={onIdHandler} />
-                <label>Email</label>
-                <input type="email" value={Email} onChange={onEmailHandler} />
-                <label>Name</label>
-                <input type="text" value={Name} onChange={onNameHandler} />
+                <label>새로운 비밀번호</label>
+                <input type="password" value={newPassword} onChange={onnewPasswordHandler} />
+                <label>새로운 비밀번호 확인</label>
+                <input type="password" value={newcomfirmPassword} onChange={onnewcomfirmPasswordHandler} />
                 <br />
                 <Button positive type="submit">
-                    비밀번호 초기화
+                    비밀번호 변경
                 </Button>
             </form>
             {/* <div style={{display: 'flex', paddig: '10px'}}>
@@ -92,4 +100,4 @@ function FindPWPage(props) {
     )
 }
 
-export default withRouter(FindPWPage)
+export default withRouter(ChangePWPage)
