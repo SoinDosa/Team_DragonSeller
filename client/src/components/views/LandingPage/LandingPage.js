@@ -7,7 +7,8 @@ import { withRouter } from 'react-router-dom';
 import Footer from '../Footer/Footer';
 import LogButton from '../Button/Button';
 import Header from '../Header/Header';
-//...
+import Banner from '../Banner/Banner';
+
 function LandingPage(props) {
 
     const [Products, setProducts] = useState([])
@@ -68,6 +69,7 @@ function LandingPage(props) {
             </div>
             <div id= 'containerWrap'>
                 <div id='main'>
+                    <Banner/>
                    {/* 이 아래 부분은 상품 불러오기 가안 */}
                    <div style={{ width: '75%', margin: '3rem auto' }}>
                     <h2>손님 맞을래요?</h2>
