@@ -41,17 +41,25 @@ function ChangePWPage(props) {
             .then(response => {
                 if (response.payload.success) {
                     alert('비밀번호가 변경되었습니다!' );
-                    props.history.push("login");
-                    // axios.get(`/api/users/logout`)
+
+                    // 강제 로그아웃
+                    // dispatch(logoutUser(body))
                     // .then(response => {
-                    //     if(response.data.success){
-                    //         alert('다시 로그인을 해주세요');
-                    //         props.history.push("/login");
-                    //     }
-                    //     else {
-                    //         alert('로그아웃 하는데 실패 했습니다.');
+                    //     if(response.payload.success) {
+                    //         //
                     //     }
                     // })
+                    // props.history.push("/login");
+                    axios.get(`/api/users/logout`)
+                    .then(response => {
+                        if(response.data.success){
+                            alert('다시 로그인을 해주세요');
+                            props.history.push("/login");
+                        }
+                        else {
+                            alert('로그아웃 하는데 실패 했습니다.');
+                        }
+                    })
                 } else {
                     alert('Error')
                 }
