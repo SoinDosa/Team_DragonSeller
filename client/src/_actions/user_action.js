@@ -27,18 +27,6 @@ export function registerUser(dataToSubmit) {
     }
 }
 
-export function findIdUser(dataToSubmit) {
-
-    const request = axios.post('/api/users/find_id', dataToSubmit)
-        .then(response => response.data)
-
-    return {
-        type: FIND_ID_USER,
-        payload: request
-    }
-
-}
-
 export function auth(dataTosubmit) {
 
     const request = axios.get('/api/users/auth')

@@ -1,70 +1,84 @@
-import React, { useState, Component } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { useDispatch } from 'react-redux';
-import { findIdUser } from '../../../_actions/user_action';
+import { loginUser } from '../../../_actions/user_action';
 import { withRouter } from 'react-router-dom';
 import { Button, Icon } from 'semantic-ui-react';
 
 
-function FindIDPage(props) {    
-    
+function LoginPage(props) {
     const dispatch = useDispatch();
 
-    const [Email, setEmail] = useState("")
-    const [Name, setName] = useState("")
+    const [Id, setId] = useState("")
+    const [Password, setPassword] = useState("")
 
-    const onEmailHandler = (event) => {
-        setEmail(event.currentTarget.value)
+    const onIdHandler = (event) => {
+        setId(event.currentTarget.value)
     }
 
-    const onNameHandler = (event) => {
-        setName(event.currentTarget.value)
+    const onPasswordHandler = (event) => {
+        setPassword(event.currentTarget.value)
     }
 
     const onSubmitHandler = (event) => {
         event.preventDefault();
 
         let body = {
-            email: Email,
-            name: Name
+            id: Id,
+            password: Password
         }
 
-        dispatch(findIdUser(body))
+        dispatch(loginUser(body))
             .then(response => {
-                if (response.payload.findId) {
-                    // props.history.push('/')
-                    console.log(response.payload)
-                    console.log(response.userId)
-                    alert('아이디는 '+ response.payload.userId);
-                    props.history.push("/login")
+                if (response.payload.loginSuccess) {
+                    props.history.push('/')
                 } else {
-                    alert('에러뜨죠?ㅅㅂ')
+                    alert('Error')
                 }
             })
     }
 
+    const onSubmitbackHandler = () => {
+        
+    }
+    // const onClickLandingHandler = () => {
+    //     axios.get(`/api/users/logout`)
+    //         .then(response => {
+    //             if (response.data.error) {
+    //                 props.history.push("/register");
+    //                 alert('로그인화면으로 이동합니다.');
+    //             } else {
+                    
+    //                 alert('로그인하는데 실패 했습니다.')
+    //             }
+    //         })
+    // }
+
     return (
+
         <div style={{
             display: 'flex', justifyContent: 'center', alignItems: 'center'
-            , width: '100%', height: '100vh'
+            , width: '100%', height: '100vh', flexDirection: 'column'
         }}>
             <form style={{ display: 'flex', flexDirection: 'column' }}
-                onSubmit={onSubmitHandler}
-            >
-                <label>Email</label>
-                <input type="email" value={Email} onChange={onEmailHandler} />
-
-                <label>Name</label>
-                <input type="text" value={Name} onChange={onNameHandler} />
-
+                onSubmit={onSubmitHandler}>
+                <label>ID</label>
+                <input type="id" value={Id} onChange={onIdHandler} />
+                <label>Password</label>
+                <input type="password" value={Password} onChange={onPasswordHandler} />
                 <br />
-                <button type="submit">
-                    아이디 찾기
-                </button>
+                <Button positive type="submit">
+                    Login
+                </Button>
             </form>
+            {/* <div style={{display: 'flex', paddig: '10px'}}>
+            <Button positive>
+                <a style={{color:'white'}} href ="/">홈으로 가기</a>
+            </Button>
+            </div> */}
         </div>
     )
 }
 
-export default withRouter(FindIDPage)
+export default withRouter(LoginPage)
