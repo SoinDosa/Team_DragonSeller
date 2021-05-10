@@ -59,9 +59,9 @@ function FindIDPage(props) {
                 <input type="text" value={Name} onChange={onNameHandler} />
 
                 <br />
-                <button type="submit">
+                <Button positive type="submit">
                     아이디 찾기
-                </button>
+                </Button>
             </form>
         </div>
     )

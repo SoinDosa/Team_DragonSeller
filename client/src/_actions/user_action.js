@@ -4,6 +4,8 @@ import {
     REGISTER_USER,
     AUTH_USER,
     FIND_ID_USER,
+    FIND_PW_USER,
+    CHANGE_PW_USER,
     AUTH_ADMIN
 } from './types';
 export function loginUser(dataToSubmit) {
@@ -40,6 +42,29 @@ export function findIdUser(dataToSubmit) {
 
 }
 
+export function findPwUser(dataToSubmit) {
+
+    const request = axios.post('/api/users/forget_pass', dataToSubmit)
+        .then(response => response.data)
+
+    return {
+        type: FIND_PW_USER,
+        payload: request
+    }
+
+}
+
+export function changePwUser(dataToSubmit) {
+
+    const request = axios.post('/api/users/change_pass', dataToSubmit)
+        .then(response => response.data)
+
+    return {
+        type: CHANGE_PW_USER,
+        payload: request
+    }
+
+}
 
 export function auth(dataTosubmit) {
 
