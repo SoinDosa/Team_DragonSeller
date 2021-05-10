@@ -12,6 +12,7 @@ import RegisterPage from './components/views/RegisterPage/RegisterPage';
 import UploadProductPage from './components/views/UploadProductPage/UploadProductPage';
 import DetailProductPage from './components/views/DetailProductPage/DetailProductPage';
 import SearchPage from './components/views/SearchPage/SearchPage';
+import FindIDPage from './components/views/FindPage/FindID';
 import UploadBannerPage from './components/views/UploadBannerPage/UploadBannerPage'
 import Auth from './hoc/auth'
 import 'semantic-ui-css/semantic.min.css'
@@ -34,6 +35,7 @@ function App() {
           <Route exact path="/product/upload" component={Auth(UploadProductPage, true)} />
           <Route exact path="/product/:productId" component={Auth(DetailProductPage, null)} />
           <Route exact path="/search" component={SearchPage} />
+          <Route exact path="/findId" component={Auth(FindIDPage, false)} />
           <Route exact path="/banner/upload" component={Auth(UploadBannerPage, true)} />
         </Switch>
       </div>

@@ -2,6 +2,7 @@ import {
     LOGIN_USER,
     REGISTER_USER,
     AUTH_USER,
+    FIND_ID_USER,
     AUTH_ADMIN
 } from '../_actions/types';
 
@@ -12,6 +13,9 @@ export default function (state = {}, action) {
             break;
         case REGISTER_USER:
             return { ...state, register: action.payload }
+            break;
+        case FIND_ID_USER:
+            return { ...state, findIdSuccess: action.payload }
             break;
         case AUTH_USER:
             return { ...state, userData: action.payload }
