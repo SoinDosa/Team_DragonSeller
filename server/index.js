@@ -11,7 +11,7 @@ app.use(cookieParser());
 
 app.use('/api/users', require('./routes/users'));
 app.use('/api/product', require('./routes/product'));
-app.use('/api/bannerPosts', require('./routes/bannerPost'));
+app.use('/api/bannerPost', require('./routes/bannerPost'));
 
 const mongoose = require('mongoose')
 mongoose.connect(config.mongoURI ,
@@ -29,8 +29,8 @@ app.get('/api/hello', (req, res) => {
 })
 
 // 사진 업로드 페이지를 위한 라우터
-app.post('/api/product', require('./routes/product'));
 app.use('/uploads', express.static('uploads'));
+app.use('/banner_uploads', express.static('banner_uploads'));
 const port = 5000
 app.listen(port, () => {
 	console.log('Example app listening at http://localhost:5000')
