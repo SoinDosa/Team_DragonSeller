@@ -88,26 +88,22 @@ router.get('/logout', auth, (req, res) => {
 })
 
 router.post('/find_id', (req, res) => {
-	User.findOne({email: req.body.email}, (err, user) => {
-		if(!user){
+	User.findOne({email: req.body.email, name: req.body.name}, (err, user) => {
+		if(!user.email){
 			return res.json({
 				findId : false,
 				message : "이메일에 해당하는 아이디가 없습니다"
 			})
-		}
-		User.findOne({name : req.body.name}, (err, user) => {
-			if(!user){
+		} else if(!user.name){
 				return res.json({
 					findId : false,
 					message : "이름에 해당하는 아이디가 없습니다"
 				})
 			}
-
 			return res.status(200).json({
 				findId : true,
 				userId : user.id
 			})
-		})
 	})
 })
 
