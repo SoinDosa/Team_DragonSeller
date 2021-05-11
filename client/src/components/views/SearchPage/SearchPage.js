@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { Grid, Button, Input, Image , Card, Pagination} from 'semantic-ui-react'
 import Axios from 'axios';
 import { withRouter } from 'react-router-dom';
+import CheckBox from './Sections/CheckBox'
 // import '../style/LPS.css';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
@@ -18,6 +19,10 @@ const SearchPage = (props) =>{
     //post사이즈가 loadmore버튼 더이상 생기게 할 거 없으면 숨겨줌.
     const [PostSize, setPostSize] = useState(0)
     const [ActivePage, setActivePage] = useState(1)
+    const [Filters, setFilters] = useState({
+        category: [],
+        price: [],
+    })
     
 
 
@@ -67,8 +72,8 @@ const SearchPage = (props) =>{
         getProducts(variables)
         
         setSkip(skip)
-
     }
+
     const handlePaginationChange = (e, value) => {
         let skip = (value.activePage-1)*Limit;
         const variables = {
@@ -79,11 +84,11 @@ const SearchPage = (props) =>{
         getProducts(variables)
         console.log(value.activePage);
         setSkip(skip)
-        setActivePage(value.activePage)
+        setActivePage(value.activePage);
     }
 
 
-    //고쳐야됨. responsive랑 배치랑 다 만들어야됨.
+    
     const renderCards = Products.map((product, index) => {
         return (
                <Grid.Column columns={4} width={4} key={index}>
@@ -98,15 +103,47 @@ const SearchPage = (props) =>{
                 )
     })
 
+    //필터처리한 품목들 보여줌.
+    const showFilteredResults = (filters) => {
+
+        const variables = {
+            skip : 0,
+            limit: Limit,
+            filters: filters
+        }
+            getProducts(variables)
+            setSkip(0)
+    }
+
+    //부모 컴포넌트에 전달역할
+    const handleFilters = (filters, cate) => {
+        console.log(filters)
+        const newFilters = {...Filters}
+
+        newFilters[cate] = filters
+
+        if(cate === "price"){
+            
+        }
+
+        showFilteredResults(newFilters)
+        setFilters(newFilters)
+    }
+
     return (
         
         <div>
             {/*Filter */}
-        
+                <CheckBox 
+                    handleFilters={filters => handleFilters(filters, "price")}
+                />
+
+                
             {/*Search */}
             <SearchBar
             refreshFunction={updateSearchTerm}        
             />
+            
 
         {Products.length === 0?
             <div style={{display: 'flex', height: '300px', justifyContent: 'center', alignItems: 'Center'}}>
@@ -120,7 +157,7 @@ const SearchPage = (props) =>{
         }
         {
             <div style={{ justifyContent: 'center', display: 'flex'}}>
-                <Pagination defaultActivePage={1} totalPages={3} onPageChange={handlePaginationChange}/>
+                <Pagination defaultActivePage={1} totalPages={10} onPageChange={handlePaginationChange} />
                 <Button onClick={onLoadMore}>Load More</Button>
             </div>
         }
