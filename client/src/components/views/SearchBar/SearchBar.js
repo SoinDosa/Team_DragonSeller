@@ -15,7 +15,7 @@ function SearchBar(props) {
   return (
           <div className="ui search">
             <div className="ui icon input">
-              <input className="prompt" type="text" placeholder="Search" onChange={onChangeSearch}/>
+              <input className="prompt" type="text" value={SearchTerms} placeholder="Search" onChange={onChangeSearch}/>
               <i className="search icon"></i>
             </div>
           <div className="results"></div>

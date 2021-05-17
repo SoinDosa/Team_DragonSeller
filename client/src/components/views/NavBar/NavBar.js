@@ -70,12 +70,6 @@ class DesktopContainer extends Component {
                 </Link>
                 </Menu.Item>
                   <Menu.Item as='a' name='shop' onClick={this.onClickNavbarHandler} active={clickedName === 'shop'}><Link to="/search">SHOP</Link></Menu.Item>
-                  <Menu.Item as='a' name='cpu' onClick={this.onClickNavbarHandler} active={clickedName === 'cpu'}><Link to="/search">CPU</Link></Menu.Item>
-                  <Menu.Item as='a' name='mainboard' onClick={this.onClickNavbarHandler} active={clickedName === 'mainboard'}><Link to="/search">메인보드</Link></Menu.Item>
-                  <Menu.Item as='a' name='ram' onClick={this.onClickNavbarHandler} active={clickedName === 'ram'}><Link to="/search">RAM</Link></Menu.Item>
-                  <Menu.Item as='a' name='graphic' onClick={this.onClickNavbarHandler} active={clickedName === 'graphic'}><Link to="/search">그래픽카드</Link></Menu.Item>
-                  <Menu.Item as='a' name='ssd' onClick={this.onClickNavbarHandler} active={clickedName === 'ssd'}><Link to="/search">SSD</Link></Menu.Item>
-                  <Menu.Item as='a' name='hdd' onClick={this.onClickNavbarHandler} active={clickedName === 'hdd'}><Link to="/search">HDD</Link></Menu.Item>
                   <Menu.Item position='right'>
                 </Menu.Item>
               </Container>

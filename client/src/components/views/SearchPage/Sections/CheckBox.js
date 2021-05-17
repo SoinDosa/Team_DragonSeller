@@ -1,64 +1,12 @@
-import React,{Component,useState,useEffect} from 'react'
-import {Icon ,Radio, Checkbox ,Accordion, Menu ,Form} from 'semantic-ui-react'
+import React,{Component} from 'react'
+import {Icon ,Checkbox ,Accordion, Menu ,Form} from 'semantic-ui-react'
 
-const category = [
-    {
-        "_id": 1,
-        "name": "CPU",
-    },
-    {
-        "_id": 2,
-        "name": "Mainboard",
-    },
-    {
-        "_id": 3,
-        "name": "RAM",
-    },
-    {
-        "_id": 4,
-        "name": "GraphicCard",
-    },
-    {
-        "_id": 5,
-        "name": "SSD",
-    },
-    {
-        "_id": 6,
-        "name": "HDD",
-    },
-]
-const price= [
-    {
-        "_id": 1,
-        "name": "~500$"
-    },
-    {
-        "_id": 2,
-        "name": "500$~1000$"
-    },
-    {
-        "_id": 3,
-        "name": "1000$~2000$"
-    },
-    {
-        "_id": 4,
-        "name": "2000$~3000$"
-    },
-    {
-        "_id": 5,
-        "name": "3000$~4000$"
-    },
-    {
-        "_id": 6,
-        "name": "4000$이상"
-    }
-]
 
+//Product schema에서
 export default class AccordionExampleMenu extends Component {
     state = { 
         activeIndex:0,
-        checkedCategory:[],
-        checkedPrice:[]
+        checkedComputerPart:[],
         }
 
     
@@ -73,51 +21,30 @@ export default class AccordionExampleMenu extends Component {
     }
 
     //price중 하나 클릭시에 반응하게.
-    handleTogglePrice = (e, val) => {
-        const {checkedPrice} = this.state;
-        const currentIndex = checkedPrice.findIndex( obj => obj.value.name === val.value.name)
-        const newChecked = [...checkedPrice];
+    handleToggleCategory = (val) => {
+        console.log(val)
+        const {checkedComputerPart} = this.state;
+        const currentIndex = checkedComputerPart.findIndex( obj => obj === val)
+        const newChecked = [...checkedComputerPart];
         if(currentIndex===-1){
             newChecked.push(val);
         }
         else {
             newChecked.splice(currentIndex,1)
         }
-        this.setState({checkedPrice:newChecked});
+        this.setState({checkedComputerPart:newChecked});
         this.props.handleFilters(newChecked)
     }
 
-    //category중 하나 클릭시에 반응.
-    handleToggleCategory = (e, value) => {
-        this.setState({checkedCategory: [value]})
-        console.log(this.state.checkedCategory)
-    }
 
-    //Radio, Checkbox form
-    CategoryForm = (
-        <Form>
-            <Form.Group radio grouped>
-                {
-                    category.map((value, index) => (
-                        <React.Fragment key={index}>
-                            <Form.Field radio>
-                                <Radio label={value.name} name='category' value={value.name} onChange={this.handleToggleCategory}/>
-                            </Form.Field>
-                        </React.Fragment>
-                    ))
-                }
-            </Form.Group>
-        </Form>
-    )
-
-    PriceForm = (
+    ComputerPartForm = (
         <Form>
             <Form.Group grouped>
                 {
-                    price.map((val, index) => (
+                    this.props.list.map((val, index) => (
                         <React.Fragment key={index}>
                             <Form.Field>
-                                <Checkbox label={val.name} value={val} name='price' onChange={this.handleTogglePrice}/>
+                                <Checkbox label={val.name} name='computerPart' onChange={() => this.handleToggleCategory(val._id)}/>
                             </Form.Field>
                         </React.Fragment>
                     ))
@@ -133,7 +60,7 @@ export default class AccordionExampleMenu extends Component {
   
       return (
         <div style={{display:'flex'}}>
-            <Accordion as={Menu} vertical>
+            <Accordion as={Menu} vertical fluid>
                 <Menu.Item>
                     <Accordion.Title
                         active={activeIndex === 0}
@@ -141,19 +68,7 @@ export default class AccordionExampleMenu extends Component {
                         index={0}
                         onClick={this.handleClick}
                     />
-            <Accordion.Content active={activeIndex === 0} content={this.CategoryForm}/>
-                </Menu.Item>
-            </Accordion>
-
-            <Accordion as={Menu} vertical>
-                <Menu.Item>
-                    <Accordion.Title
-                    active={activeIndex === 1}
-                    content='Price 범위'
-                    index={0}
-                    onClick={this.handleClick}
-                    />
-                    <Accordion.Content active={activeIndex === 0} content={this.PriceForm} />
+            <Accordion.Content active={activeIndex === 0} content={this.ComputerPartForm}/>
                 </Menu.Item>
             </Accordion>
         </div>
