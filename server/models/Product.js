@@ -10,6 +10,11 @@ const productSchema = mongoose.Schema({
         type : String,
         maxlength : 50
     },
+    //computerPart 추가함.
+    computerPart: {
+        type : Number,
+        default: 1
+    },
     description: {
         type: String,
     },
@@ -31,6 +36,16 @@ const productSchema = mongoose.Schema({
         default: 0
     }
 }, { timestamps: true })
+
+productSchema.index({
+    title:'text',
+    description: 'text',   
+},{
+    weights: {
+        title: 5,
+        description: 1,
+    }
+})
 
 const Product = mongoose.model('Product', productSchema)
 
