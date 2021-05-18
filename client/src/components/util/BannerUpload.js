@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Dropzone from 'react-dropzone'
 import axios from 'axios';
+const s3path = 'https://seonhwi.s3.amazonaws.com/'
 //import { response } from 'express';
 
 // axios 설치 필요
@@ -70,7 +71,7 @@ function BannerUpload(props) {
                 {Images.map((image, index) => (
                     <div onClick={() => deleteHandler(image)} key={index}>
                         <img style={{ minWidth: '300px', width: '300px', height: '240px' }}
-                            src={`http://localhost:5000/${image}`}
+                            src={`${s3path}${image}`}
                         />
                     </div>
                 ))}

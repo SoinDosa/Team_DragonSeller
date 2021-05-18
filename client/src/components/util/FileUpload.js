@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Dropzone from 'react-dropzone'
 import axios from 'axios';
+const s3path = 'https://seonhwi.s3.amazonaws.com/'
 //import { response } from 'express';
 
 // axios 설치 필요
@@ -22,6 +23,7 @@ function FileUpload(props) {
 
         axios.post('/api/product/image', formData, config)
             .then(response => {
+                console.log(response.data.success)
                 if(response.data.success){
                     /// ...Images : 이미지 다 넣어준다는 뜻
                     setImages([...Images, response.data.filePath])
@@ -70,8 +72,9 @@ function FileUpload(props) {
                 {Images.map((image, index) => (
                     <div onClick={() => deleteHandler(image)} key={index}>
                         <img style={{ minWidth: '300px', width: '300px', height: '240px' }}
-                            src={`http://localhost:5000/${image}`}
+                            src={`${s3path}${image}`}
                         />
+                        
                     </div>
                 ))}
             </div>

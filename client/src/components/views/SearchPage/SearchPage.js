@@ -10,6 +10,8 @@ import Header from '../Header/Header';
 import Sidebar from '../SideBar/SideBar';
 import axios from 'axios';
 
+const s3path = `https://seonhwi.s3.amazonaws.com/`
+
 const SearchPage = (props) =>{
     const [SearchTerms, setSearchTerms] = useState("")
     const [Skip, setSkip] = useState(0)
@@ -89,7 +91,7 @@ const SearchPage = (props) =>{
                <Grid.Column columns={4} width={4} key={index}>
                    
                     <Card
-                        image={`http://localhost:5000/${product.images[0]}`}
+                        image={`${s3path}${product.images[0]}`}
                         header={product.title}
                         description={product.price}
                         style={{margin:'30px 10px', maxwidth: '30px'}}
