@@ -66,6 +66,31 @@ router.get('/products_by_id', (req, res) => {
   })
 })
 
+
+// 상세 페이지용
+router.get('/products_by_id', (req, res) => {
+
+
+  let type = req.query.type
+  let productIds = req.query.id
+  
+  if(type === "array") {
+    // 여러 아이디 분리하기
+    let ids = req.query.id.split(',');
+
+    productIds = ids.map(item => {
+      return item
+    })
+  }
+
+  Product.find({ _id: {$in: productIds} })
+  .populate('writer')
+  .exec((err, product) => {
+    if(err) return res.status(400).send(err)
+    return res.status(200).json({ success: true, product })
+  })
+})
+
 router.post('/getProducts' ,(req, res) => {
 
   //mongoDB condition 말하는 것
