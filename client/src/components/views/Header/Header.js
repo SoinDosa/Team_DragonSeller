@@ -35,6 +35,7 @@ const { MediaContextProvider, Media } = createMedia({
  * It can be more complicated, but you can create really flexible markup.
  */
 class DesktopContainerHeader extends Component {
+  
   state = {}
 
   hideFixedMenu = () => this.setState({ fixed: false })

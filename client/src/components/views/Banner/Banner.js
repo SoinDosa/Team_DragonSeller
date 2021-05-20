@@ -27,7 +27,7 @@ export default function SimpleSlider() {
       <Slider {...settings} style={{background: '#777',
         color: '#fff',
         fontsize: '36px',
-        height: '150px',
+        height: '400px',
         lineheight: '100px',
         margin: '10px',
         padding: '2%',

@@ -16,6 +16,7 @@ import FindIDPage from './components/views/FindPage/FindID';
 import FindPWPage from './components/views/FindPage/FindPasswd';
 import ChangePWPage from './components/views/FindPage/ChangePasswd';
 import UploadBannerPage from './components/views/UploadBannerPage/UploadBannerPage'
+import AdminPage from './components/views/AdminPage/AdminPage';
 import Auth from './hoc/auth'
 import 'semantic-ui-css/semantic.min.css'
 
@@ -34,13 +35,14 @@ function App() {
           <Route exact path="/" component={Auth(LandingPage, null )  } />
           <Route exact path="/login" component={Auth(LoginPage, false) } />
           <Route exact path="/register" component={Auth(RegisterPage, false)} />
-          <Route exact path="/product/upload" component={Auth(UploadProductPage, true)} />
+          <Route exact path="/product/upload" component={Auth(UploadProductPage, true, true)} />
           <Route exact path="/product/:productId" component={Auth(DetailProductPage, null)} />
           <Route exact path="/search" component={SearchPage} />
           <Route exact path="/findId" component={Auth(FindIDPage, false)} />
           <Route exact path="/findPw" component={Auth(FindPWPage, false)} />
           <Route exact path="/changePw" component={Auth(ChangePWPage, true)} />
-          <Route exact path="/banner/upload" component={Auth(UploadBannerPage, true)} />
+          <Route exact path="/banner/upload" component={Auth(UploadBannerPage, true, true)} />
+          <Route exact path="/adminpage" component={Auth(AdminPage, true, true)} />
         </Switch>
       </div>
     </Router>
