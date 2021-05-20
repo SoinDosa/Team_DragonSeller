@@ -11,7 +11,8 @@ import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Sidebar from '../SideBar/SideBar';
 import axios from 'axios';
-import {price, computerPart} from './Sections/Datas'
+import Sort from './Sections/Sort'
+import {sortBy, price, computerPart} from './Sections/Datas'
 
 const SearchPage = (props) =>{
     const [SearchTerms, setSearchTerms] = useState("")
@@ -25,6 +26,7 @@ const SearchPage = (props) =>{
     const [Filters, setFilters] = useState({
         computerPart: [],
         price: [],
+        sortBy: [],
     })
     const s3path = 'https://seonhwi.s3.amazonaws.com/'
 
@@ -99,7 +101,6 @@ const SearchPage = (props) =>{
 
         }
         getProducts(variables)
-        console.log(value.activePage);
         setSkip(skip)
         setActivePage(value.activePage);
     }
@@ -149,15 +150,17 @@ const SearchPage = (props) =>{
     //부모 컴포넌트에 전달역할
     const handleFilters = (filters, cate) => {
         
-       
+        let arr = []
         const newFilters = {...Filters}
         
         newFilters[cate] = filters
-
         //있다가 할 것
         if(cate === "price"){
             let priceValues = handlePrice(filters)
             newFilters[cate] = priceValues
+        }else if(cate === "sortBy"){
+            newFilters[cate] = arr.concat([filters])
+            
         }
 
         showFilteredResults(newFilters)
@@ -179,6 +182,8 @@ const SearchPage = (props) =>{
                     list = {price}
                    handleFilters={filters => handleFilters(filters, "price")}
                 />
+                <Sort list= {sortBy}
+                    handleFilters={filters => handleFilters(filters, "sortBy")}/>
                 </div>
                 {/*Search */}
                 <div style={{display:'flex', justifyContent:'flex-end'}}>

@@ -69,7 +69,7 @@ router.get('/products_by_id', (req, res) => {
 router.get('/getNewProducts', (req, res) => {
   Product.find()
   .sort({'_id': 1})
-  .limit(5)
+  .limit(4)
   .exec((err,products) => {
     if(err) return res.status(400).json({success: false, err})
     res.status(200).json({success:true, products})
@@ -80,16 +80,19 @@ router.get('/getNewProducts', (req, res) => {
 router.post('/getProducts' ,(req, res) => {
 
   //mongoDB condition 말하는 것
-    let order = req.body.order ? req.body.order: "desc";
-    let sortBy = req.body.sortBy ? req.body.sortBy : "_id";
+    let order = -1;
+    let sorting =  "_id";
     let limit = req.body.limit ? parseInt(req.body.limit) : 100;
     let skip = parseInt(req.body.skip);
     let allItem = 0;
     let findArgs = {};
     let term = req.body.searchTerm;
+
+
     
   //여기 고쳐야함.
     for(let key in req.body.filters){
+      console.log(req.body.filters[key])
       //key: category와 price -> Product data에 이거 필요한듯.
       if(req.body.filters[key].length > 0){
         if(key==="price"){
@@ -97,6 +100,19 @@ router.post('/getProducts' ,(req, res) => {
             //greater than less than
             $gte: req.body.filters[key][0],
             $lte: req.body.filters[key][1]
+          }
+        }else if(key==='sortBy'){
+
+          console.log("hi")
+          if(req.body.filters[key][0]===1){
+            sorting = "_id"
+            order = -1
+          }else if(req.body.filters[key][0]===2){
+            sorting = "price"
+            order = 1
+          }else if(req.body.filters[key][0]===3){
+            sorting = "price"
+            order = -1
           }
         }else{
           findArgs[key] = req.body.filters[key]
@@ -115,7 +131,7 @@ router.post('/getProducts' ,(req, res) => {
       Product.find(findArgs)
         .find({$text: {$search: term}})
         .populate("Writer")
-        .sort([[sortBy, order]])
+        .sort([[sorting, order]])
         .limit(limit)
         .skip(skip)
         .exec((err,products) => {
@@ -129,7 +145,7 @@ router.post('/getProducts' ,(req, res) => {
         })
       Product.find(findArgs)
         .populate("Writer")
-        .sort([[sortBy, order]])
+        .sort([[sorting, order]])
         .limit(limit)
         .skip(skip)
         .exec((err,products) => {

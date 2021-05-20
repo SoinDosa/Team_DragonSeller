@@ -5,13 +5,12 @@ import {Icon ,Radio, Dropdown, Form} from 'semantic-ui-react'
 
 export default class AccordionExampleMenu extends Component {
     state = { 
-        sortType : 0,
+        sortType : 1,
     }
 
-    //Price중 하나 클릭시에 반응.
-    sortPrice = (value) => {
+    handleSort = (value) => {
         const {sortType} = this.state
-        this.setState({checkedPrice: value}, () => {
+        this.setState({sortType: value}, () => {
             console.log(this.state.sortType);
         })
         this.props.handleFilters(value)
@@ -67,7 +66,7 @@ export default class AccordionExampleMenu extends Component {
                     <Dropdown.Divider />
                     {
                         this.props.list.map((val) => (
-                            <Dropdown.Item content={val.name} key={val._id} {...val} onClick={() => this.sortPrice(val)}/>
+                            <Dropdown.Item content={val.name} key={val._id} {...val} onClick={() => this.handleSort(val._id)}/>
                         ))
                     }
                 </Dropdown.Menu>
