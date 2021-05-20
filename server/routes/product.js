@@ -1,31 +1,45 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
+const multerS3 = require('multer-s3');
+
+
 const { Product } = require('../models/Product');
 
+require('dotenv').config()
+const fs = require('fs')
+const S3 = require('aws-sdk/clients/s3')
 
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, 'uploads/')
-    },
-    filename: function (req, file, cb) {
-      cb(null, `${Date.now()}_${file.originalname}`)
-    }
+const bucketName = process.env.AWS_BUCKET_NAME
+const region = process.env.AWS_BUCKET_REGION
+const accessKeyId = process.env.AWS_ACCESS_KEY
+const secretAccessKey = process.env.AWS_SECRET_KEY
+
+const s3 = new S3({
+  region,
+  accessKeyId,
+  secretAccessKey
 })
-   
-var upload = multer({ storage: storage }).single("file")
 
+const uploadS3 = multer({
+  storage: multerS3({
+    s3: s3,
+    bucket: bucketName,
+    acl: 'public-read',
+    key: function(req, file, cb) {
+      cb(null, Date.now().toString()+file.originalname)
+    }
+  })
+}).single("file")
 
-
-
-router.post('/image', (req, res) => {
-
-  // 받아온 정보들을 db에 저장
-  upload(req, res, (err) => {
+router.post('/image', (req, res) =>{
+    // 받아온 정보들을 db에 저장
+  uploadS3(req, res, (err) => {
     if (err) {
-      return req.json({ success: false, err })
-  }
-  return res.json({ success: true, filePath: res.req.file.path, fileName: res.req.file.filename })
+      console.log(err)
+      return res.json({ success: false, err })
+    }
+    return res.json({ success: true, filePath: res.req.file.key, fileName: res.req.file.filename })
   })
 })
 
@@ -66,17 +80,6 @@ router.get('/products_by_id', (req, res) => {
   })
 })
 
-router.get('/getNewProducts', (req, res) => {
-  Product.find()
-  .sort({'_id': 1})
-  .limit(5)
-  .exec((err,products) => {
-    if(err) return res.status(400).json({success: false, err})
-    res.status(200).json({success:true, products})
-  })
-})
-
-
 router.post('/getProducts' ,(req, res) => {
 
   //mongoDB condition 말하는 것
@@ -84,59 +87,17 @@ router.post('/getProducts' ,(req, res) => {
     let sortBy = req.body.sortBy ? req.body.sortBy : "_id";
     let limit = req.body.limit ? parseInt(req.body.limit) : 100;
     let skip = parseInt(req.body.skip);
-    let allItem = 0;
-    let findArgs = {};
-    let term = req.body.searchTerm;
-    
-  //여기 고쳐야함.
-    for(let key in req.body.filters){
-      //key: category와 price -> Product data에 이거 필요한듯.
-      if(req.body.filters[key].length > 0){
-        if(key==="price"){
-          findArgs[key] = {
-            //greater than less than
-            $gte: req.body.filters[key][0],
-            $lte: req.body.filters[key][1]
-          }
-        }else{
-          findArgs[key] = req.body.filters[key]
-        }
-      }
-    }
-
-    // data fetch할때 order, ~대로 sorting, 띄우는 수 제한, skip
-    if(term){
-      Product.find(findArgs)
-        .find({$text: {$search: term}})
-        .exec((err,products) => {
-          allItem = products.length;
-        })
-
-      Product.find(findArgs)
-        .find({$text: {$search: term}})
-        .populate("Writer")
-        .sort([[sortBy, order]])
-        .limit(limit)
-        .skip(skip)
-        .exec((err,products) => {
-          if(err) return res.status(400).json({success: false, err})
-          res.status(200).json({success:true, products, allPage: allItem ,postSize: products.length})
-        })
-    }else{
-      Product.find(findArgs)
-        .exec((err,products) => {
-          allItem = products.length;
-        })
-      Product.find(findArgs)
-        .populate("Writer")
-        .sort([[sortBy, order]])
-        .limit(limit)
-        .skip(skip)
-        .exec((err,products) => {
-          if(err) return res.status(400).json({success: false, err})
-          res.status(200).json({success:true, products, allPage:allItem ,postSize: products.length})
-        })
-    }
+  
+  // data fetch할때 order, ~대로 sorting, 띄우는 수 제한, skip
+    Product.find()
+      //.populate("Writer")
+      .sort([[sortBy, order]])
+      .limit(limit)
+      .skip(skip)
+      .exec((err,products) => {
+        if(err) return res.status(400).json({success: false, err})
+        res.status(200).json({success:true, products, postSize: products.length})
+      })
   })
 
 module.exports = router;

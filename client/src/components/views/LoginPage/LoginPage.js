@@ -71,6 +71,9 @@ function LoginPage(props) {
                 <Button positive type="submit">
                     Login
                 </Button>
+                <Link to="/findId">아이디 찾기</Link>
+                <Link to="/findPw">비밀번호 찾기</Link>
+                <Link to="/changePw">비밀번호 초기화</Link>
             </form>
             {/* <div style={{display: 'flex', paddig: '10px'}}>
             <Button positive>

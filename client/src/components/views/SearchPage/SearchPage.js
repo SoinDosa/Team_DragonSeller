@@ -13,6 +13,8 @@ import Sidebar from '../SideBar/SideBar';
 import axios from 'axios';
 import {price, computerPart} from './Sections/Datas'
 
+const s3path = `https://seonhwi.s3.amazonaws.com/`
+
 const SearchPage = (props) =>{
     const [SearchTerms, setSearchTerms] = useState("")
     const [Skip, setSkip] = useState(0)
