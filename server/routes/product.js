@@ -99,5 +99,76 @@ router.post('/getProducts' ,(req, res) => {
         res.status(200).json({success:true, products, postSize: products.length})
       })
   })
+  
+  router.post('/getProducts' ,(req, res) => {
 
+    //mongoDB condition 말하는 것
+      let order = req.body.order ? req.body.order: "desc";
+      let sortBy = req.body.sortBy ? req.body.sortBy : "_id";
+      let limit = req.body.limit ? parseInt(req.body.limit) : 100;
+      let skip = parseInt(req.body.skip);
+      let allItem = 0;
+      let findArgs = {};
+      let term = req.body.searchTerm;
+      
+    //여기 고쳐야함.
+      for(let key in req.body.filters){
+        //key: category와 price -> Product data에 이거 필요한듯.
+        if(req.body.filters[key].length > 0){
+          if(key==="price"){
+            findArgs[key] = {
+              //greater than less than
+              $gte: req.body.filters[key][0],
+              $lte: req.body.filters[key][1]
+            }
+          }else{
+            findArgs[key] = req.body.filters[key]
+          }
+        }
+      }
+  
+      // data fetch할때 order, ~대로 sorting, 띄우는 수 제한, skip
+      if(term){
+        Product.find(findArgs)
+          .find({$text: {$search: term}})
+          .exec((err,products) => {
+            allItem = products.length;
+          })
+  
+        Product.find(findArgs)
+          .find({$text: {$search: term}})
+          .populate("Writer")
+          .sort([[sortBy, order]])
+          .limit(limit)
+          .skip(skip)
+          .exec((err,products) => {
+            if(err) return res.status(400).json({success: false, err})
+            res.status(200).json({success:true, products, allPage: allItem ,postSize: products.length})
+          })
+      }else{
+        Product.find(findArgs)
+          .exec((err,products) => {
+            allItem = products.length;
+          })
+        Product.find(findArgs)
+          .populate("Writer")
+          .sort([[sortBy, order]])
+          .limit(limit)
+          .skip(skip)
+          .exec((err,products) => {
+            if(err) return res.status(400).json({success: false, err})
+            res.status(200).json({success:true, products, allPage:allItem ,postSize: products.length})
+          })
+      }
+    })
+
+  router.get('/getNewProducts', (req, res) => {
+    Product.find()
+    .sort({'_id': 1})
+    .limit(5)
+    .exec((err,products) => {
+      if(err) return res.status(400).json({success: false, err})
+      res.status(200).json({success:true, products})
+    })
+  })
 module.exports = router;
