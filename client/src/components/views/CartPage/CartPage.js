@@ -24,7 +24,7 @@ function CartPage(props) {
     return (
         <div>
             CartPage
-            <UserCardBlock products={props.user.cartDetail && props.user.cartDetail.product} />
+            <UserCardBlock products={ props.user.cartDetail && props.user.cartDetail.product } />
         </div>
     )
 }

@@ -28,6 +28,7 @@ function UserCardBlock(props) {
             <h3>이미지</h3>
             <h3>수량</h3>
             <h3>삭제</h3>
+            <p>칸 띄우기용</p>
             {renderItems()}
         </div>
     )
