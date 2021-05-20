@@ -44,15 +44,15 @@ const computerPart = [
     },
     {
         "_id": 2,
-        "name": "Mainboard",
+        "name": "GPU",
     },
     {
         "_id": 3,
-        "name": "RAM",
+        "name": "MOTHERBOARD",
     },
     {
         "_id": 4,
-        "name": "GraphicCard",
+        "name": "RAM",
     },
     {
         "_id": 5,
@@ -62,9 +62,36 @@ const computerPart = [
         "_id": 6,
         "name": "HDD",
     },
+    {
+        "_id": 7,
+        "name": "POWER",
+    },{
+        "_id": 8,
+        "name": "CASE",
+    }
+]
+
+
+const sortBy = [
+    {
+        "_id": 1,
+        "order":-1,
+        "name": "신상품순"
+    },
+    {
+        "_id": 2,
+        "order": 1,
+        "name": "낮은가격순"
+    },
+    {
+        "_id": 3,
+        "order": -1,
+        "name": "높은가격순"
+    },
 ]
 
 export {
     price,
-    computerPart
+    computerPart,
+    sortBy
 }

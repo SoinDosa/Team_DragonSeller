@@ -26,7 +26,7 @@ const SearchPage = (props) =>{
         computerPart: [],
         price: [],
     })
-    
+    const s3path = 'https://seonhwi.s3.amazonaws.com/'
 
 
     
@@ -48,6 +48,7 @@ const SearchPage = (props) =>{
         const variables = {
             skip: Skip,
             limit: Limit,
+            filters: Filters
         }
         getProducts(variables)
     }, [])
@@ -110,7 +111,7 @@ const SearchPage = (props) =>{
                <Grid.Column columns={4} width={4} key={index}>
                    
                     <Card
-                        image={`http://localhost:5000/${product.images[0]}`}
+                        image={`${s3path}${product.images[0]}`}
                         header={product.title}
                         description={product.price}
                         style={{margin:'30px 10px', maxwidth: '30px'}}
@@ -204,7 +205,7 @@ const SearchPage = (props) =>{
         }
         {
             <div style={{ justifyContent: 'center', display: 'flex'}}>
-                <Pagination defaultActivePage={1} totalPages={Allpage%8===0 ? Allpage/8 : Math.round(Allpage/8)} onPageChange={handlePaginationChange} />
+                <Pagination defaultActivePage={1} totalPages={Allpage%8!==0 || Allpage===0 ? Math.ceil(Allpage/8) : Allpage/8} onPageChange={handlePaginationChange} />
             </div>
         }
         

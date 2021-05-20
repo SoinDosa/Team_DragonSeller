@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState, useEffect ,Component } from 'react'
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Axios from 'axios'
+const s3path = 'https://seonhwi.s3.amazonaws.com/'
 /*
 npm install react-slick --save
 
@@ -13,7 +15,9 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 */
 
+
 export default function SimpleSlider() {
+  const [BannerEvent, setBannerEvent] = useState([])
     var settings = {
       dots: true,
       infinite: true,
@@ -23,34 +27,66 @@ export default function SimpleSlider() {
       autoplay: true,
       autoplaySpeed: '100'
     };
+    useEffect(() => {
+      getBanners()
+  }, [])
+
+    const getBanners = () => {
+      Axios.get('api/bannerPosts/getBanners')
+      .then(response => {
+          if(response.data.success){
+              console.log("banner data")
+              console.log(response.data.banners)
+              //여기 바꿔야될듯..?
+              if(response.data.length>0){
+                  setBannerEvent([...BannerEvent, ...response.data.banners])
+              }else{
+                setBannerEvent(response.data.banners)
+              }
+
+          }else{
+              alert('Failed to fetch banner images')
+          }
+      })
+  }
+  const renderImage = BannerEvent.map((item) => {
     return (
-      <Slider {...settings} style={{background: '#777',
-        color: '#fff',
+      <div key={item.id}>
+        <img style={{width: '100%',height: '150px'}} src={`${s3path}${item.images[0]}`}/>
+      </div>
+    )
+  })
+
+
+    return (
+      <Slider {...settings} style={{
         fontsize: '36px',
-        height: '150px',
+        height: '200px',
         lineheight: '100px',
         margin: '10px',
         padding: '2%',
         position: 'relative',
         textalign: 'center'}}>
         <div>
-          <h3>1</h3>
+          {renderImage}
         </div>
         <div>
-          <h3>2</h3>
+          {renderImage}
         </div>
         <div>
-          <h3>3</h3>
-        </div>
-        <div>
-          <h3>4</h3>
-        </div>
-        <div>
-          <h3>5</h3>
-        </div>
-        <div>
-          <h3>6</h3>
+          {renderImage}
         </div>
       </Slider>
     );
   }
+  // bannerpost에 추가해야 할 부분.
+  // router.get('/getBanners', (req, res) => {
+  //   let sortBy = req.body.sortBy ? req.body.sortBy : "_id";
+  //   let findArgs = {};
+  //   BannerPost.find(findArgs)
+  //       .sort([[sortBy, 1]])
+  //       .exec((err,banners) => {
+  //       if(err) return res.status(400).json({success: false, err})
+  //       res.status(200).json({success:true, banners})
+  //   })
+  // })
