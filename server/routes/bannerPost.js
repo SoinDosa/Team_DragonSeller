@@ -54,5 +54,16 @@ router.post('/', (req, res) => {
 	})
 })
 
+router.post('/deleteBanner', (req, res) => {
+	const bannerPost = new BannerPost
+	let bannerPostId = req.query._id
+
+	console.log(req.query._id)
+	BannerPost.findOne({_id: bannerPostId})
+	.exec((err, bannerPost) => {
+		if(err) return res.status(400).json({ success: false, err })
+		return res.status(200).json({ success: true, bannerPostId})
+	})
+})
 
 module.exports = router;

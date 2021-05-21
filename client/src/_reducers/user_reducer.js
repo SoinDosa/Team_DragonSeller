@@ -7,11 +7,10 @@ import {
     ADD_TO_CART,
     GET_CART_ITEMS,
     REMOVE_CART_ITEM,
-    ON_SUCCESS_BUY
+    ON_SUCCESS_BUY,
     FIND_ID_USER,
     FIND_PW_USER,
     CHANGE_PW_USER,
-    AUTH_ADMIN
 } from '../_actions/types';
 
 export default function (state = {}, action) {
