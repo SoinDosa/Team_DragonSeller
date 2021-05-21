@@ -2,10 +2,14 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { registerUser } from '../../../_actions/user_action';
 import Axios from 'axios';
+import { Form, Input, Image, Button } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom';
+<<<<<<< Updated upstream
 import { Form, Input, TextArea, Button, Select } from 'semantic-ui-react'
 import titleimg from '../../../images/title.png';
 
+=======
+>>>>>>> Stashed changes
 
 function RegisterPage(props) {
     const dispatch = useDispatch();
@@ -73,7 +77,16 @@ function RegisterPage(props) {
                 , width: '400px', height: '100vh', flexDirection: 'column', background: 'white'
             }}>
 
+<<<<<<< Updated upstream
                 <img src={titleimg} alt="title" height="80vh" weight="80vh" />
+=======
+                <Image
+                    src="https://i.ibb.co/pvF1cCf/REGISTER.png"
+                    as='a'
+                    size='medium'
+                    href='../'
+                />
+>>>>>>> Stashed changes
 
                 <Form style={{ display: 'flex', flexDirection: 'column', marginTop: '50px' }}
                     onSubmit={onSubmitHandler}

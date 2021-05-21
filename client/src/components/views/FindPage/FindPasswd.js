@@ -1,10 +1,8 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import axios from 'axios'
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../../../_actions/user_action';
 import { withRouter } from 'react-router-dom';
-import { Button, Icon } from 'semantic-ui-react';
+import { Button, Form, Input, Image } from 'semantic-ui-react';
 
 
 function LoginPage(props) {
@@ -31,8 +29,16 @@ function LoginPage(props) {
 
         dispatch(loginUser(body))
             .then(response => {
+<<<<<<< Updated upstream
                 if (response.payload.loginSuccess) {
                     props.history.push('/')
+=======
+                if (response.payload.success) {
+                    console.log(response.payload)
+                    console.log(response.userId)
+                    alert('비밀번호가 초기화 되었습니다. (변경번호 : 1234qwerasdf)');
+                    props.history.push('/login')
+>>>>>>> Stashed changes
                 } else {
                     alert('Error')
                 }
@@ -42,6 +48,7 @@ function LoginPage(props) {
     const onSubmitbackHandler = () => {
 
     }
+<<<<<<< Updated upstream
     // const onClickLandingHandler = () => {
     //     axios.get(`/api/users/logout`)
     //         .then(response => {
@@ -77,8 +84,55 @@ function LoginPage(props) {
                 <a style={{color:'white'}} href ="/">홈으로 가기</a>
             </Button>
             </div> */}
+=======
+
+    return (
+
+        <div style={{ background: '#f1f1f1' }}>
+            <div style={{
+                display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '0 auto'
+                , width: '400px', height: '100vh', flexDirection: 'column', background: 'white'
+            }}>
+                <Image
+                    src="https://i.ibb.co/YcVkJPH/FINDPW.png"
+                    as='a'
+                    size='medium'
+                    href='../'
+                />
+                <Form style={{ display: 'flex', flexDirection: 'column', marginTop: '50px' }}
+                    onSubmit={onSubmitHandler}>
+
+                    <Form.Field
+                        id={Email}
+                        control={Input}
+                        placeholder='이메일주소'
+                        onChange={onEmailHandler}
+                    />
+                    <Form.Field
+                        id={Id}
+                        control={Input}
+                        placeholder='ID'
+                        onChange={onIdHandler}
+                    />
+                    <Form.Field
+                        id={Name}
+                        control={Input}
+                        placeholder='이름'
+                        onChange={onNameHandler}
+                    />
+                    <br />
+                    <Button type="submit" color='black'>
+                        <a style={{ color: "white" }}>비밀번호 찾기</a>
+                    </Button>
+                </Form>
+            </div>
+>>>>>>> Stashed changes
         </div>
     )
 }
 
+<<<<<<< Updated upstream
 export default withRouter(LoginPage)
+=======
+export default withRouter(FindPWPage)
+>>>>>>> Stashed changes

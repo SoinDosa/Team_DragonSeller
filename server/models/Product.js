@@ -30,7 +30,11 @@ const productSchema = mongoose.Schema({
         type: Number,
         default: 0
     }
+<<<<<<< Updated upstream
 }, { timestamp: true })
+=======
+}, { timestamps: true })
+>>>>>>> Stashed changes
 
 const Product = mongoose.model('Product', productSchema)
 

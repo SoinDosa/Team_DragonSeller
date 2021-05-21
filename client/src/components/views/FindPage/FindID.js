@@ -4,10 +4,16 @@ import axios from 'axios'
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../../../_actions/user_action';
 import { withRouter } from 'react-router-dom';
-import { Button, Icon } from 'semantic-ui-react';
+import { Button, Form, Input, Image } from 'semantic-ui-react';
 
 
+<<<<<<< Updated upstream
 function LoginPage(props) {
+=======
+
+function FindIDPage(props) {
+
+>>>>>>> Stashed changes
     const dispatch = useDispatch();
 
     const [Id, setId] = useState("")
@@ -31,8 +37,17 @@ function LoginPage(props) {
 
         dispatch(loginUser(body))
             .then(response => {
+<<<<<<< Updated upstream
                 if (response.payload.loginSuccess) {
                     props.history.push('/')
+=======
+                if (response.payload.findId) {
+                    // props.history.push('/')
+                    console.log(response.payload)
+                    console.log(response.userId)
+                    alert('아이디는 "' + response.payload.userId + '"입니다. 로그인 페이지로 이동합니다.');
+                    props.history.push("/login")
+>>>>>>> Stashed changes
                 } else {
                     alert('Error')
                 }
@@ -57,6 +72,7 @@ function LoginPage(props) {
 
     return (
 
+<<<<<<< Updated upstream
         <div style={{
             display: 'flex', justifyContent: 'center', alignItems: 'center'
             , width: '100%', height: '100vh', flexDirection: 'column'
@@ -77,8 +93,45 @@ function LoginPage(props) {
                 <a style={{color:'white'}} href ="/">홈으로 가기</a>
             </Button>
             </div> */}
+=======
+        <div style={{ background: '#f1f1f1' }}>
+            <div style={{
+                display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '0 auto'
+                , width: '400px', height: '100vh', flexDirection: 'column', background: 'white'
+            }}>
+                <Image
+                    src="https://i.ibb.co/jf54gZ5/FINDID.png"
+                    as='a'
+                    size='medium'
+                    href='../'
+                />
+                <Form style={{ display: 'flex', flexDirection: 'column', marginTop: '50px' }}
+                    onSubmit={onSubmitHandler}>
+                    <Form.Field
+                        id={Email}
+                        control={Input}
+                        placeholder='이메일주소'
+                        onChange={onEmailHandler}
+                    />
+                    <Form.Field
+                        id={Name}
+                        control={Input}
+                        placeholder='이름'
+                        onChange={onNameHandler}
+                    />
+                    <br />
+                    <Button type="submit" color='black'>
+                        <a style={{ color: "white" }}>아이디 찾기</a>
+                    </Button>
+                </Form>
+            </div>
+>>>>>>> Stashed changes
         </div>
     )
 }
 
+<<<<<<< Updated upstream
 export default withRouter(LoginPage)
+=======
+export default withRouter(FindIDPage)
+>>>>>>> Stashed changes
