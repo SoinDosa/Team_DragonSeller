@@ -11,9 +11,8 @@ import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Sidebar from '../SideBar/SideBar';
 import axios from 'axios';
-import {price, computerPart} from './Sections/Datas'
-
-const s3path = `https://seonhwi.s3.amazonaws.com/`
+import Sort from './Sections/Sort'
+import {sortBy, price, computerPart} from './Sections/Datas'
 
 const SearchPage = (props) =>{
     const [SearchTerms, setSearchTerms] = useState("")
@@ -27,6 +26,7 @@ const SearchPage = (props) =>{
     const [Filters, setFilters] = useState({
         computerPart: [],
         price: [],
+        sortBy: [],
     })
     const s3path = 'https://seonhwi.s3.amazonaws.com/'
 
@@ -101,7 +101,6 @@ const SearchPage = (props) =>{
 
         }
         getProducts(variables)
-        console.log(value.activePage);
         setSkip(skip)
         setActivePage(value.activePage);
     }
@@ -151,15 +150,17 @@ const SearchPage = (props) =>{
     //부모 컴포넌트에 전달역할
     const handleFilters = (filters, cate) => {
         
-       
+        let arr = []
         const newFilters = {...Filters}
         
         newFilters[cate] = filters
-
         //있다가 할 것
         if(cate === "price"){
             let priceValues = handlePrice(filters)
             newFilters[cate] = priceValues
+        }else if(cate === "sortBy"){
+            newFilters[cate] = arr.concat([filters])
+            
         }
 
         showFilteredResults(newFilters)
@@ -181,6 +182,8 @@ const SearchPage = (props) =>{
                     list = {price}
                    handleFilters={filters => handleFilters(filters, "price")}
                 />
+                <Sort list= {sortBy}
+                    handleFilters={filters => handleFilters(filters, "sortBy")}/>
                 </div>
                 {/*Search */}
                 <div style={{display:'flex', justifyContent:'flex-end'}}>
@@ -218,79 +221,3 @@ const SearchPage = (props) =>{
 }
 
 export default withRouter(SearchPage)
-
-
-/*
-product.js에 올릴 것
-router.post('/getProducts' ,(req, res) => {
-
-  //mongoDB condition 말하는 것
-    let order = req.body.order ? req.body.order: "desc";
-    let sortBy = req.body.sortBy ? req.body.sortBy : "_id";
-    let limit = req.body.limit ? parseInt(req.body.limit) : 100;
-    let skip = parseInt(req.body.skip);
-    let allItem = 0;
-    let findArgs = {};
-    let term = req.body.searchTerm;
-    
-  //여기 고쳐야함.
-    for(let key in req.body.filters){
-      //key: category와 price -> Product data에 이거 필요한듯.
-      if(req.body.filters[key].length > 0){
-        if(key==="price"){
-          findArgs[key] = {
-            //greater than less than
-            $gte: req.body.filters[key][0],
-            $lte: req.body.filters[key][1]
-          }
-        }else{
-          findArgs[key] = req.body.filters[key]
-        }
-      }
-    }
-
-    // data fetch할때 order, ~대로 sorting, 띄우는 수 제한, skip
-    if(term){
-      Product.find(findArgs)
-        .find({$text: {$search: term}})
-        .exec((err,products) => {
-          allItem = products.length;
-        })
-
-      Product.find(findArgs)
-        .find({$text: {$search: term}})
-        .populate("Writer")
-        .sort([[sortBy, order]])
-        .limit(limit)
-        .skip(skip)
-        .exec((err,products) => {
-          if(err) return res.status(400).json({success: false, err})
-          res.status(200).json({success:true, products, allPage: allItem ,postSize: products.length})
-        })
-    }else{
-      Product.find(findArgs)
-        .exec((err,products) => {
-          allItem = products.length;
-        })
-      Product.find(findArgs)
-        .populate("Writer")
-        .sort([[sortBy, order]])
-        .limit(limit)
-        .skip(skip)
-        .exec((err,products) => {
-          if(err) return res.status(400).json({success: false, err})
-          res.status(200).json({success:true, products, allPage:allItem ,postSize: products.length})
-        })
-    }
-  })
-//Product schema에 올릴 것
-productSchema.index({
-    title:'text',
-    description: 'text',   
-},{
-    weights: {
-        title: 5,
-        description: 1,
-    }
-})
- */
