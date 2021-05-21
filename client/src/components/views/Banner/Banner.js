@@ -51,32 +51,25 @@ export default function SimpleSlider() {
   }
   const renderImage = BannerEvent.map((item) => {
     return (
-      <div key={item.id}>
-        <img style={{width: '100%',height: '150px'}} src={`${s3path}${item.images[0]}`}/>
-      </div>
+        <img style={{width: '200px',height: '150px'}} src={`${s3path}${item.images[0]}`}/>
     )
   })
 
 
     return (
-      <Slider {...settings} style={{
-        fontsize: '36px',
-        height: '200px',
-        lineheight: '100px',
-        margin: '10px',
-        padding: '2%',
-        position: 'relative',
-        textalign: 'center'}}>
-        <div>
-          {renderImage}
-        </div>
-        <div>
-          {renderImage}
-        </div>
-        <div>
-          {renderImage}
-        </div>
-      </Slider>
+      <div>
+       <Slider {...settings} style={{
+          fontsize: '36px',
+          height: '200px',
+          lineheight: '100px',
+          margin: '10px',
+          padding: '2%',
+          position: 'relative',
+          textalign: 'center'}}>
+            {renderImage}
+        </Slider>
+      </div>
+      
     );
   }
   // bannerpost에 추가해야 할 부분.
