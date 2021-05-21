@@ -8,7 +8,7 @@ const s3path = 'https://seonhwi.s3.amazonaws.com/'
 // front-end 작업이 끝나게 되면 배너 업로드 페이지에서 이미지 업로드로 사용할 예정입니다
 // onDrop 함수에서 파일을 서버로 보내는 역할을 해 줍니다.
 
-function FileUpload(props) {
+function BannerUpload(props) {
 
     const [Images, setImages] = useState([])
 
@@ -21,9 +21,8 @@ function FileUpload(props) {
 
         formData.append("file", files[0])
 
-        axios.post('/api/product/image', formData, config)
+        axios.post('/api/bannerPost/image', formData, config)
             .then(response => {
-                console.log(response.data.success)
                 if(response.data.success){
                     /// ...Images : 이미지 다 넣어준다는 뜻
                     setImages([...Images, response.data.filePath])
@@ -74,7 +73,6 @@ function FileUpload(props) {
                         <img style={{ minWidth: '300px', width: '300px', height: '240px' }}
                             src={`${s3path}${image}`}
                         />
-                        
                     </div>
                 ))}
             </div>
@@ -82,4 +80,4 @@ function FileUpload(props) {
     )
 }
 
-export default FileUpload
+export default BannerUpload

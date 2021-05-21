@@ -2,7 +2,7 @@ import { createMedia } from '@artsy/fresnel'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import LogButton from '../Button/Button';
-import Banner from '../Banner/Banner'
+//import Banner from '../Banner/Banner'
 import Navbar from '../NavBar/NavBar';
 import SearchBar from '../NavBar/SearchBar'
 
@@ -34,7 +34,8 @@ const { MediaContextProvider, Media } = createMedia({
  * Neither Semantic UI nor Semantic UI React offer a responsive navbar, however, it can be implemented easily.
  * It can be more complicated, but you can create really flexible markup.
  */
-class DesktopContainer extends Component {
+class DesktopContainerHeader extends Component {
+  
   state = {}
 
   hideFixedMenu = () => this.setState({ fixed: false })
@@ -100,30 +101,56 @@ class DesktopContainer extends Component {
   }
 }
 
-DesktopContainer.propTypes = {
+DesktopContainerHeader.propTypes = {
   children: PropTypes.node,
 }
 
 
-const ResponsiveContainer = ({ children }) => (
-  /* Heads up!
-   * For large applications it may not be best option to put all page into these containers at
-   * they will be rendered twice for SSR.
-   */
-  <MediaContextProvider>
-    <DesktopContainer>{children}</DesktopContainer>
-  </MediaContextProvider>
-)
+// const ResponsiveContainer = ({ children }) => (
+//   /* Heads up!
+//    * For large applications it may not be best option to put all page into these containers at
+//    * they will be rendered twice for SSR.
+//    */
+//   <MediaContextProvider>
+//     <DesktopContainerHeader>{children}</DesktopContainerHeader>
+//   </MediaContextProvider>
+// )
 
-ResponsiveContainer.propTypes = {
-  children: PropTypes.node,
-}
+// ResponsiveContainer.propTypes = {
+//   children: PropTypes.node,
+// }
 
-const HomepageLayout = () => (
-  <ResponsiveContainer>
-    <Segment style={{ padding: '3em 0em' }} vertical>
-      
-    </Segment>
+// const HomepageLayout = () => (
+//   <ResponsiveContainer>
+//     <Segment style={{ padding: '3em 0em' }} vertical>
+//       <Grid container stackable verticalAlign='middle'>
+//         <Grid.Row>
+//           <Grid.Column width={16} height = {3}>
+//             {/*<Banner/>*/}
+//             <Header as='h3' style={{ fontSize: '2em' }}>
+//               We Help Companies and Companions
+//             </Header>
+//             <p style={{ fontSize: '1.33em' }}>
+//               여기가
+//             </p>
+//             <Header as='h3' style={{ fontSize: '2em' }}>
+//               We Make Bananas That Can Dance
+//             </Header>
+//             <p style={{ fontSize: '1.33em' }}>
+//                 배너
+//             </p>
+//           </Grid.Column>
+//           <Grid.Column floated='right' width={6}>
+//             <Image bordered rounded size='large' src='/images/wireframe/white-image.png' />
+//           </Grid.Column>
+//         </Grid.Row>
+//         <Grid.Row>
+//           <Grid.Column textAlign='center'>
+//             <Button size='huge'>Check Them Out</Button>
+//           </Grid.Column>
+//         </Grid.Row>
+//       </Grid>
+//     </Segment>
 
     {/* <Segment style={{ padding: '0em' }} vertical>
       <Grid celled='internally' columns='equal' stackable>
@@ -172,7 +199,7 @@ const HomepageLayout = () => (
       </Container>
     </Segment> */}
 
-  </ResponsiveContainer>
-)
+//   </ResponsiveContainer>
+// )
 
-export default HomepageLayout
+export default DesktopContainerHeader

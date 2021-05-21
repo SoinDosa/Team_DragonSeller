@@ -18,7 +18,6 @@ function LandingPage(props) {
             getNewProducts()
     }, [])
 
-
     const onClicLogoutkHandler = () => {
         axios.get(`/api/users/logout`)
             .then(response => {

@@ -20,7 +20,6 @@ const LogButton = (props) =>{
     //             }
     //         })
     // }
-    // ㅁㄴㅇㄻㄴㅇㅁㄴㅇㄹ
     const onClicLogoutkHandler = () => {
         axios.get(`/api/users/logout`)
             .then(response => {

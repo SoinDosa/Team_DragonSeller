@@ -32,7 +32,7 @@ export default function SimpleSlider() {
   }, [])
 
     const getBanners = () => {
-      Axios.get('api/bannerPosts/getBanners')
+      Axios.get('api/bannerPost/getBanners')
       .then(response => {
           if(response.data.success){
               console.log("banner data")
