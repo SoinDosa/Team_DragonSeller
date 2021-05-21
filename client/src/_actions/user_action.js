@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {
     LOGIN_USER,
+    LOGOUT_USER,
     REGISTER_USER,
     AUTH_USER,
     AUTH_ADMIN,
@@ -8,6 +9,10 @@ import {
     GET_CART_ITEMS,
     REMOVE_CART_ITEM,
     ON_SUCCESS_BUY
+    FIND_ID_USER,
+    FIND_PW_USER,
+    CHANGE_PW_USER,
+    AUTH_ADMIN
 } from './types';
 
 import { USER_SERVER } from '../Config';
@@ -23,6 +28,17 @@ export function loginUser(dataToSubmit) {
     }
 }
 
+export function logoutUser(dataToSubmit) {
+
+    const request = axios.post('/api/users/logout', dataToSubmit)
+        .then(response => response.data)
+
+    return {
+        type: LOGOUT_USER,
+        payload: request
+    }
+}
+
 export function registerUser(dataToSubmit) {
 
     const request = axios.post('/api/users/register', dataToSubmit)
@@ -32,6 +48,42 @@ export function registerUser(dataToSubmit) {
         type: REGISTER_USER,
         payload: request
     }
+}
+
+export function findIdUser(dataToSubmit) {
+
+    const request = axios.post('/api/users/find_id', dataToSubmit)
+        .then(response => response.data)
+
+    return {
+        type: FIND_ID_USER,
+        payload: request
+    }
+
+}
+
+export function findPwUser(dataToSubmit) {
+
+    const request = axios.post('/api/users/forget_pass', dataToSubmit)
+        .then(response => response.data)
+
+    return {
+        type: FIND_PW_USER,
+        payload: request
+    }
+
+}
+
+export function changePwUser(dataToSubmit) {
+
+    const request = axios.post('/api/users/change_pass', dataToSubmit)
+        .then(response => response.data)
+
+    return {
+        type: CHANGE_PW_USER,
+        payload: request
+    }
+
 }
 
 export function auth(dataTosubmit) {

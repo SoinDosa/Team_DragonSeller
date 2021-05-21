@@ -6,11 +6,12 @@ const bannerPostSchema = mongoose.Schema({
         maxlength : 50,
         required: true
     },
-    imagePath: {
-        type: String,
-        required: true
+    images: {
+        type: Array,
+        required: true,
+        default: []
     },
-    body: {
+    contents: {
         type: String,
         required: true
     },
