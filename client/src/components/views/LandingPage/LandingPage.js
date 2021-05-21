@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Button } from 'semantic-ui-react';
+import React, { useEffect,useState } from 'react'
+import { Button,Card,Grid } from 'semantic-ui-react';
 import { Link } from 'react-router-dom'
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
@@ -8,27 +8,15 @@ import Footer from '../Footer/Footer';
 import LogButton from '../Button/Button';
 import Header from '../Header/Header';
 import Banner from '../Banner/Banner';
-
+//...
 function LandingPage(props) {
-
+    const s3path= 'https://seonhwi.s3.amazonaws.com/';
     const [Products, setProducts] = useState([])
-
     useEffect(() => {
-        // 여기 수정함
-        axios.post('/api/product/products')
-            .then(response => { 
-                if(response.data.success){
-                    setProducts(response.data.productInfo)
-                } else {
-                    alert("상품 정보를 가져오는데 실패했습니다")
-                }
-            })
+        axios.get('/api/hello')
+            .then(response => { console.log(response) })
+            getNewProducts()
     }, [])
-
-
-    const renderCards = Products.map((product, index) => {
-        // <a href={`/product/${product._id}`}></a>
-    })
 
     const onClicLogoutkHandler = () => {
         axios.get(`/api/users/logout`)
@@ -52,36 +40,75 @@ function LandingPage(props) {
                     
                     alert('로그인하는데 실패 했습니다.')
                 }
-            })
+            })  
     }
+
+    const getNewProducts = () => {
+        axios.get('api/product/getNewProducts')
+        .then(response => {
+            //searchPage에서 바뀐부분.
+            if(response.data.success){
+                if(response.data.length>0){
+                    //여기 바꿔야될듯..?
+                    setProducts([...Products, ...response.data.products])
+                }else{
+                    setProducts(response.data.products)
+                }
+            }else{
+                alert('Failed to fetch product datas')
+            }
+        })
+    }
+
+    const renderCards = Products.map((product, index) => {
+        return (
+               <Grid.Column columns={5} width={4} key={index}>
+                   
+                    <Card
+                        image={`${s3path}${product.images[0]}`}
+                        header={product.title}
+                        description={product.price}
+                        style={{margin:'30px 10px', maxwidth: '30px'}}
+                    />
+               </Grid.Column>     
+                )
+    })
 
     return (
         <div id= 'wrap'>
-            <div className= "headerWrap">
-                <div>
-                    <Header/>
-                </div>
-                {/* <div className="header logo">로고</div>
-                <div className="header header-name"> Dragon Seller </div>
-                <nav className="header Nav">
-                <LogButton/>
-                </nav> */}
-            </div>
+           
             <div id= 'containerWrap'>
                 <div id='main'>
                     <Banner/>
-                   {/* 이 아래 부분은 상품 불러오기 가안 */}
-                   <div style={{ width: '75%', margin: '3rem auto' }}>
-                    <h2>손님 맞을래요?</h2>
-                    {renderCards}
-                   </div>
                 </div>
             </div>
-            <div id='footerWrap'>
-                <Footer />
-            </div>
+            <div>
+                <h1>최신상품</h1>
+                    {Products.length === 0?
+                        <div style={{display: 'flex', height: '300px', justifyContent: 'center', alignItems: 'Center'}}>
+                            <h2>No post yet...</h2>
+                        </div> :
+                        <div style={{width: '75%', margin: '3rem auto'}}>
+                            <Grid>
+                                {renderCards}
+                            </Grid>  
+                        </div>
+                    }
+                </div>
         </div>
     )
 }
 
+/*
+product.js에 추가할 부분.
+router.get('/getNewProducts', (req, res) => {
+  Product.find()
+  .sort({'_id': 1})
+  .limit(5)
+  .exec((err,products) => {
+    if(err) return res.status(400).json({success: false, err})
+    res.status(200).json({success:true, products})
+  })
+})
+*/
 export default withRouter(LandingPage)
