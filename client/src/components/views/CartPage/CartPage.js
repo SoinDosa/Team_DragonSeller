@@ -1,12 +1,12 @@
-//import { response } from 'express';
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { getCartItems } from '../../../_actions/user_action'
+import { getCartItems, removeCartItem } from '../../../_actions/user_action'
 import UserCardBlock from './Sections/UserCardBlock'
 
 function CartPage(props) {
 
     const [Total, setTotal] = useState(0)
+    const [ShowTotal, setShowTotal] = useState(false)
 
     const dispatch = useDispatch();
     useEffect(() => {
@@ -34,14 +34,31 @@ function CartPage(props) {
         })
 
         setTotal(total)
+        setShowTotal(true)
     }
 
+    let removeFromCart = (productId) => {
+
+        dispatch(removeCartItem(productId))
+        .then(response => {
+            if (response.payload.productInfo.length <= 0) {
+                setShowTotal(false)
+            }
+        })
+
+    }
 
     return (
         <div>
             CartPage
-            <UserCardBlock products={ props.user.cartDetail && props.user.cartDetail.product } />
-            <h3>총 가격 : ${Total}</h3>
+            <UserCardBlock products={ props.user.cartDetail && props.user.cartDetail.product } 
+            removeItem = {removeFromCart}/>
+            {ShowTotal ?
+            <h3>총 가격 : {Total}원</h3>
+            :
+            <h3>총 가격 : 0원</h3>
+        }
+            
         </div>
     )
 }

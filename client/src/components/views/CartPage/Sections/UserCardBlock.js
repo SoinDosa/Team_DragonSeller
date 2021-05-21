@@ -17,7 +17,7 @@ function UserCardBlock(props) {
             <br/>
             <h3>{product.quantity} 개 </h3>
             <h3>{product.price} 원 </h3>
-            <button>삭제</button>
+            <button onClick={ () => props.removeItem(product._id) }>삭제</button>
             </p>
         ))
     )
