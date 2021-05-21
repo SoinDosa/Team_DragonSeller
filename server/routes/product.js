@@ -1,31 +1,45 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
+const multerS3 = require('multer-s3');
 const { Product } = require('../models/Product');
 
+require('dotenv').config()
+const fs = require('fs')
+const S3 = require('aws-sdk/clients/s3')
 
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, 'uploads/')
-    },
-    filename: function (req, file, cb) {
-      cb(null, `${Date.now()}_${file.originalname}`)
-    }
-})
-   
-var upload = multer({ storage: storage }).single("file")
+const bucketName = process.env.AWS_BUCKET_NAME
+const region = process.env.AWS_BUCKET_REGION
+const accessKeyId = process.env.AWS_ACCESS_KEY
+const secretAccessKey = process.env.AWS_SECRET_KEY
+
+const s3 = new S3({
+	region,
+	accessKeyId,
+	secretAccessKey
+  })
+  
+  const uploadS3 = multer({
+	storage: multerS3({
+	  s3: s3,
+	  bucket: bucketName,
+	  acl: 'public-read',
+	  key: function(req, file, cb) {
+		cb(null, Date.now().toString()+file.originalname)
+	  }
+	})
+  }).single("file")
 
 
 
-
-router.post('/image', (req, res) => {
-
-  // 받아온 정보들을 db에 저장
-  upload(req, res, (err) => {
+router.post('/image', (req, res) =>{
+    // 받아온 정보들을 db에 저장
+  uploadS3(req, res, (err) => {
     if (err) {
-      return req.json({ success: false, err })
-  }
-  return res.json({ success: true, filePath: res.req.file.path, fileName: res.req.file.filename })
+      console.log(err)
+      return res.json({ success: false, err })
+    }
+    return res.json({ success: true, filePath: res.req.file.key, fileName: res.req.file.filename })
   })
 })
 
