@@ -1,11 +1,13 @@
 import React from 'react'
 
+const s3path = 'https://seonhwi.s3.amazonaws.com/';
+
 function UserCardBlock(props) {
 
     const renderCartImg = (images) => {
         if(images.length > 0){
             let image = images[0]
-            return `http://localhost5000/${image}`
+            return `${s3path}${image}`
         }
     }
 
