@@ -110,13 +110,15 @@ const SearchPage = (props) =>{
     const renderCards = Products.map((product, index) => {
         return (
                <Grid.Column columns={4} width={4} key={index}>
-                   
-                    <Card
+                   <a href={`/product/${product._id}`}>
+                   <Card
                         image={`${s3path}${product.images[0]}`}
                         header={product.title}
                         description={product.price}
                         style={{margin:'30px 10px', maxwidth: '30px'}}
                     />
+                   </a>
+                    
                </Grid.Column>     
                 )
     })
