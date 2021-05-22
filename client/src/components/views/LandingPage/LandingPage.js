@@ -76,7 +76,9 @@ function LandingPage(props) {
 
     return (
         <div id= 'wrap'>
-           
+            <div>
+                <Header/>
+            </div>
             <div id= 'containerWrap'>
                 <div id='main'>
                     <Banner/>
