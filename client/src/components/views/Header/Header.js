@@ -2,7 +2,7 @@ import { createMedia } from '@artsy/fresnel'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import LogButton from '../Button/Button';
-import Banner from '../Banner/Banner'
+//import Banner from '../Banner/Banner'
 import Navbar from '../NavBar/NavBar';
 import SearchBar from '../NavBar/SearchBar'
 
@@ -35,6 +35,7 @@ const { MediaContextProvider, Media } = createMedia({
  * It can be more complicated, but you can create really flexible markup.
  */
 class DesktopContainerHeader extends Component {
+  
   state = {}
 
   hideFixedMenu = () => this.setState({ fixed: false })

@@ -54,6 +54,15 @@ router.post('/', (req, res) => {
 	})
 })
 
+router.post('/deleteBanner', (req, res) => {
+	let bannerPostId = req.body._id
+
+	BannerPost.deleteOne({_id: bannerPostId})
+	.exec((err, bannerPost) => {
+		if(err) return res.status(400).json({ success: false, err })
+		return res.status(200).json({ success: true, bannerPostId})
+	})
+})
 router.get('/getBanners', (req, res) => {
 	let sortBy = req.body.sortBy ? req.body.sortBy : "_id";
 	let findArgs = {};

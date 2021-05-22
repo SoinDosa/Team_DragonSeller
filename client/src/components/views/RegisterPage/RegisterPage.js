@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { registerUser } from '../../../_actions/user_action';
+import { registerUser,loginUser } from '../../../_actions/user_action';
 import Axios from 'axios';
 import { withRouter } from 'react-router-dom';
+import axios from 'axios';
+import Header from '../Header/Header'
 function RegisterPage(props) {
     const dispatch = useDispatch();
 
@@ -49,7 +51,12 @@ function RegisterPage(props) {
         dispatch(registerUser(body))
             .then(response => {
                 if (response.payload.success) {
-                    props.history.push("/login")
+                    dispatch(loginUser(body))
+                    .then(
+                        setTimeout(function(){
+                            props.history.push("/")
+                            },1000)
+                    )   
                 } else {
                     alert("Failed to sign up")
                 }
@@ -59,10 +66,13 @@ function RegisterPage(props) {
 
 
     return (
+        <div>
+        <Header/>
         <div style={{
             display: 'flex', justifyContent: 'center', alignItems: 'center'
             , width: '100%', height: '100vh'
         }}>
+
             <form style={{ display: 'flex', flexDirection: 'column' }}
                 onSubmit={onSubmitHandler}
             >
@@ -86,6 +96,7 @@ function RegisterPage(props) {
                     회원 가입
                 </button>
             </form>
+        </div>
         </div>
     )
 }

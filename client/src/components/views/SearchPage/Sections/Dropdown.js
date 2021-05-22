@@ -28,24 +28,6 @@ export default class AccordionExampleMenu extends Component {
         this.props.handleFilters(value)
     }
 
-    //Radio, Checkbox form
-
-    // PriceForm = (
-    //     <Form>
-    //         <Form.Group grouped>
-    //             {
-    //                 price.map((val, index) => (
-    //                     <React.Fragment key={index}>
-    //                         <Form.Field>
-    //                             <Radio label={val.name} name='price'  onChange={() => this.handleTogglePrice(val._id)} checked={this.state.checkedPrice===val._id}/>
-    //                         </Form.Field>
-    //                     </React.Fragment>
-    //                 ))
-    //             }
-                
-    //         </Form.Group>
-    //     </Form>
-    // )
 
 
     render() {
@@ -53,17 +35,6 @@ export default class AccordionExampleMenu extends Component {
   
       return (
         <div>
-            {/* <Accordion as={Menu} vertical>
-                <Menu.Item>
-                    <Accordion.Title
-                    active={activeIndex === 1}
-                    content='Price 범위'
-                    index={1}
-                    onClick={this.handleClick}
-                    />
-                    <Accordion.Content active={activeIndex === 1} content={this.PriceForm} />
-                </Menu.Item>
-            </Accordion> */}
             <Dropdown
                 text='Price filter'
                 floating    

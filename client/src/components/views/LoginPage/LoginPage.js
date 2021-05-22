@@ -32,7 +32,14 @@ function LoginPage(props) {
         dispatch(loginUser(body))
             .then(response => {
                 if (response.payload.loginSuccess) {
-                    props.history.push('/')
+                    axios.get('/api/users/admin_auth', body)
+                    .then(response => {
+                        if(response.data.isAdmin){
+                            props.history.push('/adminpage')
+                        } else {
+                        props.history.push('/')
+                        }
+                    })
                 } else {
                     alert('Error')
                 }
