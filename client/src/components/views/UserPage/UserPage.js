@@ -31,12 +31,6 @@ import {
       return (
         <div id= 'wrap' >
             <div className= "headerWrap">
-              
-                {/* <div className="header logo">로고</div>
-                <div className="header header-name"> Dragon Seller </div>
-                <nav className="header Nav">
-                <LogButton/>
-                </nav> */}
             </div>
             <div id= 'containerWrap'>
                 <div id='main' style={style}>
@@ -92,8 +86,10 @@ import {
                                 </div>
                             </form>
                         </div>
+                        
                     </div>
                 </div>
+                
             </div>
           
         </div>
