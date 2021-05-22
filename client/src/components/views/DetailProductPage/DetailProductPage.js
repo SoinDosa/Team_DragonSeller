@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
+import { Descriptions } from 'antd'
 import ProductImage from './Sections/ProductImage';
 import ProductInfo from './Sections/ProductInfo';
 
@@ -24,12 +25,17 @@ function DetailProductPage(props) {
         <div style={{ width: '100%', padding: '3rem 4rem' }}>
 
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <h1>{Product.title}</h1>
             </div>
 
+            <ProductImage detail={Product} />
             <br />
-                    <ProductImage detail={Product} />
-                    <ProductInfo detail={Product} />
+            <Descriptions title={Product.title}>
+                    <Descriptions.Item labels="Description">{Product.description}</Descriptions.Item>
+                    <br/>
+                    <Descriptions.Item labels="Price">{Product.price}$</Descriptions.Item>
+            </Descriptions>
+                    
+            <ProductInfo detail={Product} />
         </div>
     )
 }
