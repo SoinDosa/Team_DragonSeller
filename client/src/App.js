@@ -21,6 +21,7 @@ import AdminPage from './components/views/AdminPage/AdminPage';
 import Auth from './hoc/auth'
 import Header from './components/views/Header/Header'
 import Footer from './components/views/Footer/Footer'
+import UserPage from './components/views/UserPage/UserPage';
 import 'semantic-ui-css/semantic.min.css'
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
           <Route exact path="/" component={Auth(LandingPage, null )  } />
           <Route exact path="/login" component={Auth(LoginPage, false) } />
           <Route exact path="/register" component={Auth(RegisterPage, false)} />
+          <Route exact path="/userpage" component={Auth(UserPage, true)} />
           <Route exact path="/product/upload" component={Auth(UploadProductPage, true, true)} />
           <Route exact path="/product/:productId" component={Auth(DetailProductPage, null)} />
           <Route exact path="/search" component={SearchPage} />
