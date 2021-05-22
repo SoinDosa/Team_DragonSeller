@@ -1,7 +1,7 @@
 import SearchBar from '../SearchBar/SearchBar'
 import React, { useEffect,useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Grid, Button, Input, Image , Card, Pagination} from 'semantic-ui-react'
+import { Grid, Button, Input, Image ,Item ,Card, Pagination} from 'semantic-ui-react'
 import Axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import CheckBox from './Sections/CheckBox'
@@ -14,7 +14,7 @@ import axios from 'axios';
 import Sort from './Sections/Sort'
 import {sortBy, price, computerPart} from './Sections/Datas'
 
-const SearchPage = (props) =>{
+const ProductRevisePage = (props) =>{
     const [SearchTerms, setSearchTerms] = useState("")
     const [Skip, setSkip] = useState(0)
     const [Limit, setLimit] = useState(8)
@@ -56,7 +56,7 @@ const SearchPage = (props) =>{
     }, [])
 
     const getProducts = (variables) => {
-        Axios.post('api/product/getProducts', variables)
+        Axios.post('/api/product/getProducts', variables)
         .then(response => {
             //searchPage에서 바뀐부분.
             if(response.data.success){
@@ -105,21 +105,33 @@ const SearchPage = (props) =>{
         setActivePage(value.activePage);
     }
 
-
+    const deleteHandler = (value) =>{
+        axios.post('/api/product/deleteProduct', value)
+        .then(response => {
+            if(response.data.success){
+                alert("삭제완료")
+                props.history.push("/adminpage")
+                props.history.push("/product/revise")
+                //여기 바꿔야될듯..?
+            }else{
+                alert('Failed to delete product')
+            }
+        })
+    }
     
-    const renderCards = Products.map((product, index) => {
+    const renderCards = Products.map((item, index) => {
         return (
-               <Grid.Column columns={4} width={4} key={index}>
-                   <Link to={`/product/${product._id}`}>
-                   <Card
-                        image={`${s3path}${product.images[0]}`}
-                        header={product.title}
-                        description={product.price}
-                        style={{margin:'30px 10px', maxwidth: '30px'}}
-                    />
-                   </Link>
-                    
-               </Grid.Column>     
+                        <Item style={{display:'flex', marginBottom: '30px'}}>
+                        <Item.Image size='small' src={`${s3path}${item.images[0]}`} />
+                        <Item.Content>
+                            <Item.Header>{item.title}</Item.Header>
+                            <Item.Description></Item.Description>
+                            <Item.Extra>
+                                <Button primary floated='right' onClick={() => {deleteHandler(item)}}>삭제</Button>
+                            </Item.Extra>
+                        </Item.Content>
+                        </Item>
+     
                 )
     })
 
@@ -205,9 +217,9 @@ const SearchPage = (props) =>{
                 <h2>No post yet...</h2>
             </div> :
             <div style={{width: '75%', margin: '3rem auto'}}>
-                <Grid>
+                <Item.Group>
                     {renderCards}
-                </Grid>  
+                </Item.Group>  
             </div>
         }
         {
@@ -222,4 +234,4 @@ const SearchPage = (props) =>{
     )
 }
 
-export default withRouter(SearchPage)
+export default withRouter(ProductRevisePage)

@@ -82,12 +82,22 @@ router.get('/products_by_id', (req, res) => {
 
 router.get('/getNewProducts', (req, res) => {
   Product.find()
-  .sort({'_id': 1})
+  .sort({'_id': -1})
   .limit(4)
   .exec((err,products) => {
     if(err) return res.status(400).json({success: false, err})
     res.status(200).json({success:true, products})
   })
+})
+
+router.post('/deleteProduct', (req, res) => {
+	let productId = req.body._id
+
+	Product.deleteOne({_id: productId})
+	.exec((err, productId) => {
+		if(err) return res.status(400).json({ success: false, err })
+		return res.status(200).json({ success: true, productId})
+	})
 })
 
 

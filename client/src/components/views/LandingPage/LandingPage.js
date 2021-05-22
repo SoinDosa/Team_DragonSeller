@@ -63,13 +63,14 @@ function LandingPage(props) {
     const renderCards = Products.map((product, index) => {
         return (
                <Grid.Column columns={5} width={4} key={index}>
-                   
-                    <Card
-                        image={`${s3path}${product.images[0]}`}
-                        header={product.title}
-                        description={product.price}
-                        style={{margin:'30px 10px', maxwidth: '30px'}}
-                    />
+                    <Link to={`/product/${product._id}`}>
+                        <Card
+                            image={`${s3path}${product.images[0]}`}
+                            header={product.title}
+                            description={product.price}
+                            style={{margin:'30px 10px', maxwidth: '30px'}}
+                        />
+                    </Link>
                </Grid.Column>     
                 )
     })
