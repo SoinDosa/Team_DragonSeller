@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import ProductImage from './Sections/ProductImage';
 import ProductInfo from './Sections/ProductInfo';
-
+import Header from '../Header/Header';
 function DetailProductPage(props) {
 
     const productId = props.match.params.productId
@@ -21,8 +21,9 @@ function DetailProductPage(props) {
 
 
     return (
-        <div style={{ width: '100%', padding: '3rem 4rem' }}>
-
+        <div>
+            <Header/>
+        <div style={{ width: '75%', padding: '1rem 4rem', paddingLeft: '30%'}}>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <h1>{Product.title}</h1>
             </div>
@@ -30,6 +31,7 @@ function DetailProductPage(props) {
             <br />
                     <ProductImage detail={Product} />
                     <ProductInfo detail={Product} />
+        </div>
         </div>
     )
 }

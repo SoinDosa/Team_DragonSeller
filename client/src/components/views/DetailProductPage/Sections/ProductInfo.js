@@ -28,9 +28,10 @@ function ProductInfo(props) {
             <br />
             <br />
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <Form>
+            <Form style={{ display: 'flex', flexDirection: 'column' }}>
                 <Input type="number" onChange={countChangeHandler} value={Count}/>
-                <Button size="large" shape="round" htmlType="submit" onClick={clickHandler}>
+                <br/>
+                <Button type="primary" danger size="large"  htmlType="submit" onClick={clickHandler}>
                     카트 담기
                 </Button>
             </Form>
