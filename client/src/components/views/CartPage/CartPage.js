@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { getCartItems, removeCartItem } from '../../../_actions/user_action'
 import UserCardBlock from './Sections/UserCardBlock'
+const s3path = 'https://seonhwi.s3.amazonaws.com/';
 
 function CartPage(props) {
 
@@ -47,6 +48,8 @@ function CartPage(props) {
         })
 
     }
+
+    
 
     return (
         <div>
