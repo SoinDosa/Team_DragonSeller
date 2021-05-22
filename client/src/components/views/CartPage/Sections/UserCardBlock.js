@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import { addToCart } from '../../../../_actions/user_action';
 const s3path = 'https://seonhwi.s3.amazonaws.com/';
 
-const s3path = 'https://seonhwi.s3.amazonaws.com/';
 
 function UserCardBlock(props) {
     const [data,setData] = useState(0);

@@ -9,7 +9,7 @@ function ProductInfo(props) {
 
     const clickHandler = () => {
         //필요한 정보를 Cart 필드에다가 넣어 준다.
-        if(!Count)
+        if(Count <= 0)
             alert("손님 갯수를 정해주셔야 합니다")
         else {
             dispatch(addToCart(props.detail._id, parseInt(Count)))
