@@ -15,12 +15,10 @@ function UserCardBlock(props) {
     }
 
     const inHan = (e) =>{
-        console.log(e)
         dispatch(addToCart(e._id, parseInt(1)))
     }
 
     const deHan = (e) =>{
-        console.log(e)
         if(e.quantity > 1)
             dispatch(addToCart(e._id, parseInt(-1)))
     }
