@@ -149,7 +149,7 @@ function AdminPage(props) {
                                     <Link to="/banner/upload"><Button color='olive'>추가</Button></Link>
                                 </div>
                                 <div>
-                                    <Button color='orange'>수정</Button>
+                                   <Link to="/banner/revise"><Button color='orange'>수정</Button></Link> 
                                 </div>
                             </form></div>
                         <div className="menuwrapperitem"><br/>
@@ -160,7 +160,7 @@ function AdminPage(props) {
                                     <Link to='/product/upload'><Button color='olive'>추가</Button></Link>
                                 </div>
                                 <div>
-                                    <Button color='orange'>수정</Button>
+                                    <Link to='/product/revise'><Button color='orange'>수정</Button></Link>
                                 </div>
                             </form></div>
                         <div className="menuwrapperitem"><br/>
