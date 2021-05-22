@@ -36,7 +36,11 @@ function LoginPage(props) {
                     axios.get('/api/users/admin_auth', body)
                     .then(response => {
                         if(response.data.isAdmin){
-                            props.history.push('/adminpage')
+                            setTimeout(function(){
+                                props.history.push('/adminpage')
+                            },100)
+                            
+
                         } else {
                             
                         props.history.push('/')
