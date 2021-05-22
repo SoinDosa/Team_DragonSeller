@@ -4,7 +4,6 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const config = require('./config/key')
 
-
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -12,6 +11,7 @@ app.use(cookieParser());
 app.use('/api/users', require('./routes/users'));
 app.use('/api/product', require('./routes/product'));
 app.use('/api/bannerPost', require('./routes/bannerPost'));
+app.use('/api/payment', require('./routes/payment'))
 
 const mongoose = require('mongoose')
 mongoose.connect(config.mongoURI ,
@@ -35,4 +35,3 @@ const port = 5000
 app.listen(port, () => {
 	console.log('Example app listening at http://localhost:5000')
 })
-
