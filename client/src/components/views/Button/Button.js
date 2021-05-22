@@ -6,9 +6,16 @@ import { Button } from 'semantic-ui-react';
 
 const LogButton = (props) =>{
     const user = useSelector(state => state.user);
+    
+    const [name,setName] =useState("");
     useEffect(() => {
-        axios.get('/api/hello')
-            .then(response => { console.log(response) })
+        axios.get('/api/users/auth')
+            .then(response => {
+                if(response.data.name){
+                    console.log(response.data.name)
+                    setName(response.data.name)
+                }
+            })
     }, [])
     // const onClickHandler = () => {
     //     axios.get(`/api/users/logout`)
@@ -69,9 +76,12 @@ const LogButton = (props) =>{
             </nav>
         </div> 
         )
-    }else{
+    }
+    else{
+        console.log(name)
         return (
             <div>
+                {name}님 환영합니다!!
             <Button primary onClick={onClicLogoutkHandler}>Logout</Button>
             </div>
         )        
