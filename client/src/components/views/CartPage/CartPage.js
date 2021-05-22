@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { getCartItems, removeCartItem, onSuccessBuy } from '../../../_actions/user_action';
+import { Table} from 'semantic-ui-react'
 import UserCardBlock from './Sections/UserCardBlock'
 import Paypal from '../../util/Paypal';
+import Header from '../Header/Header';
 const s3path = 'https://seonhwi.s3.amazonaws.com/';
 
 function CartPage(props) {
@@ -68,21 +70,53 @@ function CartPage(props) {
 
     return (
         <div>
-            CartPage
+            <div>
+                <Header/>
+            </div>
+            <br/>
+            <div align="center">
+                <h1>CartPage</h1>
+            </div>
+            <br/>
+            
             <UserCardBlock products={ props.user.cartDetail && props.user.cartDetail.product } 
             removeItem = {removeFromCart}/>
-            {ShowTotal ?
-            <h3>총 가격 : {Total}원</h3>
-            :
-            <h3>총 가격 : 0원</h3>
-            }
-            {ShowTotal &&
-                <Paypal
-                    total={Total}
-                    onSuccess={transactionSuccess}
-                />
-            }
+            <br/>
+            <Table border="1" style={{width:"70vw", margin:"0 auto"}} celled padded>
+                <Table.Row>
+                    <Table.Cell textAlign="center" bgColor="#62d2a2" fgColor="#eeeeee">
+                        총 가격 
+                    </Table.Cell>
+                    <Table.Cell textAlign="right">
+                        {ShowTotal ?
+                            <h3>{Total}$</h3>
+                            :
+                            <h3>0$</h3>
+                        }
+                    </Table.Cell>
+                </Table.Row>
+            </Table>
+            <br/>
+            {/* <Table align="right">
+                <Table.Row>
+                    <Table.Cell> */}
+                    <div align="center">
+                        결제하기
+                    </div>
+                    <div style={{width:"25vw",display:"flex", justifyContent:"right", margin:"0 auto"}} >
+                    {ShowTotal &&
+                        <Paypal total={Total} onSuccess={transactionSuccess}/>
+                    }
+                    </div>
+                    
+                    {/* </Table.Cell>
+
+                </Table.Row>
+            
+            </Table> */}
         </div>
+            
+            
     )
 }
 

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Descriptions } from 'antd'
 import ProductImage from './Sections/ProductImage';
 import ProductInfo from './Sections/ProductInfo';
-
+import Header from '../Header/Header';
 function DetailProductPage(props) {
 
     const productId = props.match.params.productId
@@ -22,8 +22,9 @@ function DetailProductPage(props) {
 
 
     return (
-        <div style={{ width: '100%', padding: '3rem 4rem' }}>
-
+        <div>
+            <Header/>
+        <div style={{ width: '75%', padding: '1rem 4rem', paddingLeft: '30%'}}>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
             </div>
 
@@ -36,6 +37,7 @@ function DetailProductPage(props) {
             </Descriptions>
                     
             <ProductInfo detail={Product} />
+        </div>
         </div>
     )
 }
