@@ -124,7 +124,7 @@ function AdminPage(props) {
                     <Container align="right"><LogButton/></Container>
                     </Segment>
                     <div style={{ width: '75%', margin: '3rem auto', }}>
-                        <h1 align="center" style={{color: 'white'}}>관리자 설정 화면</h1>
+                        <h1 align="center" style={{color: 'white'}}>관리자 설정 메뉴</h1>
                     </div>
                     <div className="menuwrapper">
                         <div className="menuwrapperitem">
