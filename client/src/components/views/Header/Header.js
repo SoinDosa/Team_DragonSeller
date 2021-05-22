@@ -1,4 +1,5 @@
 import { createMedia } from '@artsy/fresnel'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import LogButton from '../Button/Button';
@@ -67,7 +68,9 @@ class DesktopContainerHeader extends Component {
             >
               <Container>
                 <Menu.Item position='right'>
-                <Header as='h1' color='red'>Dragon Seller</Header>
+                  <Link to="/">
+                    <Header as='h1' color='red'>Dragon Seller</Header>
+                  </Link>
                 </Menu.Item>
                 <Menu.Item position='right'>
                 <LogButton/>

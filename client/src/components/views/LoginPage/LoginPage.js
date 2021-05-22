@@ -32,12 +32,19 @@ function LoginPage(props) {
         dispatch(loginUser(body))
             .then(response => {
                 if (response.payload.loginSuccess) {
+                    alert(response.payload.userId+'님 환영합니다!!')
                     axios.get('/api/users/admin_auth', body)
                     .then(response => {
                         if(response.data.isAdmin){
-                            props.history.push('/adminpage')
+                            setTimeout(function(){
+                                props.history.push('/adminpage')
+                            },100)
+                            
+
                         } else {
+                            
                         props.history.push('/')
+                        
                         }
                     })
                 } else {

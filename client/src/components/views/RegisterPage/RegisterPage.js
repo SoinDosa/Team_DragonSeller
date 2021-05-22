@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { registerUser } from '../../../_actions/user_action';
+import { registerUser,loginUser } from '../../../_actions/user_action';
 import Axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
+import Header from '../Header/Header'
 function RegisterPage(props) {
     const dispatch = useDispatch();
 
@@ -36,8 +37,14 @@ function RegisterPage(props) {
     const onSubmitHandler = (event) => {
         event.preventDefault();
 
+        if  (!Email || !Id || !Password || !Name) {
+            return alert('모든 정보를 입력해주세요!')
+        }
         if (Password !== ConfirmPassword) {
             return alert('비밀번호와 비밀번호 확인은 같아야 합니다.')
+        }
+        if(Password.length<8) {
+            return alert('비밀번호는 최소 8자리 이상이여야 합니다.')
         }
 
         let body = {
@@ -49,9 +56,14 @@ function RegisterPage(props) {
         dispatch(registerUser(body))
             .then(response => {
                 if (response.payload.success) {
-                    props.history.push("/login")
+                    dispatch(loginUser(body))
+                    .then(
+                        setTimeout(function(){
+                            props.history.push("/")
+                            },1000)
+                    )   
                 } else {
-                    alert("Failed to sign up")
+                    alert("아이디 혹은 이메일이 이미 존재합니다.")
                 }
             })
     }
@@ -59,10 +71,13 @@ function RegisterPage(props) {
 
 
     return (
+        <div>
+        <Header/>
         <div style={{
             display: 'flex', justifyContent: 'center', alignItems: 'center'
             , width: '100%', height: '100vh'
         }}>
+
             <form style={{ display: 'flex', flexDirection: 'column' }}
                 onSubmit={onSubmitHandler}
             >
@@ -86,6 +101,7 @@ function RegisterPage(props) {
                     회원 가입
                 </button>
             </form>
+        </div>
         </div>
     )
 }
