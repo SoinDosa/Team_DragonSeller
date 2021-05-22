@@ -69,10 +69,18 @@ router.get('/products_by_id', (req, res) => {
 
 
   let type = req.query.type
-  let productId = req.query.id
+  let productIds = req.query.id
   // Product 아이디를 이용해 같은 상품의 정보를 가져온다
 
-  Product.find({ _id: productId })
+  if (type === "array") {
+    let ids = req.query.id.split(',')
+    productIds = ids.map(item => {
+        return item
+    })
+  }
+
+
+  Product.find({ _id: productIds })
   .populate('writer')
   .exec((err, product) => {
     if(err) return res.status(400).send(err)
