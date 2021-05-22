@@ -51,7 +51,9 @@ export default function SimpleSlider() {
   }
   const renderImage = BannerEvent.map((item) => {
     return (
-        <img style={{width: '200px',height: '150px'}} src={`${s3path}${item.images[0]}`}/>
+      <div>
+        <img style={{width: '100%',height: '300px'}} src={`${s3path}${item.images[0]}`}/>
+      </div>
     )
   })
 
