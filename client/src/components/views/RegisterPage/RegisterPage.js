@@ -36,8 +36,14 @@ function RegisterPage(props) {
     const onSubmitHandler = (event) => {
         event.preventDefault();
 
+        if  (!Email || !Id || !Password || !Name) {
+            return alert('모든 정보를 입력해주세요!')
+        }
         if (Password !== ConfirmPassword) {
             return alert('비밀번호와 비밀번호 확인은 같아야 합니다.')
+        }
+        if(Password.length<8) {
+            return alert('비밀번호는 최소 8자리 이상이여야 합니다.')
         }
 
         let body = {
@@ -51,7 +57,7 @@ function RegisterPage(props) {
                 if (response.payload.success) {
                     props.history.push("/login")
                 } else {
-                    alert("Failed to sign up")
+                    alert("아이디 혹은 이메일이 이미 존재합니다.")
                 }
             })
     }
