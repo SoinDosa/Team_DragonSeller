@@ -22,6 +22,7 @@ import Auth from './hoc/auth'
 import Header from './components/views/Header/Header'
 import Footer from './components/views/Footer/Footer'
 import UserPage from './components/views/UserPage/UserPage';
+import HistoryPage from './components/views/HistoryPage/HistoryPage';
 import 'semantic-ui-css/semantic.min.css'
 
 function App() {
@@ -52,6 +53,7 @@ function App() {
           <Route exact path="/changePw" component={Auth(ChangePWPage, true)} />
           <Route exact path="/banner/upload" component={Auth(UploadBannerPage, true, true)} />
           <Route exact path="/adminpage" component={Auth(AdminPage, true, true)} />
+          <Route exact path="/history" component={Auth(HistoryPage, true)} />
         </Switch>
       </div>
       <div>
