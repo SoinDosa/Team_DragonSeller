@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { getCartItems } from '../../../_actions/user_action'
 import UserCardBlock from './Sections/UserCardBlock'
+import UserAddress from '../UserAddress/UserAddress'
 
 function CartPage(props) {
 
@@ -23,6 +24,7 @@ function CartPage(props) {
 
     return (
         <div>
+            <UserAddress/>
             CartPage
             <UserCardBlock products={ props.user.cartDetail && props.user.cartDetail.product } />
         </div>

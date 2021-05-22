@@ -50,7 +50,7 @@ const FixedMenuLayout = () => (
   
       
   
-      <Segment inverted vertical style={{ margin: '5em 0em 0em', padding: '3em 0em 3em' }}>
+      <Segment inverted vertical style={{ margin: '0em 0em 0em', padding: '3em 0em 3em' }}>
         <Container textAlign='center'>
           <Grid divided inverted stackable>
             <Grid.Column width={3}>

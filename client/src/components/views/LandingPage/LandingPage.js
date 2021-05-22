@@ -76,8 +76,9 @@ function LandingPage(props) {
     })
 
     return (
+        
         <div id= 'wrap'>
-           
+            <Header/>
             <div id= 'containerWrap'>
                 <div id='main' style={{witdh: '100%', marginBottom:'200px'}}>
                     <Banner/>

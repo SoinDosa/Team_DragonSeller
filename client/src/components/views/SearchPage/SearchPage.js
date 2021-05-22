@@ -172,6 +172,7 @@ const SearchPage = (props) =>{
     return (
         
         <div>
+            <Header/>
             <div style={{display:'flex', justifyContent:'space-between'}}>
                 {/*Filter */}
                 <div style={{display:'flex'}}>

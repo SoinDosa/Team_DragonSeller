@@ -21,7 +21,6 @@ import UploadBannerPage from './components/views/UploadBannerPage/UploadBannerPa
 import BannerCheckPage from './components/views/Banner/BannerCheckPage'
 import AdminPage from './components/views/AdminPage/AdminPage';
 import Auth from './hoc/auth'
-import Header from './components/views/Header/Header'
 import Footer from './components/views/Footer/Footer'
 import 'semantic-ui-css/semantic.min.css'
 
@@ -36,9 +35,6 @@ function App() {
           you have multiple routes, but you want only one
           of them to render at a time
         */}
-        <div>
-          <Header/>
-        </div>
         <Switch>
           <Route exact path="/" component={Auth(LandingPage, null )  } />
           <Route exact path="/login" component={Auth(LoginPage, false) } />
