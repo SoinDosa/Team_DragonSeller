@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { registerUser } from '../../../_actions/user_action';
 import Axios from 'axios';
 import { withRouter } from 'react-router-dom';
+import axios from 'axios';
 function RegisterPage(props) {
     const dispatch = useDispatch();
 
@@ -32,7 +33,6 @@ function RegisterPage(props) {
     const onConfirmPasswordHandler = (event) => {
         setConfirmPassword(event.currentTarget.value)
     }
-
     const onSubmitHandler = (event) => {
         event.preventDefault();
 

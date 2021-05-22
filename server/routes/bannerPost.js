@@ -65,5 +65,15 @@ router.post('/deleteBanner', (req, res) => {
 		return res.status(200).json({ success: true, bannerPostId})
 	})
 })
+router.get('/getBanners', (req, res) => {
+	let sortBy = req.body.sortBy ? req.body.sortBy : "_id";
+	let findArgs = {};
+	BannerPost.find(findArgs)
+		  .sort([[sortBy, 1]])
+		  .exec((err,banners) => {
+			if(err) return res.status(400).json({success: false, err})
+			res.status(200).json({success:true, banners})
+	})
+})
 
 module.exports = router;

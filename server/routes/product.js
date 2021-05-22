@@ -2,8 +2,6 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const multerS3 = require('multer-s3');
-
-
 const { Product } = require('../models/Product');
 
 require('dotenv').config()
@@ -16,21 +14,23 @@ const accessKeyId = process.env.AWS_ACCESS_KEY
 const secretAccessKey = process.env.AWS_SECRET_KEY
 
 const s3 = new S3({
-  region,
-  accessKeyId,
-  secretAccessKey
-})
-
-const uploadS3 = multer({
-  storage: multerS3({
-    s3: s3,
-    bucket: bucketName,
-    acl: 'public-read',
-    key: function(req, file, cb) {
-      cb(null, Date.now().toString()+file.originalname)
-    }
+	region,
+	accessKeyId,
+	secretAccessKey
   })
-}).single("file")
+  
+  const uploadS3 = multer({
+	storage: multerS3({
+	  s3: s3,
+	  bucket: bucketName,
+	  acl: 'public-read',
+	  key: function(req, file, cb) {
+		cb(null, Date.now().toString()+file.originalname)
+	  }
+	})
+  }).single("file")
+
+
 
 router.post('/image', (req, res) =>{
     // 받아온 정보들을 db에 저장
@@ -69,10 +69,18 @@ router.get('/products_by_id', (req, res) => {
 
 
   let type = req.query.type
-  let productId = req.query.id
+  let productIds = req.query.id
   // Product 아이디를 이용해 같은 상품의 정보를 가져온다
 
-  Product.find({ _id: productId })
+  if (type === "array") {
+    let ids = req.query.id.split(',')
+    productIds = ids.map(item => {
+        return item
+    })
+  }
+
+
+  Product.find({ _id: productIds })
   .populate('writer')
   .exec((err, product) => {
     if(err) return res.status(400).send(err)
@@ -80,49 +88,93 @@ router.get('/products_by_id', (req, res) => {
   })
 })
 
-
-// 상세 페이지용
-router.get('/products_by_id', (req, res) => {
-
-
-  let type = req.query.type
-  let productIds = req.query.id
-  
-  if(type === "array") {
-    // 여러 아이디 분리하기
-    let ids = req.query.id.split(',');
-
-    productIds = ids.map(item => {
-      return item
-    })
-  }
-
-  Product.find({ _id: {$in: productIds} })
-  .populate('writer')
-  .exec((err, product) => {
-    if(err) return res.status(400).send(err)
-    return res.status(200).json({ success: true, product })
+router.get('/getNewProducts', (req, res) => {
+  Product.find()
+  .sort({'_id': 1})
+  .limit(4)
+  .exec((err,products) => {
+    if(err) return res.status(400).json({success: false, err})
+    res.status(200).json({success:true, products})
   })
 })
+
 
 router.post('/getProducts' ,(req, res) => {
 
   //mongoDB condition 말하는 것
-    let order = req.body.order ? req.body.order: "desc";
-    let sortBy = req.body.sortBy ? req.body.sortBy : "_id";
+    let order = -1;
+    let sorting =  "_id";
     let limit = req.body.limit ? parseInt(req.body.limit) : 100;
     let skip = parseInt(req.body.skip);
-  
-  // data fetch할때 order, ~대로 sorting, 띄우는 수 제한, skip
-    Product.find()
-      //.populate("Writer")
-      .sort([[sortBy, order]])
-      .limit(limit)
-      .skip(skip)
-      .exec((err,products) => {
-        if(err) return res.status(400).json({success: false, err})
-        res.status(200).json({success:true, products, postSize: products.length})
-      })
+    let allItem = 0;
+    let findArgs = {};
+    let term = req.body.searchTerm;
+
+
+    
+  //여기 고쳐야함.
+    for(let key in req.body.filters){
+      console.log(req.body.filters[key])
+      //key: category와 price -> Product data에 이거 필요한듯.
+      if(req.body.filters[key].length > 0){
+        if(key==="price"){
+          findArgs[key] = {
+            //greater than less than
+            $gte: req.body.filters[key][0],
+            $lte: req.body.filters[key][1]
+          }
+        }else if(key==='sortBy'){
+
+          console.log("hi")
+          if(req.body.filters[key][0]===1){
+            sorting = "_id"
+            order = -1
+          }else if(req.body.filters[key][0]===2){
+            sorting = "price"
+            order = 1
+          }else if(req.body.filters[key][0]===3){
+            sorting = "price"
+            order = -1
+          }
+        }else{
+          findArgs[key] = req.body.filters[key]
+        }
+      }
+    }
+
+    // data fetch할때 order, ~대로 sorting, 띄우는 수 제한, skip
+    if(term){
+      Product.find(findArgs)
+        .find({$text: {$search: term}})
+        .exec((err,products) => {
+          allItem = products.length;
+        })
+
+      Product.find(findArgs)
+        .find({$text: {$search: term}})
+        .populate("Writer")
+        .sort([[sorting, order]])
+        .limit(limit)
+        .skip(skip)
+        .exec((err,products) => {
+          if(err) return res.status(400).json({success: false, err})
+          res.status(200).json({success:true, products, allPage: allItem ,postSize: products.length})
+        })
+    }else{
+      Product.find(findArgs)
+        .exec((err,products) => {
+          allItem = products.length;
+        })
+      Product.find(findArgs)
+        .populate("Writer")
+        .sort([[sorting, order]])
+        .limit(limit)
+        .skip(skip)
+        .exec((err,products) => {
+          if(err) return res.status(400).json({success: false, err})
+          res.status(200).json({success:true, products, allPage:allItem ,postSize: products.length})
+        })
+    }
   })
 
 module.exports = router;
