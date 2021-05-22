@@ -35,9 +35,6 @@ function App() {
           you have multiple routes, but you want only one
           of them to render at a time
         */}
-        <div>
-          <Header/>
-        </div>
         <Switch>
           <Route exact path="/" component={Auth(LandingPage, null )  } />
           <Route exact path="/login" component={Auth(LoginPage, false) } />
