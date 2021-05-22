@@ -108,9 +108,10 @@ export function adminAuth(dagtTosubmit){
     }
 }
 
-export function addToCart(id) {
+export function addToCart(id, count) {
     let body = {
-        productId: id
+        productId: id,
+        productQuantity : count
     }
     const request = axios.post(`${USER_SERVER}/addToCart`, body)
         .then(response => response.data);

@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { getCartItems, removeCartItem } from '../../../_actions/user_action'
+import { getCartItems, removeCartItem, onSuccessBuy } from '../../../_actions/user_action';
 import UserCardBlock from './Sections/UserCardBlock'
+import Paypal from '../../util/Paypal';
+const s3path = 'https://seonhwi.s3.amazonaws.com/';
 
 function CartPage(props) {
 
     const [Total, setTotal] = useState(0)
     const [ShowTotal, setShowTotal] = useState(false)
+    const [ShowSuccess, setShowSuccess] = useState(false)
 
     const dispatch = useDispatch();
     useEffect(() => {
@@ -47,6 +50,21 @@ function CartPage(props) {
         })
 
     }
+    
+    const transactionSuccess = (data) => {
+        dispatch(onSuccessBuy({
+            paymentData: data,
+            cartDetail: props.user.cartDetail
+        }))
+            .then(response => {
+                if (response.payload.success) {
+                    setShowTotal(false)
+                    setShowSuccess(true)
+                }
+            })
+    }
+
+    
 
     return (
         <div>
@@ -57,8 +75,13 @@ function CartPage(props) {
             <h3>총 가격 : {Total}원</h3>
             :
             <h3>총 가격 : 0원</h3>
-        }
-            
+            }
+            {ShowTotal &&
+                <Paypal
+                    total={Total}
+                    onSuccess={transactionSuccess}
+                />
+            }
         </div>
     )
 }
