@@ -24,15 +24,12 @@ function DetailProductPage(props) {
     return (
         <div style={{ width: '100%', padding: '3rem 4rem' }}>
 
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-            </div>
-
             <ProductImage detail={Product} />
             <br />
             <Descriptions title={Product.title}>
-                    <Descriptions.Item labels="Description">{Product.description}</Descriptions.Item>
+                    <Descriptions.Item labels="Description">상품 설명 : {Product.description}</Descriptions.Item>
                     <br/>
-                    <Descriptions.Item labels="Price">{Product.price}$</Descriptions.Item>
+                    <Descriptions.Item labels="Price">가격 : {Product.price}$</Descriptions.Item>
             </Descriptions>
                     
             <ProductInfo detail={Product} />

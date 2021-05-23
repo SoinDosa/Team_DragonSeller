@@ -31,6 +31,7 @@ function UserCardBlock(props) {
                 <img 
                 src={renderCartImg(product.images)} width="200px"/>
                 <br/>
+                <h3>{product.title}</h3>
                 <h3>{product.quantity} 개 </h3>
                 <button onClick={() => inHan(product)}>더 살래요</button>
                 <button onClick={() => deHan(product)}>더 안 살래요</button>
