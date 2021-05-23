@@ -7,16 +7,9 @@ import LogButton from '../Button/Button';
 import {
     Button,
     Container,
-    Divider,
-    Grid,
     Icon,
     Header,
-    Image,
-    List,
-    Menu,
-    Segment,
-    Sidebar,
-    Visibility,
+    Segment
   } from 'semantic-ui-react'
   import '../../../App.css';
 

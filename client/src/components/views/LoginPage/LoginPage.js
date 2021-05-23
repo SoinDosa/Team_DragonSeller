@@ -39,12 +39,8 @@ function LoginPage(props) {
                             setTimeout(function(){
                                 props.history.push('/adminpage')
                             },100)
-                            
-
                         } else {
-                            
                         props.history.push('/')
-                        
                         }
                     })
                 } else {
@@ -88,11 +84,14 @@ function LoginPage(props) {
                 <Link to="/findId">아이디 찾기</Link>
                 <Link to="/findPw">비밀번호 찾기</Link>
             </form>
-            {/* <div style={{display: 'flex', paddig: '10px'}}>
-            <Button positive>
-                <a style={{color:'white'}} href ="/">홈으로 가기</a>
-            </Button>
-            </div> */}
+            <br/>
+            <div style={{display: 'flex', paddig: '10px'}}>
+            <Link to="/" style={{color: 'black'}}>
+                <Icon name="arrow left">        
+                {/* <a style={{color:'white'}} href ="/">홈으로 가기</a> */}
+                </Icon>
+            </Link>
+            </div>
         </div>
     )
 }
