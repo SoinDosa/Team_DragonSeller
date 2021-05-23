@@ -1,26 +1,28 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import { createMedia } from '@artsy/fresnel'
 import PropTypes from 'prop-types'
-import { Button,
-    Container,
-    Divider,
-    Grid,
-    Header,
-    Icon,
-    Image,
-    List,
-    Menu,
-    Segment,
-    Sidebar,
-    Visibility,
-    Dropdown, } from 'semantic-ui-react'
+import {
+  Button,
+  Container,
+  Divider,
+  Grid,
+  Header,
+  Icon,
+  Image,
+  List,
+  Menu,
+  Segment,
+  Sidebar,
+  Visibility,
+  Dropdown,
+} from 'semantic-ui-react'
 
-    
+
 import '../style/footer.css'
 
 const FixedMenuLayout = () => (
-    <div>
-      {/* <Menu fixed='top' inverted>
+  <div>
+    {/* <Menu fixed='top' inverted>
         <Container>
           <Menu.Item as='a' header>
             <Image size='mini' src='/logo.png' style={{ marginRight: '1.5em' }} />
@@ -47,66 +49,33 @@ const FixedMenuLayout = () => (
           </Dropdown>
         </Container>
       </Menu> */}
-  
-      
-  
-      <Segment inverted vertical style={{ margin: '0em 0em 0em', padding: '3em 0em 3em' }}>
-        <Container textAlign='center'>
-          <Grid divided inverted stackable>
-            <Grid.Column width={3}>
-              <Header inverted as='h4' content='Group 1' />
-              <List link inverted>
-                <List.Item as='a'>Link One</List.Item>
-                <List.Item as='a'>Link Two</List.Item>
-                <List.Item as='a'>Link Three</List.Item>
-                <List.Item as='a'>Link Four</List.Item>
-              </List>
-            </Grid.Column>
-            <Grid.Column width={3}>
-              <Header inverted as='h4' content='Group 2' />
-              <List link inverted>
-                <List.Item as='a'>Link One</List.Item>
-                <List.Item as='a'>Link Two</List.Item>
-                <List.Item as='a'>Link Three</List.Item>
-                <List.Item as='a'>Link Four</List.Item>
-              </List>
-            </Grid.Column>
-            <Grid.Column width={3}>
-              <Header inverted as='h4' content='Group 3' />
-              <List link inverted>
-                <List.Item as='a'>Link One</List.Item>
-                <List.Item as='a'>Link Two</List.Item>
-                <List.Item as='a'>Link Three</List.Item>
-                <List.Item as='a'>Link Four</List.Item>
-              </List>
-            </Grid.Column>
-            <Grid.Column width={7}>
-              <Header inverted as='h4' content='Footer Header' />
-              <p>
-                Extra space for a call to action inside the footer that could help re-engage users.
+
+
+
+    <Segment inverted vertical style={{ margin: '0em 0em 0em', padding: '3em 0em 3em' }}>
+      <Image centered size='large' src='https://i.ibb.co/G31bqkJ/TEAM.png' />
+      <Container textAlign='center'>
+        <Divider inverted section />
+        <List horizontal inverted divided link size='small'>
+          <List.Item as='a' href='#'>
+            사이트 맵
+            </List.Item>
+          <List.Item as='a' href='#'>
+            이용약관
+            </List.Item>
+          <List.Item as='a' href='#'>
+            개인정보 처리방침
+            </List.Item>
+          <List.Item as='a' href='#'>
+            팀 정보
+            </List.Item>
+        </List>
+        <p>
+          서울과학기술대학교 컴퓨터공학과 소프트웨어공학 19팀 용팔이
               </p>
-            </Grid.Column>
-          </Grid>
-  
-          <Divider inverted section />
-          <Image centered size='mini' src='/logo.png' />
-          <List horizontal inverted divided link size='small'>
-            <List.Item as='a' href='#'>
-              Site Map
-            </List.Item>
-            <List.Item as='a' href='#'>
-              Contact Us
-            </List.Item>
-            <List.Item as='a' href='#'>
-              Terms and Conditions
-            </List.Item>
-            <List.Item as='a' href='#'>
-              Privacy Policy
-            </List.Item>
-          </List>
-        </Container>
-      </Segment>
-    </div>
-  )
-  
-  export default FixedMenuLayout
+      </Container>
+    </Segment>
+  </div>
+)
+
+export default FixedMenuLayout
