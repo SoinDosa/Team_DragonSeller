@@ -212,7 +212,7 @@ const SearchPage = (props) =>{
         }
         {
             <div style={{ justifyContent: 'center', display: 'flex'}}>
-                <Pagination defaultActivePage={1} totalPages={Allpage%8!==0 || Allpage===0 ? Math.ceil(Allpage/8) : Allpage/8} onPageChange={handlePaginationChange} />
+                <Pagination defaultActivePage={1} totalPages={10} onPageChange={handlePaginationChange} />
             </div>
         }
         
