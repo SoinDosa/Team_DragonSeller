@@ -171,7 +171,7 @@ function AdminPage(props) {
                                     <Button color='olive'>추가</Button>
                                 </div>
                                 <div>
-                                    <Button color='orange'>수정</Button>
+                                    <Link to='/payment'><Button color='orange'>수정</Button></Link>
                                 </div>
                             </form>
                         </div>
