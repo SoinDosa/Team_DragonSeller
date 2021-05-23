@@ -17,7 +17,7 @@ const bannerPostSchema = mongoose.Schema({
     },
     createAt: {
         type: Date,
-        expires: 3600, // 만료 기간 일주일
+        expires : '10s',
         default : Date.now
     }
 })
