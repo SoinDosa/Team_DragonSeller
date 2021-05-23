@@ -98,6 +98,13 @@ function ChangePWPage(props) {
                 <Button positive type="submit">
                     비밀번호 변경
                 </Button>
+                <br/>
+                <Button positive>
+                    <Link to="/userpage" style={{color: 'white'}} >
+                        이전 화면
+                    </Link>
+                </Button>
+                
             </form>
             {/* <div style={{display: 'flex', paddig: '10px'}}>
             <Button positive>
