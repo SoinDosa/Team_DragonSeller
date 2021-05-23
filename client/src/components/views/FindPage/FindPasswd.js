@@ -1,22 +1,27 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { loginUser } from '../../../_actions/user_action';
+import { findPwUser } from '../../../_actions/user_action';
 import { withRouter } from 'react-router-dom';
 import { Button, Form, Input, Image } from 'semantic-ui-react';
 
 
-function LoginPage(props) {
+function FindPWPage(props) {
     const dispatch = useDispatch();
 
     const [Id, setId] = useState("")
-    const [Password, setPassword] = useState("")
+    const [Email, setEmail] = useState("")
+    const [Name, setName] = useState("")
 
     const onIdHandler = (event) => {
         setId(event.currentTarget.value)
     }
 
-    const onPasswordHandler = (event) => {
-        setPassword(event.currentTarget.value)
+    const onEmailHandler = (event) => {
+        setEmail(event.currentTarget.value)
+    }
+
+    const onNameHandler = (event) => {
+        setName(event.currentTarget.value)
     }
 
     const onSubmitHandler = (event) => {
@@ -24,67 +29,22 @@ function LoginPage(props) {
 
         let body = {
             id: Id,
-            password: Password
+            email: Email,
+            name: Name
         }
 
-        dispatch(loginUser(body))
+        dispatch(findPwUser(body))
             .then(response => {
-<<<<<<< Updated upstream
-                if (response.payload.loginSuccess) {
-                    props.history.push('/')
-=======
                 if (response.payload.success) {
                     console.log(response.payload)
                     console.log(response.userId)
                     alert('비밀번호가 초기화 되었습니다. (변경번호 : 1234qwerasdf)');
                     props.history.push('/login')
->>>>>>> Stashed changes
                 } else {
                     alert('Error')
                 }
             })
     }
-
-    const onSubmitbackHandler = () => {
-
-    }
-<<<<<<< Updated upstream
-    // const onClickLandingHandler = () => {
-    //     axios.get(`/api/users/logout`)
-    //         .then(response => {
-    //             if (response.data.error) {
-    //                 props.history.push("/register");
-    //                 alert('로그인화면으로 이동합니다.');
-    //             } else {
-
-    //                 alert('로그인하는데 실패 했습니다.')
-    //             }
-    //         })
-    // }
-
-    return (
-
-        <div style={{
-            display: 'flex', justifyContent: 'center', alignItems: 'center'
-            , width: '100%', height: '100vh', flexDirection: 'column'
-        }}>
-            <form style={{ display: 'flex', flexDirection: 'column' }}
-                onSubmit={onSubmitHandler}>
-                <label>ID</label>
-                <input type="id" value={Id} onChange={onIdHandler} />
-                <label>Password</label>
-                <input type="password" value={Password} onChange={onPasswordHandler} />
-                <br />
-                <Button positive type="submit">
-                    Login
-                </Button>
-            </form>
-            {/* <div style={{display: 'flex', paddig: '10px'}}>
-            <Button positive>
-                <a style={{color:'white'}} href ="/">홈으로 가기</a>
-            </Button>
-            </div> */}
-=======
 
     return (
 
@@ -122,17 +82,12 @@ function LoginPage(props) {
                     />
                     <br />
                     <Button type="submit" color='black'>
-                        <a style={{ color: "white" }}>비밀번호 찾기</a>
+                        <a style={{ color: "white" }}>비밀번호 초기화</a>
                     </Button>
                 </Form>
             </div>
->>>>>>> Stashed changes
         </div>
     )
 }
 
-<<<<<<< Updated upstream
-export default withRouter(LoginPage)
-=======
 export default withRouter(FindPWPage)
->>>>>>> Stashed changes

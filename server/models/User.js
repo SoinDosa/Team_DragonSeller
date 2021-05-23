@@ -29,7 +29,16 @@ const userSchema = mongoose.Schema({
     },
     token: {
         type: String
+    },
+    cart: {
+        type: Array,
+        default: []
+    },
+    history: {
+        type: Array,
+        default: []
     }
+
 })
 
 userSchema.pre('save', function( next ){

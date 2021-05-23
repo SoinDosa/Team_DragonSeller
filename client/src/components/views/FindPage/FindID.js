@@ -1,99 +1,48 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import axios from 'axios'
+import React, { useState, Component } from 'react'
 import { useDispatch } from 'react-redux';
-import { loginUser } from '../../../_actions/user_action';
+import { findIdUser } from '../../../_actions/user_action';
 import { withRouter } from 'react-router-dom';
 import { Button, Form, Input, Image } from 'semantic-ui-react';
 
 
-<<<<<<< Updated upstream
-function LoginPage(props) {
-=======
-
 function FindIDPage(props) {
 
->>>>>>> Stashed changes
     const dispatch = useDispatch();
 
-    const [Id, setId] = useState("")
-    const [Password, setPassword] = useState("")
+    const [Email, setEmail] = useState("")
+    const [Name, setName] = useState("")
 
-    const onIdHandler = (event) => {
-        setId(event.currentTarget.value)
+    const onEmailHandler = (event) => {
+        setEmail(event.currentTarget.value)
     }
 
-    const onPasswordHandler = (event) => {
-        setPassword(event.currentTarget.value)
+    const onNameHandler = (event) => {
+        setName(event.currentTarget.value)
     }
 
     const onSubmitHandler = (event) => {
         event.preventDefault();
 
         let body = {
-            id: Id,
-            password: Password
+            email: Email,
+            name: Name
         }
 
-        dispatch(loginUser(body))
+        dispatch(findIdUser(body))
             .then(response => {
-<<<<<<< Updated upstream
-                if (response.payload.loginSuccess) {
-                    props.history.push('/')
-=======
                 if (response.payload.findId) {
-                    // props.history.push('/')
                     console.log(response.payload)
                     console.log(response.userId)
                     alert('아이디는 "' + response.payload.userId + '"입니다. 로그인 페이지로 이동합니다.');
                     props.history.push("/login")
->>>>>>> Stashed changes
                 } else {
-                    alert('Error')
+                    alert('ERROR!!')
                 }
             })
     }
 
-    const onSubmitbackHandler = () => {
-        
-    }
-    // const onClickLandingHandler = () => {
-    //     axios.get(`/api/users/logout`)
-    //         .then(response => {
-    //             if (response.data.error) {
-    //                 props.history.push("/register");
-    //                 alert('로그인화면으로 이동합니다.');
-    //             } else {
-                    
-    //                 alert('로그인하는데 실패 했습니다.')
-    //             }
-    //         })
-    // }
-
     return (
 
-<<<<<<< Updated upstream
-        <div style={{
-            display: 'flex', justifyContent: 'center', alignItems: 'center'
-            , width: '100%', height: '100vh', flexDirection: 'column'
-        }}>
-            <form style={{ display: 'flex', flexDirection: 'column' }}
-                onSubmit={onSubmitHandler}>
-                <label>ID</label>
-                <input type="id" value={Id} onChange={onIdHandler} />
-                <label>Password</label>
-                <input type="password" value={Password} onChange={onPasswordHandler} />
-                <br />
-                <Button positive type="submit">
-                    Login
-                </Button>
-            </form>
-            {/* <div style={{display: 'flex', paddig: '10px'}}>
-            <Button positive>
-                <a style={{color:'white'}} href ="/">홈으로 가기</a>
-            </Button>
-            </div> */}
-=======
         <div style={{ background: '#f1f1f1' }}>
             <div style={{
                 display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '0 auto'
@@ -125,13 +74,8 @@ function FindIDPage(props) {
                     </Button>
                 </Form>
             </div>
->>>>>>> Stashed changes
         </div>
     )
 }
 
-<<<<<<< Updated upstream
-export default withRouter(LoginPage)
-=======
 export default withRouter(FindIDPage)
->>>>>>> Stashed changes

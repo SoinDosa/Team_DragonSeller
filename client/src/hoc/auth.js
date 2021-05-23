@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { auth } from '../_actions/user_action';
 
 export default function (SpecificComponent, option, adminRoute = null) {
@@ -9,6 +9,8 @@ export default function (SpecificComponent, option, adminRoute = null) {
     //true    =>  로그인한 유저만 출입이 가능한 페이지
     //false   =>  로그인한 유저는 출입 불가능한 페이지
     function AuthenticationCheck(props) {
+
+        let user = useSelector(state => state.user);
         const dispatch = useDispatch();
 
         useEffect(() => {
@@ -33,7 +35,7 @@ export default function (SpecificComponent, option, adminRoute = null) {
         }, [])
 
         return (
-            <SpecificComponent />
+            <SpecificComponent {...props} user={user}/>
         )
     }
     return AuthenticationCheck

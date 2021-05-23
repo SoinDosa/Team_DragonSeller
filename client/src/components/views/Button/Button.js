@@ -1,14 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector } from "react-redux";
-import { withRouter } from 'react-router-dom';
-import axios, { push } from 'axios';
-import { Button, Segment } from 'semantic-ui-react';
+import React,{useState,useEffect} from 'react';
+import { Link } from 'react-router-dom'
+import {useSelector} from "react-redux";
+import {withRouter} from 'react-router-dom';
+import axios,{push} from 'axios';
+import { Button,Icon } from 'semantic-ui-react';
 
-const LogButton = (props) => {
+const LogButton = (props) =>{
     const user = useSelector(state => state.user);
+    
+    const [name,setName] =useState("");
     useEffect(() => {
-        axios.get('/api/hello')
-            .then(response => { console.log(response) })
+        axios.get('/api/users/auth')
+            .then(response => {
+                if(response.data.name){
+                    console.log(response.data.name)
+                    setName(response.data.name)
+                }
+            })
     }, [])
     // const onClickHandler = () => {
     //     axios.get(`/api/users/logout`)
@@ -20,7 +28,6 @@ const LogButton = (props) => {
     //             }
     //         })
     // }
-    // ㅁㄴㅇㄻㄴㅇㅁㄴㅇㄹ
     const onClicLogoutkHandler = () => {
         axios.get(`/api/users/logout`)
             .then(response => {
@@ -28,7 +35,7 @@ const LogButton = (props) => {
                     alert('로그아웃 하였습니다.');
                     props.history.push("/login");
                     props.history.push("/")
-
+                    
                 } else {
                     alert('로그아웃 하는데 실패 했습니다.')
                 }
@@ -42,7 +49,7 @@ const LogButton = (props) => {
                     props.history.push("/login");
                     alert('로그인화면으로 이동합니다.');
                 } else {
-
+                    
                     alert('로그인하는데 실패 했습니다.')
                 }
             })
@@ -55,32 +62,38 @@ const LogButton = (props) => {
                     props.history.push("/register");
                     alert('회원가입화면으로 이동합니다.');
                 } else {
-
+                    
                     alert('회원가입이동 error')
                 }
             })
     }
-
-    if (user.userData && !user.userData.isAuth) {
+    
+    if( user.userData && !user.userData.isAuth){
         return (
-            <div>
-                <Segment inverted>
-                    <nav>
-                        <Button inverted color='black' primary onClick={onClicLoginkHandler} >로그인</Button>
-                        <Button primary onClick={onClicSignUpHandler} color='black'>회원가입</Button>
-                    </nav>
-                </Segment>
-            </div>
+        <div>
+            <nav>
+            <Button primary onClick={onClicLoginkHandler}>Login</Button>
+            <Button primary onClick={onClicSignUpHandler}>SignUp</Button>
+            </nav>
+        </div> 
         )
-    } else {
-        return (
-            <div>
-                <Button primary onClick={onClicLogoutkHandler} color='black'>Logout</Button>
-            </div>
-        )
-
     }
-}
+    else{
+        console.log(name)
+        return (
+            <div>
+                {name}님 환영합니다!! &nbsp;
+                <Link to="/user/cart">
+                <Icon name="shopping cart"></Icon>
+                </Link>
+                
+                 <Link to= "/userpage"><Icon name="setting"
+/></Link> &nbsp;            <Button primary onClick={onClicLogoutkHandler}>Logout</Button>
+            </div>
+        )        
 
+    }  
+}   
+    
 
 export default withRouter(LogButton)

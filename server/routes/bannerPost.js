@@ -55,14 +55,22 @@ router.post('/', (req, res) => {
 })
 
 router.post('/deleteBanner', (req, res) => {
-	const bannerPost = new BannerPost
-	let bannerPostId = req.query._id
+	let bannerPostId = req.body._id
 
-	console.log(req.query._id)
-	BannerPost.findOne({_id: bannerPostId})
+	BannerPost.deleteOne({_id: bannerPostId})
 	.exec((err, bannerPost) => {
 		if(err) return res.status(400).json({ success: false, err })
 		return res.status(200).json({ success: true, bannerPostId})
+	})
+})
+router.get('/getBanners', (req, res) => {
+	let sortBy = req.body.sortBy ? req.body.sortBy : "_id";
+	let findArgs = {};
+	BannerPost.find(findArgs)
+		  .sort([[sortBy, 1]])
+		  .exec((err,banners) => {
+			if(err) return res.status(400).json({success: false, err})
+			res.status(200).json({success:true, banners})
 	})
 })
 
