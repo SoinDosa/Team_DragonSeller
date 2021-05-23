@@ -74,4 +74,18 @@ router.get('/getBanners', (req, res) => {
 	})
 })
 
+router.get('/banners_by_id', (req, res) => {
+
+
+	let type = req.query.type
+	let bannerIds = req.query.id
+  
+	BannerPost.find({ _id: bannerIds })
+	.populate('writer')
+	.exec((err, banner) => {
+	  if(err) return res.status(400).send(err)
+	  return res.status(200).send({ success: true, banner })
+	})
+  })
+
 module.exports = router;

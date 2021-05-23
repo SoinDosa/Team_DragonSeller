@@ -1,5 +1,6 @@
 import React, { useState, useEffect ,Component } from 'react'
 import Slider from "react-slick";
+import { Link } from 'react-router-dom'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Axios from 'axios'
@@ -51,14 +52,17 @@ export default function SimpleSlider() {
   }
   const renderImage = BannerEvent.map((item) => {
     return (
+      <Link to={`/banner/${item._id}`}>
       <div>
         <img style={{width: '100%',height: '300px'}} src={`${s3path}${item.images[0]}`}/>
       </div>
+      </Link>
     )
   })
 
 
     return (
+      
       <div>
        <Slider {...settings} style={{
           fontsize: '36px',
@@ -71,6 +75,7 @@ export default function SimpleSlider() {
             {renderImage}
         </Slider>
       </div>
+      
       
     );
   }
