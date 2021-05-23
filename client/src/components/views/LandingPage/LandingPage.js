@@ -87,7 +87,7 @@ function LandingPage(props) {
                 </div>
             </div>
             <div>
-                <h1>최신상품</h1>
+                <h1 style={{textAlign: "center"}}>최신상품</h1>
                     {Products.length === 0?
                         <div style={{display: 'flex', height: '300px', justifyContent: 'center', alignItems: 'Center'}}>
                             <h2>No post yet...</h2>

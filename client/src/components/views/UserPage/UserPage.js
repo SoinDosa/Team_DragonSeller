@@ -7,16 +7,9 @@ import LogButton from '../Button/Button';
 import {
     Button,
     Container,
-    Divider,
-    Grid,
     Icon,
     Header,
-    Image,
-    List,
-    Menu,
-    Segment,
-    Sidebar,
-    Visibility,
+    Segment
   } from 'semantic-ui-react'
   import '../../../App.css';
 
@@ -41,7 +34,9 @@ import {
                     vertical
                     >
                     <Container>
-                        <Header as='h1' color='red'>Dragon Seller</Header>
+                        <Link to="/">
+                            <Header as='h1' color='red'>Dragon Seller</Header> 
+                        </Link>
                     </Container>
                     <Container align="right"><LogButton/></Container>
                     </Segment>
