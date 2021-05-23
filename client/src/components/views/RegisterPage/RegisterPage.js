@@ -5,6 +5,7 @@ import Axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../Header/Header'
+import { Link } from 'react-router-dom'
 function RegisterPage(props) {
     const dispatch = useDispatch();
 
@@ -100,6 +101,7 @@ function RegisterPage(props) {
                 <button type="submit">
                     회원 가입
                 </button>
+                
             </form>
         </div>
         </div>
