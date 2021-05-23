@@ -48,19 +48,19 @@ function BannerCheckPage(props) {
     }
 
     const renderCards = BannerEvent.map((item, index) => {
-        return (
-                    <div>
-                    <Item style={{display:'flex', marginBottom: '30px'}}>
-                        <Item.Image size='small' src={`${s3path}${item.images[0]}`} />
-                        <Item.Content>
-                            <Item.Header>{item.title}</Item.Header>
-                            <Item.Description>유효기간: </Item.Description>
-                            <Item.Extra>
-                                <Button primary floated='right' onClick={() => {deleteHandler(item)}}>삭제</Button>
-                            </Item.Extra>
-                        </Item.Content>
-                        </Item>
-                    </div>
+        return (    
+                        <div>
+                        <Item style={{display:'flex', marginBottom: '30px'}}>
+                            <Item.Image size='small' src={`${s3path}${item.images[0]}`} />
+                            <Item.Content>
+                                <Item.Header>{item.title}</Item.Header>
+                                <Item.Description>유효기간: </Item.Description>
+                                <Item.Extra>
+                                    <Button primary floated='right' onClick={() => {deleteHandler(item)}}>삭제</Button>
+                                </Item.Extra>
+                            </Item.Content>
+                            </Item>
+                        </div>
                        
                 )
     })

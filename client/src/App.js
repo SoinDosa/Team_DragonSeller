@@ -19,11 +19,13 @@ import FindPWPage from './components/views/FindPage/FindPasswd';
 import ChangePWPage from './components/views/FindPage/ChangePasswd';
 import UploadBannerPage from './components/views/UploadBannerPage/UploadBannerPage'
 import BannerCheckPage from './components/views/Banner/BannerCheckPage'
+import BannerDetailPage from './components/views/Banner/BannerDetailPage';
 import AdminPage from './components/views/AdminPage/AdminPage';
 import Auth from './hoc/auth'
 import Footer from './components/views/Footer/Footer'
 import UserPage from './components/views/UserPage/UserPage';
 import HistoryPage from './components/views/HistoryPage/HistoryPage';
+import PaymentManagePage from './components/views/PaymentManagePage/PaymentManagePage'
 import 'semantic-ui-css/semantic.min.css'
 
 function App() {
@@ -51,9 +53,13 @@ function App() {
           <Route exact path="/findPw" component={Auth(FindPWPage, false)} />
           <Route exact path="/changePw" component={Auth(ChangePWPage, true)} />
           <Route exact path="/banner/upload" component={Auth(UploadBannerPage, true, true)} />
+
+          
           <Route exact path="/adminpage" component={Auth(AdminPage, true, true)} />
           <Route exact path="/history" component={Auth(HistoryPage, true)} />
           <Route exact path="/banner/revise" component={Auth(BannerCheckPage, true, true)}/>
+          <Route exact path="/banner/:bannerId" component={Auth(BannerDetailPage, null)} />
+          <Route exact path="/payment" component={Auth(PaymentManagePage,true,true)}/>
           
         </Switch>
       </div>

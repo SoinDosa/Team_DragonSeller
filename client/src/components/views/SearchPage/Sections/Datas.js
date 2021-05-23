@@ -89,9 +89,27 @@ const sortBy = [
         "name": "높은가격순"
     },
 ]
+const payment = [
+    {
+        "_id": 1,
+        "order":-1,
+        "name": "가장최근주문된"
+    },
+    {
+        "_id": 2,
+        "order": 1,
+        "name": "이름순"
+    },
+    {
+        "_id": 3,
+        "order": -1,
+        "name": "역순"
+    },
+]
 
 export {
     price,
     computerPart,
-    sortBy
+    sortBy,
+    payment
 }
