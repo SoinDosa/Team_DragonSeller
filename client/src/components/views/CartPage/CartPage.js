@@ -82,38 +82,29 @@ function CartPage(props) {
             <UserCardBlock products={ props.user.cartDetail && props.user.cartDetail.product } 
             removeItem = {removeFromCart}/>
             <br/>
-            <Table border="1" style={{width:"70vw", margin:"0 auto"}} celled padded>
+            <Table border="1" style={{width:"70vw", margin:"0 auto" ,marginBottom: "5px"}} celled padded>
                 <Table.Row>
                     <Table.Cell textAlign="center" bgColor="#62d2a2" fgColor="#eeeeee">
-                        총 가격 
+                        <h3>총 가격</h3> 
                     </Table.Cell>
                     <Table.Cell textAlign="right">
                         {ShowTotal ?
-                            <h3>{Total}$</h3>
+                            <h1 style={{color:"red"}}>{Total}$</h1>
                             :
-                            <h3>0$</h3>
+                            <h1 style={{color:"red"}}>0$</h1>
                         }
                     </Table.Cell>
                 </Table.Row>
-            </Table>
-            <br/>
-            {/* <Table align="right">
                 <Table.Row>
-                    <Table.Cell> */}
-                    <div align="center">
-                        결제하기
-                    </div>
-                    <div style={{width:"25vw",display:"flex", justifyContent:"right", margin:"0 auto"}} >
-                    {ShowTotal &&
-                        <Paypal total={Total} onSuccess={transactionSuccess}/>
-                    }
-                    </div>
-                    
-                    {/* </Table.Cell>
-
+                    <Table.Cell textAlign="center">
+                        <h3>결제하기</h3>
+                    </Table.Cell>
+                    <Table.Cell style={{width: "200px"}}>
+                        {ShowTotal && <Paypal total={Total} onSuccess={transactionSuccess}/>}
+                    </Table.Cell>
                 </Table.Row>
-            
-            </Table> */}
+            </Table>
+           
         </div>
             
             
