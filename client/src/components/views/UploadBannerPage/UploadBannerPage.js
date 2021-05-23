@@ -36,7 +36,13 @@ function UploadBannerPage(props) {
             images: Images
         }
 
+        if(Title.length < 4) {
+            return alert("정말 제목이 4글자 조차 안되나요?")
+        }
 
+        if(Images.length == 0 || !Title || !Contents) {
+            return alert("값을 모두 채워주세요")
+        }
         axios.post("/api/bannerPost", body)
             .then(response => {
                 if(response.data.success){
