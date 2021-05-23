@@ -41,7 +41,9 @@ import {
                     vertical
                     >
                     <Container>
-                        <Header as='h1' color='red'>Dragon Seller</Header>
+                        <Link to="/">
+                            <Header as='h1' color='red'>Dragon Seller</Header> 
+                        </Link>
                     </Container>
                     <Container align="right"><LogButton/></Container>
                     </Segment>
