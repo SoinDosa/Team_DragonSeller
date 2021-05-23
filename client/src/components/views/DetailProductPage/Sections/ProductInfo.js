@@ -32,12 +32,10 @@ function ProductInfo(props) {
 
     return (
         <div>
-
-            <br />
-            <br />
-            <br />
             <div style={{ display: 'flex', justifyContent: 'center' }}>
             <Form style={{ display: 'flex', flexDirection: 'column' }}>
+                <br/>
+                <h3 style={{textAlign: "center"}}>수량 추가</h3>
                 <Input type="number" onChange={countChangeHandler} value={Count} min="0"/>
                 <br/>
                 <Button type="primary" danger size="large"  htmlType="submit" onClick={clickHandler}>
@@ -47,11 +45,8 @@ function ProductInfo(props) {
                 <Button type="primary" danger size="large"  htmlType="submit" onClick={purchaseHandler}>
                     바로 구매
                 </Button>
-            </Form>
-                
+            </Form>  
             </div>
-
-
         </div>
     )
 }
