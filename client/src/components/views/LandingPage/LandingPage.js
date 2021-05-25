@@ -83,11 +83,12 @@ function LandingPage(props) {
             </div>
             <div id= 'containerWrap'>
                 <div id='main' style={{witdh: '100%', marginBottom:'200px'}}>
+                    <br/>
                     <Banner/>
                 </div>
             </div>
             <div>
-                <h1>최신상품</h1>
+                <h1 style={{textAlign: "center"}}>최신상품</h1>
                     {Products.length === 0?
                         <div style={{display: 'flex', height: '300px', justifyContent: 'center', alignItems: 'Center'}}>
                             <h2>No post yet...</h2>

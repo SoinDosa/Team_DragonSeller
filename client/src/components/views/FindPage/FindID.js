@@ -1,14 +1,12 @@
 import React, { useState, Component } from 'react'
-import { Link } from 'react-router-dom'
-import axios from 'axios'
 import { useDispatch } from 'react-redux';
 import { findIdUser } from '../../../_actions/user_action';
 import { withRouter } from 'react-router-dom';
-import { Button, Icon } from 'semantic-ui-react';
+import { Button, Form, Input, Image } from 'semantic-ui-react';
 
 
-function FindIDPage(props) {    
-    
+function FindIDPage(props) {
+
     const dispatch = useDispatch();
 
     const [Email, setEmail] = useState("")
@@ -33,36 +31,49 @@ function FindIDPage(props) {
         dispatch(findIdUser(body))
             .then(response => {
                 if (response.payload.findId) {
-                    // props.history.push('/')
                     console.log(response.payload)
                     console.log(response.userId)
-                    alert('아이디는 '+ response.payload.userId);
+                    alert('아이디는 "' + response.payload.userId + '"입니다. 로그인 페이지로 이동합니다.');
                     props.history.push("/login")
                 } else {
-                    alert('에러뜨죠?ㅅㅂ')
+                    alert('ERROR!!')
                 }
             })
     }
 
     return (
-        <div style={{
-            display: 'flex', justifyContent: 'center', alignItems: 'center'
-            , width: '100%', height: '100vh'
-        }}>
-            <form style={{ display: 'flex', flexDirection: 'column' }}
-                onSubmit={onSubmitHandler}
-            >
-                <label>Email</label>
-                <input type="email" value={Email} onChange={onEmailHandler} />
 
-                <label>Name</label>
-                <input type="text" value={Name} onChange={onNameHandler} />
-
-                <br />
-                <Button positive type="submit">
-                    아이디 찾기
-                </Button>
-            </form>
+        <div style={{ background: '#f1f1f1' }}>
+            <div style={{
+                display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '0 auto'
+                , width: '400px', height: '100vh', flexDirection: 'column', background: 'white'
+            }}>
+                <Image
+                    src="https://i.ibb.co/jf54gZ5/FINDID.png"
+                    as='a'
+                    size='medium'
+                    href='../'
+                />
+                <Form style={{ display: 'flex', flexDirection: 'column', marginTop: '50px' }}
+                    onSubmit={onSubmitHandler}>
+                    <Form.Field
+                        id={Email}
+                        control={Input}
+                        placeholder='이메일주소'
+                        onChange={onEmailHandler}
+                    />
+                    <Form.Field
+                        id={Name}
+                        control={Input}
+                        placeholder='이름'
+                        onChange={onNameHandler}
+                    />
+                    <br />
+                    <Button type="submit" color='black'>
+                        <a style={{ color: "white" }}>아이디 찾기</a>
+                    </Button>
+                </Form>
+            </div>
         </div>
     )
 }

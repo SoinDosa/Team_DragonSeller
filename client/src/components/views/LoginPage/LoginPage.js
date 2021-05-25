@@ -4,7 +4,7 @@ import axios from 'axios'
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../../../_actions/user_action';
 import { withRouter } from 'react-router-dom';
-import { Button, Icon } from 'semantic-ui-react';
+import { Button, Form, Input, Image } from 'semantic-ui-react';
 
 
 function LoginPage(props) {
@@ -32,68 +32,66 @@ function LoginPage(props) {
         dispatch(loginUser(body))
             .then(response => {
                 if (response.payload.loginSuccess) {
-                    alert(response.payload.userId+'님 환영합니다!!')
+                    alert(response.payload.userId + '님 환영합니다!!')
                     axios.get('/api/users/admin_auth', body)
-                    .then(response => {
-                        if(response.data.isAdmin){
-                            setTimeout(function(){
-                                props.history.push('/adminpage')
-                            },100)
-                            
+                        .then(response => {
+                            if (response.data.isAdmin) {
+                                setTimeout(function () {
+                                    props.history.push('/adminpage')
+                                }, 100)
 
-                        } else {
-                            
-                        props.history.push('/')
-                        
-                        }
-                    })
+
+                            } else {
+
+                                props.history.push('/')
+
+                            }
+                        })
                 } else {
                     alert('Error')
                 }
             })
     }
 
-    const onSubmitbackHandler = () => {
-        
-    }
-    // const onClickLandingHandler = () => {
-    //     axios.get(`/api/users/logout`)
-    //         .then(response => {
-    //             if (response.data.error) {
-    //                 props.history.push("/register");
-    //                 alert('로그인화면으로 이동합니다.');
-    //             } else {
-                    
-    //                 alert('로그인하는데 실패 했습니다.')
-    //             }
-    //         })
-    // }
 
     return (
 
-        <div style={{
-            display: 'flex', justifyContent: 'center', alignItems: 'center'
-            , width: '100%', height: '100vh', flexDirection: 'column'
-        }}>
-            <form style={{ display: 'flex', flexDirection: 'column' }}
-                onSubmit={onSubmitHandler}>
-                <label>ID</label>
-                <input type="id" value={Id} onChange={onIdHandler} />
-                <label>Password</label>
-                <input type="password" value={Password} onChange={onPasswordHandler} />
-                <br />
-                <Button positive type="submit">
-                    Login
-                </Button>
-                <Link to="/findId">아이디 찾기</Link>
-                <Link to="/findPw">비밀번호 찾기</Link>
-                <Link to="/changePw">비밀번호 초기화</Link>
-            </form>
-            {/* <div style={{display: 'flex', paddig: '10px'}}>
-            <Button positive>
-                <a style={{color:'white'}} href ="/">홈으로 가기</a>
-            </Button>
-            </div> */}
+        <div style={{ background: '#f1f1f1' }}>
+            <div style={{
+                display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '0 auto'
+                , width: '400px', height: '100vh', flexDirection: 'column', background: 'white'
+            }}>
+                <Image
+                    src="https://i.ibb.co/84GnTjM/LOGIN.png"
+                    as='a'
+                    size='medium'
+                    href='../'
+                />
+                <Form style={{ display: 'flex', flexDirection: 'column', marginTop: '50px' }}
+                    onSubmit={onSubmitHandler}>
+                    <Form.Field
+                        id={Id}
+                        control={Input}
+                        placeholder='아이디'
+                        onChange={onIdHandler}
+                    />
+                    <Form.Field
+                        id={Password}
+                        type="password"
+                        control={Input}
+                        placeholder='비밀번호'
+                        onChange={onPasswordHandler}
+                    />
+                    <br />
+                    <Button type="submit" color='black'>
+                        <a style={{ color: "white" }}>로그인</a>
+                    </Button>
+                    <br />
+                    <div >
+                        <a href="../register" style={{ color: "black" }} >회원가입</a> |<a href="../findId" style={{ color: "black" }}> 아이디 찾기</a> |<a href="../findPw" style={{ color: "black" }}> 비밀번호 찾기</a>
+                    </div>
+                </Form>
+            </div>
         </div>
     )
 }

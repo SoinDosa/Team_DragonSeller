@@ -52,7 +52,15 @@ function UploadProductPage(props) {
 
         // 유효성 체크
         // 모든 칸을 채워야
-        if(!Title || !Description || !Price || !ComputerPart || !Images) {
+        if(Price < 2) {
+            return alert("이윤을 남기려면 1$ 이상의 값이어야 합니다.")
+        }
+
+        if(Title.length < 4) {
+            return alert("정말 상품이 4글자 조차 안되나요?")
+        }
+
+        if(Images.length == 0 || !Title || !Description || !Price || !ComputerPart) {
             return alert("왜 값을 채우지 않은 것이지?")
         }
 
@@ -100,7 +108,7 @@ function UploadProductPage(props) {
                 <TextArea onChange={descriptionChangeHandler} value={Description}/>
                 <br />
                 <br />
-                <label>가격(₩)</label>
+                <label>가격($-달러)</label>
                 <Input type="number" onChange={priceChangeHandler} value={Price}/>
                 <br />
                 <br />
