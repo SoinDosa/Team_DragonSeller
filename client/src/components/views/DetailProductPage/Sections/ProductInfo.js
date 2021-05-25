@@ -1,10 +1,10 @@
 import React, {useState} from 'react'
 import { useDispatch } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { addToCart } from '../../../../_actions/user_action';
 import { Typography, Button, Form, Input} from 'antd';
 function ProductInfo(props) {
     const dispatch = useDispatch();
-
     const [Count, setCount] = useState(0)
 
     const clickHandler = () => {
@@ -22,7 +22,10 @@ function ProductInfo(props) {
         if(Count <= 0)
             alert("손님 갯수를 정해주셔야 합니다")
         else {
+            dispatch(addToCart(props.detail._id, parseInt(Count)))
             alert("상품을 " + Count + "개 구매합니다!")
+            props.history.push('../user/cart')
+
         }
     }
 
@@ -52,4 +55,4 @@ function ProductInfo(props) {
     )
 }
 
-export default ProductInfo
+export default withRouter(ProductInfo)
