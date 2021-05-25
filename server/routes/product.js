@@ -150,29 +150,40 @@ router.post('/getProducts' ,(req, res) => {
     // data fetch할때 order, ~대로 sorting, 띄우는 수 제한, skip
     if(term){
       Product.find(findArgs)
-      .fuzzySearch(term)
-        .exec((err,products) => {
-          allItem = products.length;
-          
-        })
-        // db.inventory.find( { status: { $in: [ "A", "D" ] } } )
-
-      Product.find(findArgs)
-        .fuzzySearch(term)
+      .find({'title': {'$regex':term,'$options': 'i'}})
+      .then((productAll) => {
+        return Promise.resolve(allItem = productAll.length)
+      })
+      .then((result)=>{
+        Product.find(findArgs)
+        .find({'title': {'$regex':term,'$options': 'i'}})
         .populate("Writer")
         .sort([[sorting, order]])
         .limit(limit)
         .skip(skip)
         .exec((err,products) => {
           if(err) return res.status(400).json({success: false, err})
-          res.status(200).json({success:true, products, allPage: allItem ,postSize: products.length})
+          res.status(200).json({success:true, products, allPage:allItem ,postSize: products.length})
         })
+      })
+        // db.inventory.find( { status: { $in: [ "A", "D" ] } } )
+
+      // Product.find(findArgs)
+      //   .find({'title': {'$regex':term,'$options': 'i'}})
+      //   .populate("Writer")
+      //   .sort([[sorting, order]])
+      //   .limit(limit)
+      //   .skip(skip)
+      //   .exec((err,products) => {
+      //     if(err) return res.status(400).json({success: false, err})
+      //     res.status(200).json({success:true, products, allPage: allItem ,postSize: products.length})
+      //   })
     }else{
       Product.find(findArgs)
-            .then((productAll) => {
-              return Promise.resolve(allItem = productAll.length)
-        }) 
-        .then((result)=>{
+      .then((productAll) => {
+          return Promise.resolve(allItem = productAll.length)
+      }) 
+      .then((result)=>{
         Product.find(findArgs)
         .populate("Writer")
         .sort([[sorting, order]])
