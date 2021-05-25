@@ -14,7 +14,7 @@ function UploadBannerPage(props) {
 
     const [Title, setTitle] = useState("")
     const [Contents, setContents] = useState("")
-    const [BannerPart, setBannerPart] = useState("")
+    const [BannerPart, setBannerPart] = useState(1)
     const [Images, setImages] = useState([])
 
     const titleChangeHandler = (event) => {
