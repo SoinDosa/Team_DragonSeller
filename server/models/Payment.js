@@ -13,7 +13,7 @@ const paymentSchema = mongoose.Schema({
         default: []
     },
     buytime: {
-        type: Date,
+        type: String,
         default: Date.now
     }
 
