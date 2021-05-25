@@ -6,10 +6,15 @@ import axios from 'axios';
 
 const { TextArea } = Input;
 
+const BannerParts = [
+    {key:1, value: "공지사항"},
+    {key:2, value: "이벤트"}
+]
 function UploadBannerPage(props) {
 
     const [Title, setTitle] = useState("")
     const [Contents, setContents] = useState("")
+    const [BannerPart, setBannerPart] = useState("")
     const [Images, setImages] = useState([])
 
     const titleChangeHandler = (event) => {
@@ -18,6 +23,10 @@ function UploadBannerPage(props) {
 
     const contentsChangeHandler = (event) => {
         setContents(event.currentTarget.value)
+    }
+    
+    const partsChangeHandler = (event) => {
+        setBannerPart(event.currentTarget.value)
     }
 
     const uploadImages = (newIamges) => {
@@ -33,14 +42,15 @@ function UploadBannerPage(props) {
         const body = {
             title: Title,
             contents: Contents,
-            images: Images
+            images: Images,
+            bannerPart: BannerPart
         }
 
         if(Title.length < 4) {
             return alert("정말 제목이 4글자 조차 안되나요?")
         }
 
-        if(Images.length == 0 || !Title || !Contents) {
+        if(Images.length == 0 || !Title || !Contents || !BannerPart) {
             return alert("값을 모두 채워주세요")
         }
         axios.post("/api/bannerPost", body)
@@ -73,6 +83,13 @@ function UploadBannerPage(props) {
                 <br />
                 <label>내용</label>
                 <TextArea onChange={contentsChangeHandler} value={Contents}/>
+                <br />
+                <br />
+                <select onChange={partsChangeHandler} value={BannerPart}>
+                    {BannerParts.map(item => (
+                        <option key={item.key} value={item.key}>{item.value}</option> 
+                    ))}
+                </select>
                 <br />
                 <br />
                 <Button htmlType="submit" onClick={submitHandler}>Submit</Button>
