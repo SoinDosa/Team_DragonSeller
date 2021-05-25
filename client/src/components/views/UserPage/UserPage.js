@@ -77,7 +77,7 @@ import {
                             <form style={{ display: 'flex', flexDirection: 'column' }}>
                                 <br/>
                                 <div>
-                                    <Link to='/product/upload'><Button color='olive'>확인</Button></Link>
+                                    <Link to='/history'><Button color='olive'>확인</Button></Link>
                                 </div>
                             </form>
                         </div>
