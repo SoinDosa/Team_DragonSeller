@@ -32,7 +32,7 @@ function BannerDetailPage(props) {
             
             <br />
             <Descriptions title={Banner.title}>
-                    <Descriptions.Item labels="Description">배너 설명 : {Banner.contents}</Descriptions.Item>
+                    <Descriptions.Item labels="Description">{Banner.contents}</Descriptions.Item>
                     <br/>
             </Descriptions>
             </div>

@@ -6,6 +6,10 @@ const bannerPostSchema = mongoose.Schema({
         maxlength : 50,
         required: true
     },
+    bannerPart: {
+        type : Number,
+        default : 1
+    },
     images: {
         type: Array,
         required: true,
@@ -17,7 +21,7 @@ const bannerPostSchema = mongoose.Schema({
     },
     createAt: {
         type: Date,
-        expires: 3600, // 만료 기간 일주일
+        expires : '300s',
         default : Date.now
     }
 })

@@ -7,16 +7,9 @@ import LogButton from '../Button/Button';
 import {
     Button,
     Container,
-    Divider,
-    Grid,
     Icon,
     Header,
-    Image,
-    List,
-    Menu,
-    Segment,
-    Sidebar,
-    Visibility,
+    Segment
   } from 'semantic-ui-react'
   import '../../../App.css';
 
@@ -41,7 +34,9 @@ import {
                     vertical
                     >
                     <Container>
-                        <Header as='h1' color='red'>Dragon Seller</Header>
+                        <Link to="/">
+                            <Header as='h1' color='red'>Dragon Seller</Header> 
+                        </Link>
                     </Container>
                     <Container align="right"><LogButton/></Container>
                     </Segment>
@@ -82,7 +77,7 @@ import {
                             <form style={{ display: 'flex', flexDirection: 'column' }}>
                                 <br/>
                                 <div>
-                                    <Link to='/product/upload'><Button color='olive'>확인</Button></Link>
+                                    <Link to='/history'><Button color='olive'>확인</Button></Link>
                                 </div>
                             </form>
                         </div>
