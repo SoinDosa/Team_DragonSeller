@@ -63,6 +63,7 @@ router.post('/deleteBanner', (req, res) => {
 		return res.status(200).json({ success: true, bannerPostId})
 	})
 })
+
 router.get('/getBanners', (req, res) => {
 	let sortBy = req.body.sortBy ? req.body.sortBy : "_id";
 	let findArgs = {};
@@ -72,6 +73,48 @@ router.get('/getBanners', (req, res) => {
 			if(err) return res.status(400).json({success: false, err})
 			res.status(200).json({success:true, banners})
 	})
+})
+router.post('/getBannerList', (req, res) => {
+	let sortBy = req.body.sortBy ? req.body.sortBy : "createAt";
+	let term = req.body.searchTerm;
+	let order= -1;
+	let findArgs = {};
+	console.log(req.body)
+	for(let key in req.body.filters){
+		if(req.body.filters[key]> 0){
+			console.log("hi")
+			if(key==="sortBy"){
+				if(req.body.filters[key]===1){
+					order=-1
+				}else{
+					order=1
+				}
+			}
+			else{
+				findArgs[key] = req.body.filters[key]
+			}
+		}
+		console.log("findArgs")
+		console.log(findArgs)
+	}
+	
+
+	if(term){
+		BannerPost.find(findArgs)
+		.find({'title': {'$regex':term, '$options': 'i'}})
+		.sort([[sortBy, order]])
+		.exec((err, banners) => {
+			if(err) return res.status(400).json({success: false, err})
+			res.status(200).json({success:true, banners})
+		})
+	}else{
+		BannerPost.find(findArgs)
+		  .sort([[sortBy, order]])
+		  .exec((err,banners) => {
+			if(err) return res.status(400).json({success: false, err})
+			res.status(200).json({success:true, banners})
+		})
+	}
 })
 
 router.get('/banners_by_id', (req, res) => {

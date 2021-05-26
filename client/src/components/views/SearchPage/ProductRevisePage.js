@@ -194,6 +194,7 @@ const ProductRevisePage = (props) =>{
                 />
                 
                 <Dropdown
+                    name = {"Filter by price"}
                     list = {price}
                    handleFilters={filters => handleFilters(filters, "price")}
                 />

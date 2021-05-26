@@ -161,8 +161,7 @@ const SearchPage = (props) =>{
             let priceValues = handlePrice(filters)
             newFilters[cate] = priceValues
         }else if(cate === "sortBy"){
-            newFilters[cate] = arr.concat([filters])
-            
+            newFilters[cate] = arr.concat([filters])    
         }
 
         showFilteredResults(newFilters)
@@ -183,6 +182,7 @@ const SearchPage = (props) =>{
                 
                 <Dropdown
                     list = {price}
+                    name = {"Filter by Price"}
                    handleFilters={filters => handleFilters(filters, "price")}
                 />
                 <Sort list= {sortBy}

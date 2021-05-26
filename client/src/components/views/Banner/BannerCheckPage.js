@@ -5,18 +5,38 @@ import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 // import '../style/LPS.css';
 import Footer from '../Footer/Footer';
+import Sort from '../SearchPage/Sections/Sort'
+import Dropdown from '../SearchPage/Sections/Dropdown'
 import Header from '../Header/Header';
+import SearchBar from '../SearchBar/SearchBar'
+import {bannerPart,sortTime} from '../SearchPage/Sections/Datas'
 //...
 function BannerCheckPage(props) {
     const s3path= 'https://seonhwi.s3.amazonaws.com/';
     const [BannerEvent, setBannerEvent] = useState([])
-
+    const [SearchTerms, setSearchTerms] = useState("")
+    const [Filters, setFilters] = useState({
+        bannerPart:[],
+        sortBy:[],
+    })
     useEffect(() => {
-        getBanners()
+        const variables = {
+            filters: Filters
+        }
+        getBanners(variables)
     }, [])
+
+    const updateSearchTerm = (newSearchTerm) => {
+        const variables = {
+            filters: Filters,
+            searchTerm : newSearchTerm
+        }
+        setSearchTerms(newSearchTerm);
+        getBanners(variables)
+    }
   
-    const getBanners = () => {
-        axios.get('/api/bannerPost/getBanners')
+    const getBanners = (variables) => {
+        axios.post('/api/bannerPost/getBannerList',variables)
         .then(response => {
             if(response.data.success){
                 console.log("banner data")
@@ -33,6 +53,8 @@ function BannerCheckPage(props) {
             }
         })
     }
+
+
     const deleteHandler = (value) =>{
         axios.post('/api/bannerPost/deleteBanner', value)
         .then(response => {
@@ -45,6 +67,23 @@ function BannerCheckPage(props) {
                 alert('Failed to delete banner')
             }
         })
+    }
+    const showFilteredResults = (filters) => {
+
+        const variables = {
+            filters: filters
+        }
+            getBanners(variables)
+    }
+    const handleFilters = (filters, cate) => {
+        
+        const newFilters = {...Filters}
+        
+        newFilters[cate] = filters
+        //있다가 할 것
+
+        showFilteredResults(newFilters)
+        setFilters(newFilters)
     }
 
     const renderCards = BannerEvent.map((item, index) => {
@@ -71,6 +110,21 @@ function BannerCheckPage(props) {
                 <h1>배너관리</h1>
                 
                 <h2>배너 유효기간은 업로드일부터 5분입니다. (테스트를 위해 짧게 함)</h2>
+                {/*Filter */}
+                <div style={{display:"flex", justifyContent:'space-between'}}>
+                    <div style={{display:"flex"}}>
+                        <Dropdown
+                            list = {bannerPart}
+                            name = {"Filter by Category"}
+                            handleFilters = {filters => handleFilters(filters, "bannerPart")}
+                        />
+                        <Sort list= {sortTime}
+                            handleFilters = {filters => handleFilters(filters, "sortBy")}/>
+                    </div>
+                    
+                        <SearchBar refreshFunction={updateSearchTerm}/>
+                </div>
+                
                     {BannerEvent.length === 0?
                         <div style={{display: 'flex', height: '300px', justifyContent: 'center', alignItems: 'Center'}}>
                             <h2>No post yet...</h2>
@@ -81,7 +135,7 @@ function BannerCheckPage(props) {
                             </Item.Group>
                         </div>
                     }
-                </div>
+            </div>
         </div>
     )
 }

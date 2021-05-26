@@ -57,7 +57,6 @@ class DesktopContainer extends Component {
             vertical
           >
             <Menu
-              
               inverted={!fixed}
               pointing={!fixed}
               secondary={!fixed}
@@ -76,7 +75,6 @@ class DesktopContainer extends Component {
             </Menu>
           </Segment>
         </Visibility>
-
         {children}
       </Media>
     )
