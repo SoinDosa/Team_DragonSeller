@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const productSchema = mongoose.Schema({
+const productSchema = new mongoose.Schema({
     writer: {
         type : Schema.Types.ObjectId,
         ref: 'User'
@@ -47,6 +47,9 @@ productSchema.index({
     }
 })
 
+const mongoose_fuzzy_searching = require('mongoose-fuzzy-searching')
+
+productSchema.plugin(mongoose_fuzzy_searching,{fields: ['title', 'description']});
 const Product = mongoose.model('Product', productSchema)
 
 module.exports = { Product }

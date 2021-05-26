@@ -3,7 +3,6 @@ const router = express.Router();
 const multer = require('multer');
 const multerS3 = require('multer-s3');
 const { Product } = require('../models/Product');
-
 require('dotenv').config()
 const fs = require('fs')
 const S3 = require('aws-sdk/clients/s3')
@@ -29,7 +28,6 @@ const s3 = new S3({
 	  }
 	})
   }).single("file")
-
 
 
 router.post('/image', (req, res) =>{
@@ -120,11 +118,9 @@ router.post('/getProducts' ,(req, res) => {
     let findArgs = {};
     let term = req.body.searchTerm;
 
-
     
   //여기 고쳐야함.
     for(let key in req.body.filters){
-      console.log(req.body.filters[key])
       //key: category와 price -> Product data에 이거 필요한듯.
       if(req.body.filters[key].length > 0){
         if(key==="price"){
@@ -134,8 +130,6 @@ router.post('/getProducts' ,(req, res) => {
             $lte: req.body.filters[key][1]
           }
         }else if(key==='sortBy'){
-
-          console.log("hi")
           if(req.body.filters[key][0]===1){
             sorting = "_id"
             order = -1
@@ -155,27 +149,13 @@ router.post('/getProducts' ,(req, res) => {
     // data fetch할때 order, ~대로 sorting, 띄우는 수 제한, skip
     if(term){
       Product.find(findArgs)
-        .find({$text: {$search: term}})
-        .exec((err,products) => {
-          allItem = products.length;
-        })
-
-      Product.find(findArgs)
-        .find({$text: {$search: term}})
-        .populate("Writer")
-        .sort([[sorting, order]])
-        .limit(limit)
-        .skip(skip)
-        .exec((err,products) => {
-          if(err) return res.status(400).json({success: false, err})
-          res.status(200).json({success:true, products, allPage: allItem ,postSize: products.length})
-        })
-    }else{
-      Product.find(findArgs)
-        .exec((err,products) => {
-          allItem = products.length;
-        })
-      Product.find(findArgs)
+      .find({'title': {'$regex':term,'$options': 'i'}})
+      .then((productAll) => {
+        return Promise.resolve(allItem = productAll.length)
+      })
+      .then((result)=>{
+        Product.find(findArgs)
+        .find({'title': {'$regex':term,'$options': 'i'}})
         .populate("Writer")
         .sort([[sorting, order]])
         .limit(limit)
@@ -184,7 +164,49 @@ router.post('/getProducts' ,(req, res) => {
           if(err) return res.status(400).json({success: false, err})
           res.status(200).json({success:true, products, allPage:allItem ,postSize: products.length})
         })
+      })
+        // db.inventory.find( { status: { $in: [ "A", "D" ] } } )
+
+      // Product.find(findArgs)
+      //   .find({'title': {'$regex':term,'$options': 'i'}})
+      //   .populate("Writer")
+      //   .sort([[sorting, order]])
+      //   .limit(limit)
+      //   .skip(skip)
+      //   .exec((err,products) => {
+      //     if(err) return res.status(400).json({success: false, err})
+      //     res.status(200).json({success:true, products, allPage: allItem ,postSize: products.length})
+      //   })
+    }else{
+      Product.find(findArgs)
+      .then((productAll) => {
+          return Promise.resolve(allItem = productAll.length)
+      }) 
+      .then((result)=>{
+        Product.find(findArgs)
+        .populate("Writer")
+        .sort([[sorting, order]])
+        .limit(limit)
+        .skip(skip)
+        .exec((err,products) => {
+          if(err) return res.status(400).json({success: false, err})
+          res.status(200).json({success:true, products, allPage:allItem ,postSize: products.length})
+        })
+      }) 
     }
+})
+
+router.post('/modifyProduct/:id', (req,res) => {
+  Product.findById(req.params.id, (err, product) => {
+    if(err) return res.json({success: false, err})
+    Product.findByIdAndUpdate(req.params.id, req.body.product, (err, product) => {
+      if(err) return res.json({success:false, err})
+      res.json({success:true})
+    })
   })
+})
+
+
+  
 
 module.exports = router;

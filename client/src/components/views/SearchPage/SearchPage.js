@@ -66,6 +66,7 @@ const SearchPage = (props) =>{
                 }else{
                     setProducts(response.data.products)
                 }
+                console.log(response.data.allPage)
                 setAllpage(response.data.allPage)
                 console.log("length: "  + Allpage)
 
@@ -160,8 +161,7 @@ const SearchPage = (props) =>{
             let priceValues = handlePrice(filters)
             newFilters[cate] = priceValues
         }else if(cate === "sortBy"){
-            newFilters[cate] = arr.concat([filters])
-            
+            newFilters[cate] = arr.concat([filters])    
         }
 
         showFilteredResults(newFilters)
@@ -182,6 +182,7 @@ const SearchPage = (props) =>{
                 
                 <Dropdown
                     list = {price}
+                    name = {"Filter by Price"}
                    handleFilters={filters => handleFilters(filters, "price")}
                 />
                 <Sort list= {sortBy}
@@ -212,7 +213,7 @@ const SearchPage = (props) =>{
         }
         {
             <div style={{ justifyContent: 'center', display: 'flex'}}>
-                <Pagination defaultActivePage={1} totalPages={Allpage%8!==0 || Allpage===0 ? Math.ceil(Allpage/8) : Allpage/8} onPageChange={handlePaginationChange} />
+               <Pagination defaultActivePage={1} totalPages={Allpage%8!==0 || Allpage===0 ? Math.ceil(Allpage/8) : Allpage/8} onPageChange={handlePaginationChange} />
             </div>
         }
         
