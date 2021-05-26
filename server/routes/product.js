@@ -7,6 +7,8 @@ require('dotenv').config()
 const fs = require('fs')
 const S3 = require('aws-sdk/clients/s3')
 
+const { auth } = require("../middleware/auth")
+
 const bucketName = process.env.AWS_BUCKET_NAME
 const region = process.env.AWS_BUCKET_REGION
 const accessKeyId = process.env.AWS_ACCESS_KEY
@@ -62,8 +64,23 @@ router.post('/products', (req, res) => {
     })
 })
 // TODO : 코멘트용 라우터
-router.post('/addComment', (req, res) =>{
-
+router.post('/addComment', auth ,(req, res) =>{
+  // 카트 올리듯 Product의 comment에 push
+  Product.findOneAndUpdate(
+    { _id: req.body.productId },
+    {
+      // 이곳 넣는게 제대로 안된다
+      $push: {
+        comment: {
+          id: req.body.productId,
+          star: req.body.star,
+          chuchan: req.body.chuchan,
+          delivery: req.body.delivery,
+          date: Date.now()
+        }
+      }
+    },
+  )
   return res.status(200).json({ success: true })
 })
 

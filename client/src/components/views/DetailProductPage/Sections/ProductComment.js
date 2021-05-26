@@ -51,10 +51,10 @@ function ProductComment(props) {
     const commentSubmitHandler = () => {
         
         const body = {
+            productId: props.detail._id,
             star: star,
             chuchan: chuchan,
             delivery: delivery,
-            date: Date.now(),
         }
 
 
@@ -62,7 +62,8 @@ function ProductComment(props) {
             .then(response => {
                 if(response.data.success){
                     alert("상품평이 등록되었습니다")
-                    props.history.push('/')
+                    console.log(body)
+                    //props.history.push('/')
                 } else {
                     alert("상품평 업로드중 오류 발생")
                 }
