@@ -61,6 +61,11 @@ router.post('/products', (req, res) => {
       return res.status(200).json({ success: true, productInfo})
     })
 })
+// TODO : 코멘트용 라우터
+router.post('/addComment', (req, res) =>{
+
+  return res.status(200).json({ success: true })
+})
 
 // 상세 페이지용
 router.get('/products_by_id', (req, res) => {

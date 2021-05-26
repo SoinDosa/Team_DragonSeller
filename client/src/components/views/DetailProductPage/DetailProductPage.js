@@ -5,6 +5,7 @@ import ProductImage from './Sections/ProductImage';
 import ProductInfo from './Sections/ProductInfo';
 import Header from '../Header/Header';
 import { Table, TransitionablePortal, Icon} from 'semantic-ui-react'
+import ProductComment from './Sections/ProductComment';
 function DetailProductPage(props) {
 
     const productId = props.match.params.productId
@@ -54,7 +55,8 @@ function DetailProductPage(props) {
             </Table>
            
             <ProductInfo detail={Product} />
-            
+            <br />
+            <ProductComment detail={Product} />
         </div>
     </div>
     )
