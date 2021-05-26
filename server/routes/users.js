@@ -115,6 +115,39 @@ router.post('/find_id', (req, res) => {
 	})
  })
 
+ router.post('/check_id', (req,res) => {
+	 User.findOne({id: req.body.id}, (err, user) => {
+		if(!user) {
+			return res.json({
+				checkId : false,
+				message : "해당 아이디가 존재하지 않습니다"
+			})
+		} else {
+			return res.json({
+				checkId : true,
+				message : "해당 아이디가 존재 합니다"
+			})
+		}
+	})
+ })
+
+ router.post('/check_email', (req,res) => {
+	User.findOne({email: req.body.email}, (err, user) => {
+	   if(!user) {
+		   return res.json({
+			   checkEmail : false,
+			   message : "해당 이메일이 존재하지 않습니다"
+		   })
+	   } else {
+		   return res.json({
+			   checkEmail : true,
+			   message : "해당 이메일이 존재 합니다"
+		   })
+	   }
+   })
+})
+
+
  router.post('/forget_pass', (req, res) => {
 	User.findOne({id : req.body.id, email: req.body.email, name: req.body.name}, (err, user) =>{
 		if(!user.id){
