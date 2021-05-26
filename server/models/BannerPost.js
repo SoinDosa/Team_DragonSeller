@@ -21,7 +21,7 @@ const bannerPostSchema = mongoose.Schema({
     },
     createAt: {
         type: Date,
-        expires : '300s',
+        expires : '3d',
         default : Date.now
     }
 })

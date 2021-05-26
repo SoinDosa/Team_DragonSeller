@@ -195,6 +195,19 @@ router.post('/getProducts' ,(req, res) => {
         })
       }) 
     }
+})
+
+router.post('/modifyProduct/:id', (req,res) => {
+  Product.findById(req.params.id, (err, product) => {
+    if(err) return res.json({success: false, err})
+    Product.findByIdAndUpdate(req.params.id, req.body.product, (err, product) => {
+      if(err) return res.json({success:false, err})
+      res.json({success:true})
+    })
   })
+})
+
+
+  
 
 module.exports = router;
