@@ -95,11 +95,11 @@ function PaymentManagePage(props) {
     const renderCards = Products.map((item, index) => {
         console.log(item)
         return (
-                        <Item style={{display:'flex', marginBottom: '30px'}}>
+                        <Item style={{display:'flex', marginBottom: '30px', borderBottom:'solid #A4A4A4'}}>
                         <Item.Content>
                             <Item.Header>{item[0][0].name}</Item.Header>
                             <Item.Description>
-                                {item[1].line1}
+                            <span>상세주소: {item[1].line1}</span>    
                                 {item[1].line2}
                             </Item.Description>
                             {(item[2]).map((purchase)=>{

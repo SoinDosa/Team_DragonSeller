@@ -117,7 +117,6 @@ router.post('/getProducts' ,(req, res) => {
     let allItem = 0;
     let findArgs = {};
     let term = req.body.searchTerm;
-    
 
     
   //여기 고쳐야함.

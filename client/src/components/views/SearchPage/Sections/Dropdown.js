@@ -36,7 +36,7 @@ export default class AccordionExampleMenu extends Component {
       return (
         <div>
             <Dropdown
-                text='Price filter'
+                text={this.props.name}
                 floating    
                 labeled
                 button
@@ -45,7 +45,7 @@ export default class AccordionExampleMenu extends Component {
                 fluid
             >
                 <Dropdown.Menu>
-                    <Dropdown.Header icon='tags' content='Filter by price' />
+                    <Dropdown.Header icon='tags' content='Filter by' />
                     <Dropdown.Divider />
                     {
                         this.props.list.map((val) => (
