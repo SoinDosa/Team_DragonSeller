@@ -196,14 +196,14 @@ router.post('/getProducts' ,(req, res) => {
     }
 })
 
-router.post('/modifyProduct/:id', (req,res) => {
-  Product.findById(req.params.id, (err, product) => {
-    if(err) return res.json({success: false, err})
-    Product.findByIdAndUpdate(req.params.id, req.body.product, (err, product) => {
-      if(err) return res.json({success:false, err})
-      res.json({success:true})
+router.post('/modifyProduct', (req,res) => {
+    // 받아온 정보들을 db에 저장
+    const product = new Product(req.body)
+
+    product.save((err) => {
+      if(err) return res.status(400).json({ success: false, err })
+      return res.status(200).json({ success: true })
     })
-  })
 })
 
 
