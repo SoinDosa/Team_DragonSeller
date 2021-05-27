@@ -16,7 +16,7 @@ import {
   Visibility,
   Dropdown,
 } from 'semantic-ui-react'
-
+import { Link } from 'react-router-dom'
 
 import '../style/footer.css'
 
@@ -57,18 +57,19 @@ const FixedMenuLayout = () => (
       <Container textAlign='center'>
         <Divider inverted section />
         <List horizontal inverted divided link size='small'>
-          <List.Item as='a' href='#'>
-            사이트 맵
-            </List.Item>
-          <List.Item as='a' href='#'>
-            이용약관
-            </List.Item>
-          <List.Item as='a' href='#'>
-            개인정보 처리방침
-            </List.Item>
-          <List.Item as='a' href='#'>
-            팀 정보
-            </List.Item>
+
+          <List.Item as='a'>
+            <Link to="/sitemap">사이트맵</Link>
+          </List.Item>
+          <List.Item as='a'>
+            <Link to="/policy">이용약관</Link>
+          </List.Item>
+          <List.Item as='a'>
+            <Link to="/privacy">개인정보처리방침</Link>
+          </List.Item>
+          <List.Item as='a' >
+            <Link to="/teaminfo">팀 정보</Link>
+          </List.Item>
         </List>
         <p>
           서울과학기술대학교 컴퓨터공학과 소프트웨어공학 19팀 용팔이
