@@ -9,6 +9,10 @@ const couponSchema = mongoose.Schema({
         type: Number,
         default: 0
     },
+    couponsType: {
+        type: Number,
+        default: 1
+    }
 })
 
 const Coupon = mongoose.model('Coupon', couponSchema);
