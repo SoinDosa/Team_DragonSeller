@@ -86,13 +86,35 @@ const LogButton = (props) =>{
                 <Link to="/user/cart">
                 <Icon name="shopping cart"></Icon>
                 </Link>
-                
-                 <Link to= "/userpage"><Icon name="setting"
-/></Link> &nbsp;            <Button primary onClick={onClicLogoutkHandler}>Logout</Button>
+                 <Link to= "/userpage"><Icon name="setting"/></Link> &nbsp; 
+                     
+                 <Button primary onClick={onClicLogoutkHandler}>Logout</Button>
             </div>
         )        
 
-    }  
+    }
+    // else if(user.userData&& user.userData.isAuth){
+    //     console.log(name)
+    //     return (
+    //         <div>
+    //             {name}님 환영합니다!! &nbsp;
+    //             <Link to="/user/cart">
+    //             <Icon name="shopping cart"></Icon>
+    //             </Link>
+    //              <Link to= "/userpage"><Icon name="setting"/></Link> &nbsp;            <Button primary onClick={onClicLogoutkHandler}>Logout</Button>
+    //         </div>
+    //     )    
+    // }    
+//     else if(user.userData && user.userData.isAdmin){
+//         <div>
+//                 {name}님 환영합니다!! &nbsp;
+//                 <Link to="/user/cart">
+//                 <Icon name="shopping cart"></Icon>
+//                 </Link>
+//                  <Link to= "/adminpage"><Icon name="setting"
+// /></Link> &nbsp;            <Button primary onClick={onClicLogoutkHandler}>Logout</Button>
+//             </div>
+//     }  
 }   
     
 
