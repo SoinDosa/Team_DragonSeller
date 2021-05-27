@@ -12,7 +12,7 @@ app.use('/api/users', require('./routes/users'));
 app.use('/api/product', require('./routes/product'));
 app.use('/api/bannerPost', require('./routes/bannerPost'));
 app.use('/api/orderlist', require('./routes/payment'));
-
+app.use('/api/coupon', require('./routes/coupon'));
 const mongoose = require('mongoose')
 mongoose.connect(config.mongoURI ,
 {
