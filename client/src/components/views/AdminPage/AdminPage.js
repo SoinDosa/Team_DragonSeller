@@ -127,22 +127,10 @@ function AdminPage(props) {
                         <h1 align="center" style={{color: 'white'}}>관리자 설정 메뉴</h1>
                     </div>
                     <div className="menuwrapper">
+                        
                         <div className="menuwrapperitem">
                             <br/>
-                            공지 / 이벤트
-                            <form style={{ display: 'flex', flexDirection: 'column' }}>
-                                <br/>
-                                <div>
-                                    <Button color='olive'>추가</Button>
-                                </div>
-                                <div>
-                                    <Button color='orange'>수정</Button>
-                                </div>
-                            </form>
-                        </div>
-                        <div className="menuwrapperitem">
-                            <br/>
-                            Banner
+                            공지/이벤트/Banner
                             <form style={{ display: 'flex', flexDirection: 'column' }}>
                                 <br/>
                                 <div>
@@ -168,10 +156,17 @@ function AdminPage(props) {
                             <form style={{ display: 'flex', flexDirection: 'column' }}>
                                 <br/>
                                 <div>
-                                    <Button color='olive'>추가</Button>
+                                    <Link to='/payment'><Button color='orange'>관리</Button></Link>
                                 </div>
+                            </form>
+                        </div>
+                        <div className="menuwrapperitem">
+                            <br/>
+                            쿠폰 관리
+                            <form style={{ display: 'flex', flexDirection: 'column' }}>
+                                <br/>
                                 <div>
-                                    <Link to='/payment'><Button color='orange'>수정</Button></Link>
+                                    <Link to="/coupon"><Button color='orange'>관리</Button></Link>
                                 </div>
                             </form>
                         </div>
