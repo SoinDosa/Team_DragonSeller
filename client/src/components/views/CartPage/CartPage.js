@@ -64,6 +64,8 @@ function CartPage(props) {
                 if (response.payload.success) {
                     setShowTotal(false)
                     setShowSuccess(true)
+                    
+                    props.history.push('../history')
                 }
             })
     }
