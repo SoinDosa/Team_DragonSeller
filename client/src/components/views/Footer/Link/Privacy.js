@@ -1,18 +1,19 @@
-import Header from '../../Header/Header'
+import Header2 from '../../Header/Header'
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Message } from 'semantic-ui-react'
+import { Message, Header } from 'semantic-ui-react'
 
 function Privacy(props) {
     const dispatch = useDispatch();
     return (
         <div>
             <div>
-                <Header />
+                <Header2 />
             </div>
             <div>
-                <h1>개인정보처리방침</h1>
+                <Header as='h2' image='https://image.flaticon.com/icons/png/512/4104/4104794.png' content='개인정보처리방침' />
+
                 <Message>
                     <Message.Header>1. 개인정보의 처리 목적</Message.Header>
                     <Message.List>

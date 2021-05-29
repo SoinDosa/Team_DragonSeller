@@ -1,8 +1,8 @@
-import Header from '../../Header/Header'
+import Header2 from '../../Header/Header'
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
-import { List } from 'semantic-ui-react'
+import { List, Header } from 'semantic-ui-react'
 
 
 function SiteMap(props) {
@@ -11,11 +11,11 @@ function SiteMap(props) {
     return (
         <div>
             <div>
-                <Header />
+                <Header2 />
             </div>
             <div>
 
-                <div > <h1>사이트맵</h1> </div>
+                <Header as='h2' image='https://image.flaticon.com/icons/png/512/659/659999.png' content='사이트맵' />
                 <br></br>
                 <br></br>
                 <h3>내부 페이지</h3>
