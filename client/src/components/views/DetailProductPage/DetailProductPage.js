@@ -11,12 +11,17 @@ function DetailProductPage(props) {
     const productId = props.match.params.productId
 
     const [Product, setProduct] = useState({})
+    const [Total, setTotal] = useState(0)
+    const [Count, setCount] = useState(0)
+    const [ShowTotal, setShowTotal] = useState(false)
 
     useEffect(() => {
         axios.get(`/api/product/products_by_id?id=${productId}&type=single`)
             .then(response => {
                 console.log('response data : ', response.data);
-                setProduct(response.data.product[0])
+                setProduct(response.data.product[0]);
+                averageStar(response.data.product[0]);
+                
             })
             .catch(err => alert(err))
     }, [])
@@ -42,6 +47,20 @@ function DetailProductPage(props) {
             default : return ""
         }
     }
+
+    let averageStar = (Product) => {
+        let total = 0;
+        let count = 0;
+
+        Product.comment && Product.comment.map(item => {
+            total += parseInt(item.star)
+            count++;
+        })
+        let ans = total / count;
+        setTotal(ans.toFixed(1))
+        setShowTotal(true)
+    }
+    
 
     const renderComment = () => (
          Product.comment && Product.comment.map((product, index) => (
@@ -92,11 +111,12 @@ function DetailProductPage(props) {
            
             <ProductInfo detail={Product} />
             <br/>
+            <h3>상품의 평균 점수는 : {Total}점</h3>
+            <br/>
             <div style={{ justifyContent: 'center' }}>
                 {renderComment()}
             </div>
             <br/>
-            
             <ProductComment detail={Product} />
         </div>
     </div>
