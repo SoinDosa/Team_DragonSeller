@@ -83,6 +83,7 @@ function UploadBannerPage(props) {
         <div style={{maxWidth: '700px', margin: '2rem auto'}}>
             <div style={{textAlign: 'center', marginBottom: '2rem'}}>
                 <h2>배너 수정</h2>
+                <h3>수정 전 제목 : {Banner.title}</h3>
             </div>
 
             <Form onSubmit={updateHandler}>

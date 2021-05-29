@@ -103,6 +103,7 @@ function UploadProductPage(props) {
         <div style={{maxWidth: '700px', margin: '2rem auto'}}>
             <div style={{textAlign: 'center', marginBottom: '2rem'}}>
                 <h2>컴퓨터 상품 수정</h2>
+                <h3>수정 전 제목 : {Product.title}</h3>
             </div>
 
             <Form onSubmit={updateHandler}>
@@ -113,7 +114,7 @@ function UploadProductPage(props) {
                 <br />
                 <br />
                 <label>제품명</label>
-                <Input onChange={titleChangeHandler} value={Title}/>
+                <Input onChange={titleChangeHandler} defaultValue={Product.title} value={Title}/>
                 <br />
                 <br />
                 <label>설명</label>
