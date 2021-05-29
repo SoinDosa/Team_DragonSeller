@@ -66,10 +66,10 @@ router.post('/products', (req, res) => {
 // TODO : 코멘트용 라우터
 router.post('/addComment', auth ,(req, res) =>{
   // 카트 올리듯 Product의 comment에 push
+  // ㅇㅠ저 중복을 검사하기 위해서는 foreach로 유저 아이디를 전부 탐색하면 될 것 같다.
   Product.findOneAndUpdate(
     { _id: req.body.productId },
     {
-      // 이곳 넣는게 제대로 안된다
       $push: {
         comment: {
           id: req.body.productId,
@@ -80,8 +80,13 @@ router.post('/addComment', auth ,(req, res) =>{
         }
       }
     },
+    { new: true },
+    (err) => {
+      if (err) return res.status(400).json({ success: false, err })
+      else return res.status(200).json({ success: true })
+    }
   )
-  return res.status(200).json({ success: true })
+  
 })
 
 // 상세 페이지용

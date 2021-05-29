@@ -66,6 +66,7 @@ function ProductComment(props) {
                     //props.history.push('/')
                 } else {
                     alert("상품평 업로드중 오류 발생")
+                    console.log(response)
                 }
             })
     }
