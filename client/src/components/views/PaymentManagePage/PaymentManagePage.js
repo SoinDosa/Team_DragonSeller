@@ -95,6 +95,8 @@ function PaymentManagePage(props) {
     const renderCards = Products.map((item, index) => {
         console.log(item)
         return (
+            
+
                         <Item style={{display:'flex', marginBottom: '30px', borderBottom:'solid #A4A4A4'}}>
                         <Item.Content>
                             <Item.Header>{item[0][0].name}</Item.Header>
@@ -117,7 +119,7 @@ function PaymentManagePage(props) {
                         </Item.Content>
                         </Item>
      
-                )
+            )
     })
 
     //필터처리한 품목들 보여줌.

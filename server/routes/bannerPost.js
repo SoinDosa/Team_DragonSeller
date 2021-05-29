@@ -54,6 +54,14 @@ router.post('/', (req, res) => {
 	})
 })
 
+router.post('/updateBanner', (req, res) => {
+	BannerPost.findByIdAndUpdate({_id: req.body._id},
+		{title: req.body.title, contents: req.body.contents, bannerPart: req.body.bannerPart, images: req.body.images}, (err) => {
+			if(err) return res.status(400).json({success: false, err})
+			return res.status(200).json({success:true})
+		})
+})
+
 router.post('/deleteBanner', (req, res) => {
 	let bannerPostId = req.body._id
 

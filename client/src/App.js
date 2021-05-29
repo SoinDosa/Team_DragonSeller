@@ -32,6 +32,9 @@ import Privacy from './components/views/Footer/Link/Privacy';
 import SiteMap from './components/views/Footer/Link/SiteMap';
 import TeamInfo from './components/views/Footer/Link/TeamInfo';
 
+import UpdateBannerPage from './components/views/UploadBannerPage/UpdateBanner'
+import UpdateProductPage from './components/views/UploadProductPage/UpdateProduct'
+
 import 'semantic-ui-css/semantic.min.css'
 
 function App() {
@@ -73,6 +76,9 @@ function App() {
           <Route exact path="/privacy" component={Auth(Privacy, null)} />
           <Route exact path="/sitemap" component={Auth(SiteMap, null)} />
           <Route exact path="/teaminfo" component={Auth(TeamInfo,null)} />
+
+          <Route exact path="/banner/update/:bannerId" component={Auth(UpdateBannerPage, true)} />
+          <Route exact path="/product/update/:productId" component={Auth(UpdateProductPage, true)} />
 
         </Switch>
       </div>

@@ -95,6 +95,7 @@ function BannerCheckPage(props) {
                                 <Item.Header>{item.title}</Item.Header>
                                 <Item.Extra>
                                     <Button primary floated='right' onClick={() => {deleteHandler(item)}}>삭제</Button>
+                                    <Link to={`/banner/update/${item._id}`}><Button>수정</Button></Link>
                                 </Item.Extra>
                             </Item.Content>
                             </Item>
