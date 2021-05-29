@@ -14,7 +14,7 @@ function Privacy(props) {
             </div>
             <div>
 
-                <div > <h1>프라이버시</h1> </div>
+                <div > <h1>개인정보처리방침</h1> </div>
 
             </div>
         </div>

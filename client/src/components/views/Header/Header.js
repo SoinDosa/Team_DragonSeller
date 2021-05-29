@@ -60,7 +60,6 @@ class DesktopContainerHeader extends Component {
             vertical
           >
             <Menu
-              fixed={fixed ? 'top' : null}
               inverted={!fixed}
               pointing={!fixed}
               secondary={!fixed}
