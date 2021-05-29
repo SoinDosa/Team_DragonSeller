@@ -67,21 +67,25 @@ router.post('/getPayment', (req, res) => {
 		}
 	  }
 	Payment.find(findArgs)
-	  .exec((err,products) => {
-		allItem = products.length;
-	})
-	Payment.find(findArgs)
-		  .exec((err,payments) => {
+	.then((productAll) => {
+		return Promise.resolve(allItem = productAll.length)
+	}).then((result)=>{
+			Payment.find(findArgs)
+			.limit(limit)
+			.skip(skip)
+		    .exec((err,payments) => {
 			if(err) return res.status(400).json({success: false, err})
 			//console.log(payments)
 			
 			//환불은 어떻게?
 			payments.map(variable => {
-				datas.push([variable.user,variable.data[0].address,variable.product,variable._id, variable.buytime,variable.delivery])
+				datas.push([variable.user,variable.data[0].address,variable.product,variable._id, variable.buytime.toString(),variable.delivery, variable.totalPrice])
 
 			})
 			res.status(200).json({success:true, datas, allPage: allItem, postSize: datas.length})
+		})
 	})
+	
 })
 
 module.exports = router;

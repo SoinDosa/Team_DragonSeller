@@ -9,6 +9,15 @@ import axios from 'axios';
 import Sort from '../SearchPage/Sections/Sort'
 import {payment} from '../SearchPage/Sections/Datas'
 import DeliveryStep from '../HistoryPage/DeliveryStep'
+import 'react-date-range/dist/styles.css'; // main style file
+import 'react-date-range/dist/theme/default.css'; // theme css file
+import { DateRangePicker } from 'react-date-range';
+
+const selectionRange = {
+    startDate: new Date(),
+    endDate: new Date(),
+    key: 'selection',
+};
 
 function PaymentManagePage(props) {
     const [SearchTerms, setSearchTerms] = useState("")
@@ -16,7 +25,6 @@ function PaymentManagePage(props) {
     const [Limit, setLimit] = useState(8)
     const [Products, setProducts] = useState([])
     //post사이즈가 loadmore버튼 더이상 생기게 할 거 없으면 숨겨줌.
-    const [PostSize, setPostSize] = useState(0)
     const [ActivePage, setActivePage] = useState(1)
     const [Allpage, setAllpage] = useState(1)
     const [Filters, setFilters] = useState({
@@ -51,7 +59,7 @@ function PaymentManagePage(props) {
         .then(response => {
             if(response.data.success){
                 //여기 바꿔야될듯..?
-                if(response.data.datas.length>0){
+                if(variables.loadMore){
                     setProducts([...Products, ...response.data.datas])
                 }else{
                     setProducts(response.data.datas)
@@ -116,6 +124,7 @@ function PaymentManagePage(props) {
     const renderCards = Products.map((item, index) => {
         console.log(item)
         return (
+            <div>
             <Item style={{display:'flex', marginBottom: '30px', borderBottom:'solid #A4A4A4'}}>
             <Item.Content>
                 <Item.Header>{item[0][0].name}</Item.Header>
@@ -131,24 +140,35 @@ function PaymentManagePage(props) {
                         <Item.Description>
                             <span>제품명: {purchase.name}</span>
                             <br/>
+                            <span>개당가격: {purchase.price}</span>
+                            <br/>
                             <span>수량 : {purchase.quantity}</span>
+                            <br/>
                         </Item.Description>
                         )}
                     )
                 })
+                <Item.Description>
+                    <span>계산금액: {item[6]}</span>
+                </Item.Description>
                 <DeliveryStep step={item[5]}/>
-               
-                    {item[5]!==3 ?
+                    {
+                    item[5]===0 ?
+                        <Button onClick={() => {deliveryHander(item)}}>배송하기</Button> : null
+                    }
+                    
                      <Item.Extra>
-                        <Button onClick={() => {deliveryHander(item)}}>배송하기</Button>
+                     {item[5]===1 ?
                         <Button onClick={() => {completeHandler(item)}}>배송완료</Button>
+                        : null
+                    }
                         <Button primary floated='right' onClick={() => {deleteHandler(item)}}>삭제</Button>
                     </Item.Extra>
-                    : null
-                    }
+                   
                 
             </Item.Content>
             </Item>
+            </div>
             )
     })
 
@@ -180,11 +200,17 @@ function PaymentManagePage(props) {
         showFilteredResults(newFilters)
         setFilters(newFilters)
     }
+    function handleSelect(ranges){
+        console.log(ranges);
+      }
 
     return (
         
         <div>
             <Header/>
+            <DateRangePicker
+             ranges={[selectionRange]}
+             onChange={handleSelect}/>
             <div style={{display:'flex', justifyContent:'space-between'}}>
                 {/* Filter
                 <div style={{display:'flex'}}>
@@ -214,11 +240,11 @@ function PaymentManagePage(props) {
                 </Item.Group>  
             </div>
         }
-       {/* {
+       {
             <div style={{ justifyContent: 'center', display: 'flex'}}>
                 <Pagination defaultActivePage={1} totalPages={Allpage%8!==0 || Allpage===0 ? Math.ceil(Allpage/8) : Allpage/8} onPageChange={handlePaginationChange} />
              </div>
-        } */}
+        }
         
 
         </div>

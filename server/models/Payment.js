@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-var d = new Date(Date.now())
 const paymentSchema = mongoose.Schema({
     user: {
         type: Array,
@@ -15,12 +14,16 @@ const paymentSchema = mongoose.Schema({
         default: []
     },
     buytime: {
-        type: String,
-        default: d.toString()
+        type: Date,
+        default: Date.now()
     },
     delivery: {
         type: Number,
         default: 0
+    },
+    totalPrice: {
+        type: Number,
+        default:0
     }
 }, { timestamps: true })
 
