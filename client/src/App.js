@@ -27,6 +27,11 @@ import UserPage from './components/views/UserPage/UserPage';
 import HistoryPage from './components/views/HistoryPage/HistoryPage';
 import PaymentManagePage from './components/views/PaymentManagePage/PaymentManagePage'
 import CouponPage from './components/views/CouponPage/Coupon';
+import Policy from './components/views/Footer/Link/Policy';
+import Privacy from './components/views/Footer/Link/Privacy';
+import SiteMap from './components/views/Footer/Link/SiteMap';
+import TeamInfo from './components/views/Footer/Link/TeamInfo';
+
 import 'semantic-ui-css/semantic.min.css'
 
 function App() {
@@ -41,11 +46,11 @@ function App() {
           of them to render at a time
         */}
         <Switch>
-          <Route exact path="/" component={Auth(LandingPage, null )  } />
-          <Route exact path="/login" component={Auth(LoginPage, false) } />
+          <Route exact path="/" component={Auth(LandingPage, null)} />
+          <Route exact path="/login" component={Auth(LoginPage, false)} />
           <Route exact path="/register" component={Auth(RegisterPage, false)} />
           <Route exact path="/userpage" component={Auth(UserPage, true)} />
-          <Route exact path="/product/revise" component={Auth(ProductRevisePage, true, true)}/>
+          <Route exact path="/product/revise" component={Auth(ProductRevisePage, true, true)} />
           <Route exact path="/product/upload" component={Auth(UploadProductPage, true, true)} />
           <Route exact path="/product/:productId" component={Auth(DetailProductPage, null)} />
           <Route exact path="/search" component={SearchPage} />
@@ -63,10 +68,16 @@ function App() {
           <Route exact path="/payment" component={Auth(PaymentManagePage,true,true)}/>
           <Route exact path="/coupon" component={Auth(CouponPage, true, true)} />
           
+          <Route exact path="/banner/revise" component={Auth(BannerCheckPage, true, true)} />
+          <Route exact path="/policy" component={Policy} />
+          <Route exact path="/privacy" component={Privacy} />
+          <Route exact path="/sitemap" component={SiteMap} />
+          <Route exact path="/teaminfo" component={TeamInfo} />
+
         </Switch>
       </div>
       <div>
-        <Footer/>
+        <Footer />
       </div>
     </Router>
   );

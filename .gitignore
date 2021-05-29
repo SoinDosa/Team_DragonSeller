@@ -4,3 +4,4 @@ node_modules
 
 /server/config/dev.js
 .env
+server/.env.env
