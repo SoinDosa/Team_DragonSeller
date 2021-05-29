@@ -3,12 +3,16 @@ const Schema = mongoose.Schema;
 
 const requireSchema = new mongoose.Schema({
     title: {
-        type : String,
-        maxlength : 50,
+        type: String,
+        maxlength: 50,
         required: true
     },
+    writer: {
+        type: String,
+        maxlength: 50,
+    },
     requirePart: {
-        type : Number,
+        type: Number,
         default: 1
     },
     description: {
@@ -17,12 +21,15 @@ const requireSchema = new mongoose.Schema({
     },
     createAt: {
         type: Date,
-        expires : '300s',
-        default : Date.now
+        default: Date.now
     },
     answer: {
-        type : Number,
+        type: Number,
         default: 1
+    },
+    comment: {
+        type: String,
+        maxlength: 400,
     },
 }, { timestamps: true })
 
