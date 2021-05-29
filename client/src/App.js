@@ -12,7 +12,8 @@ import RegisterPage from './components/views/RegisterPage/RegisterPage';
 import UploadProductPage from './components/views/UploadProductPage/UploadProductPage';
 import DetailProductPage from './components/views/DetailProductPage/DetailProductPage';
 import SearchPage from './components/views/SearchPage/SearchPage';
-import ProductRevisePage from './components/views/SearchPage/ProductRevisePage'
+import ProductRevisePage from './components/views/SearchPage/ProductRevisePage';
+import RequirePage from './components/views/RequirePage/RequirePage';
 import CartPage from './components/views/CartPage/CartPage';
 import FindIDPage from './components/views/FindPage/FindID';
 import FindPWPage from './components/views/FindPage/FindPasswd';
@@ -46,6 +47,7 @@ function App() {
           <Route exact path="/userpage" component={Auth(UserPage, true)} />
           <Route exact path="/product/revise" component={Auth(ProductRevisePage, true, true)}/>
           <Route exact path="/product/upload" component={Auth(UploadProductPage, true, true)} />
+          <Route exact path="/require" component={Auth(RequirePage, true)} />
           <Route exact path="/product/:productId" component={Auth(DetailProductPage, null)} />
           <Route exact path="/search" component={SearchPage} />
           <Route exact path="/user/cart" component={Auth(CartPage, true)} />
