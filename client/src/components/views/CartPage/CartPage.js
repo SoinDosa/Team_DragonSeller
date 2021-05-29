@@ -57,7 +57,8 @@ function CartPage(props) {
     const transactionSuccess = (data) => {
         dispatch(onSuccessBuy({
             paymentData: data,
-            cartDetail: props.user.cartDetail
+            cartDetail: props.user.cartDetail,
+            totalPrice: Total
         }))
             .then(response => {
                 if (response.payload.success) {

@@ -132,6 +132,7 @@ function PaymentManagePage(props) {
                             <span>제품명: {purchase.name}</span>
                             <br/>
                             <span>수량 : {purchase.quantity}</span>
+                            <br/>
                         </Item.Description>
                         )}
                     )

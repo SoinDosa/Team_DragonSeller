@@ -21,6 +21,9 @@ const paymentSchema = mongoose.Schema({
     delivery: {
         type: Number,
         default: 0
+    },
+    totalPrice: {
+        type: Number
     }
 }, { timestamps: true })
 

@@ -341,6 +341,7 @@ router.post('/successBuy', auth, (req, res) => {
 
     transactionData.data = req.body.paymentData
     transactionData.product = history
+	transactionData.totalPrice = req.body.totalPrice
 
     //history 정보 저장 
     User.findOneAndUpdate(
