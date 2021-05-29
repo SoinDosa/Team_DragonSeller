@@ -22,6 +22,10 @@ const productSchema = mongoose.Schema({
         type: Number,
         default: 0
     },
+    deliverPrice: {
+        type: Number,
+        default: 0
+    },
     images: {
         type: Array,
         default: []
