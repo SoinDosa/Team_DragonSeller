@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux';
 import { findPwUser } from '../../../_actions/user_action';
 import { withRouter } from 'react-router-dom';
 import { Button, Form, Input, Image } from 'semantic-ui-react';
+import { Link } from 'react-router-dom'
+
 
 
 function FindPWPage(props) {
@@ -53,12 +55,13 @@ function FindPWPage(props) {
                 display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '0 auto'
                 , width: '400px', height: '100vh', flexDirection: 'column', background: 'white'
             }}>
-                <Image
-                    src="https://i.ibb.co/YcVkJPH/FINDPW.png"
-                    as='a'
-                    size='medium'
-                    href='../'
-                />
+                <Link to="/login">
+                    <Image
+                        src="https://i.ibb.co/YcVkJPH/FINDPW.png"
+                        as='a'
+                        size='medium'
+                    />
+                </Link>
                 <Form style={{ display: 'flex', flexDirection: 'column', marginTop: '50px' }}
                     onSubmit={onSubmitHandler}>
 

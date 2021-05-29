@@ -1,8 +1,8 @@
-import Header from '../../Header/Header'
+import Header2 from '../../Header/Header'
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Message } from 'semantic-ui-react'
+import { Message, Header } from 'semantic-ui-react'
 
 
 function Policy(props) {
@@ -11,10 +11,11 @@ function Policy(props) {
     return (
         <div>
             <div>
-                <Header />
+                <Header2 />
             </div>
             <div>
-                <h1>   이용약관</h1>
+                <Header as='h2' image='https://image.flaticon.com/icons/png/512/3076/3076707.png' content='이용약관' />
+
                 <Message>
                     <Message.Header>제1조(목적)</Message.Header>
                     <Message.List>
