@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { registerUser, loginUser, checkIdUser, checkEmailUser } from '../../../_actions/user_action';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import Header from '../Header/Header'
 import { Form, Input, Image, Button } from 'semantic-ui-react'
 import { IoT1ClickDevicesService } from 'aws-sdk';
@@ -43,8 +43,8 @@ function RegisterPage(props) {
         let body = {
             id: Id
         }
-        
-        if(!Id) {
+
+        if (!Id) {
             return alert('아이디를 적어주세요!')
         }
         dispatch(checkIdUser(body))
@@ -52,32 +52,32 @@ function RegisterPage(props) {
                 if (response.payload.checkId) {
                     console.log(response)
                     console.log(response.payload)
-                   alert('아이디가 이미 존재합니다.')
-                } else{
+                    alert('아이디가 이미 존재합니다.')
+                } else {
                     console.log(response)
                     console.log(response.payload)
                     alert("사용 가능한 아이디 입니다.")
                 }
             }
-        )
+            )
     }
 
     function validateEmail(email) {
         var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
         return re.test(email);
-        }
+    }
 
     const onCheckEmailHandler = (event) => {
         event.preventDefault();
-        
+
         let body = {
             email: Email
         }
-        
-        if(!Email) {
+
+        if (!Email) {
             return alert('이메일을 적어주세요!')
         }
-        if(!validateEmail(Email)){
+        if (!validateEmail(Email)) {
             return alert('잘못된 이메일 형식')
         }
         dispatch(checkEmailUser(body))
@@ -85,14 +85,14 @@ function RegisterPage(props) {
                 if (response.payload.checkEmail) {
                     console.log(response)
                     console.log(response.payload)
-                   alert('이메일이 이미 존재합니다.')
-                } else{
+                    alert('이메일이 이미 존재합니다.')
+                } else {
                     console.log(response)
                     console.log(response.payload)
                     alert("사용 가능한 이메일 입니다.")
                 }
             }
-        )
+            )
     }
 
     const onSubmitHandler = (event) => {
@@ -141,16 +141,16 @@ function RegisterPage(props) {
                 display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '0 auto'
                 , width: '400px', height: '100vh', flexDirection: 'column', background: 'white'
             }}>
-
-                <Image
-                    src="https://i.ibb.co/pvF1cCf/REGISTER.png"
-                    as='a'
-                    size='medium'
-                    href='../'
-                />
+                <Link to="">
+                    <Image
+                        src="https://i.ibb.co/pvF1cCf/REGISTER.png"
+                        as='a'
+                        size='medium'
+                    />
+                </Link>
 
                 <Form style={{ display: 'flex', flexDirection: 'column', marginTop: '50px' }}
-                    // onSubmit={onSubmitHandler}
+                // onSubmit={onSubmitHandler}
                 >
                     <Form.Field
                         id={Email}
@@ -165,7 +165,7 @@ function RegisterPage(props) {
                         control={Input}
                         placeholder='이름'
                         onChange={onNameHandler}
-                    /> 
+                    />
                     <Form.Field
                         id={Id}
                         control={Input}
@@ -189,8 +189,8 @@ function RegisterPage(props) {
                     />
                     <br />
                     <input type="submit" color='black' value="회원가입" onClick={onSubmitHandler} />
-                        {/* <a style={{ color: "white" }}>회원가입</a> */}
-                    
+                    {/* <a style={{ color: "white" }}>회원가입</a> */}
+
                 </Form>
             </div>
         </div >
