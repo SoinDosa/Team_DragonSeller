@@ -11,6 +11,8 @@ import {
     FIND_ID_USER,
     FIND_PW_USER,
     CHANGE_PW_USER,
+    CHECK_ID_USER,
+    CHECK_EMAIL_USER,
 } from '../_actions/types';
 
 export default function (state = {}, action) {
@@ -38,6 +40,12 @@ export default function (state = {}, action) {
             break;
         case AUTH_ADMIN:
             return { ...state, userData: action.payload}
+            break;
+        case CHECK_ID_USER:
+            return { ...state, checkIdSuccess: action.payload }
+            break;
+        case CHECK_EMAIL_USER:
+            return { ...state, checkIdSuccess: action.payload }
             break;
         case ADD_TO_CART:
             return {

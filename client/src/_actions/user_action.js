@@ -12,9 +12,12 @@ import {
     FIND_ID_USER,
     FIND_PW_USER,
     CHANGE_PW_USER,
+    CHECK_ID_USER,
+    CHECK_EMAIL_USER,
 } from './types';
 
 import { USER_SERVER } from '../Config';
+// import { response } from 'express';
 
 export function loginUser(dataToSubmit) {
 
@@ -49,9 +52,36 @@ export function registerUser(dataToSubmit) {
     }
 }
 
+export function checkIdUser(dataToSubmit) {
+
+    const request = axios.post('/api/users/check_id', dataToSubmit)
+        .then(response => response.data)
+
+    return {
+        type : CHECK_ID_USER,
+        payload: request
+    }
+}
+
+export function checkEmailUser(dataToSubmit) {
+
+    const request = axios.post('/api/users/check_email', dataToSubmit)
+        .then(response => response.data)
+
+    return {
+        type : CHECK_EMAIL_USER,
+        payload: request
+    }
+}
+
 export function findIdUser(dataToSubmit) {
 
-    const request = axios.post('/api/users/find_id', dataToSubmit)
+    const request = axios.post('/api/users/find_id', dataToSubmit, {
+        validateStatus: function (status) {
+          // 상태 코드가 500 이상일 경우 거부. 나머지(500보다 작은)는 허용.
+          return status < 500;
+        }
+      })
         .then(response => response.data)
 
     return {

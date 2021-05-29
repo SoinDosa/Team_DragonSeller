@@ -19,7 +19,15 @@ function BannerDetailPage(props) {
             })
             .catch(err => alert(err))
     }, [])
-
+    const whichPart = (value) => {
+        switch(value){
+            case 1: return "공지사항"
+            break;
+            case 2: return "이벤트"
+            break;
+            default : return ""
+        }
+    }
 
 
     return (
@@ -31,7 +39,8 @@ function BannerDetailPage(props) {
             </div>
             
             <br />
-            <Descriptions title={Banner.title}>
+            <Descriptions title={whichPart(Banner.bannerPart)}/>
+            <Descriptions title={`제목 : ${Banner.title}`}>
                     <Descriptions.Item labels="Description">{Banner.contents}</Descriptions.Item>
                     <br/>
             </Descriptions>

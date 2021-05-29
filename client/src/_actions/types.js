@@ -10,3 +10,5 @@ export const ON_SUCCESS_BUY = 'on_success_buy';
 export const FIND_ID_USER = "find_id_user";
 export const FIND_PW_USER = "find_pw_user";
 export const CHANGE_PW_USER = "change_pw_user";
+export const CHECK_ID_USER = "check_id_user";
+export const CHECK_EMAIL_USER = "check_email_user";

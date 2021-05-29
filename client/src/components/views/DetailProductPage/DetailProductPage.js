@@ -21,6 +21,27 @@ function DetailProductPage(props) {
             .catch(err => alert(err))
     }, [])
 
+    const whichPart = (value) => {
+        switch(value){
+            case 1: return "CPU"
+            break;
+            case 2: return "GPU"
+            break;
+            case 3: return "MOTHERBOARD"
+            break;
+            case 4: return "RAM"
+            break;
+            case 5: return "SSD"
+            break;
+            case 6: return "HDD"
+            break;
+            case 7: return "POWER"
+            break;
+            case 8: return "CASE"
+            break;
+            default : return ""
+        }
+    }
 
     const renderComment = () => (
          Product.comment && Product.comment.map((product, index) => (
@@ -50,7 +71,10 @@ function DetailProductPage(props) {
                         </Table.Row>
                     </Table.Header>
 
-                <Table.Body>
+                <Table.Body>                        
+                    <Table.Row align="center">
+                        <Table.HeaderCell colSpan='2' >{whichPart(Product.computerPart)}</Table.HeaderCell>
+                    </Table.Row>
                     <Table.Row>
                         <Table.Cell collapsing>
                             <Icon name='folder' /> 가격
