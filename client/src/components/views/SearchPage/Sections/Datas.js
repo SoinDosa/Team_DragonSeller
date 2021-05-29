@@ -126,11 +126,30 @@ const sortTime = [
         "name": "가장오래된"
     }
 ]
+const delivery = [
+    {
+        "_id" : 0,
+        "name" : "결제완료"
+    },
+    {
+        "_id" : 1,
+        "name" : "배송중"
+    },
+    {
+        "_id" : 2,
+        "name" : "배송완료"
+    },
+    {
+        "_id" : 3,
+        "name" : "구매확정"
+    },
+]
 export {
     price,
     computerPart,
     sortBy,
     payment,
     bannerPart,
-    sortTime
+    sortTime,
+    delivery
 }

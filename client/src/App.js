@@ -27,6 +27,7 @@ import UserPage from './components/views/UserPage/UserPage';
 import HistoryPage from './components/views/HistoryPage/HistoryPage';
 import PaymentManagePage from './components/views/PaymentManagePage/PaymentManagePage'
 import CouponPage from './components/views/CouponPage/Coupon';
+import DetailHistoryPage from './components/views/HistoryPage/DetailHistoryPage'
 import 'semantic-ui-css/semantic.min.css'
 
 function App() {
@@ -55,11 +56,12 @@ function App() {
           <Route exact path="/changePw" component={Auth(ChangePWPage, true)} />
           <Route exact path="/banner/upload" component={Auth(UploadBannerPage, true, true)} />
 
-          
+
           <Route exact path="/adminpage" component={Auth(AdminPage, true, true)} />
           <Route exact path="/history" component={Auth(HistoryPage, true)} />
+          <Route exact path="/history/:historyId" component={Auth(DetailHistoryPage, true)}/>
           <Route exact path="/banner/revise" component={Auth(BannerCheckPage, true, true)}/>
-          <Route exact path="/banner/:bannerId" component={Auth(BannerDetailPage, null)} />
+          <Route exact path="/banner/:bannerId" component={Auth(BannerDetailPage, null)}/>
           <Route exact path="/payment" component={Auth(PaymentManagePage,true,true)}/>
           <Route exact path="/coupon" component={Auth(CouponPage, true, true)} />
           
