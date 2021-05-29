@@ -34,7 +34,11 @@ const productSchema = mongoose.Schema({
     views: {
         type: Number,
         default: 0
-    }
+    },
+    comment: {
+        type: Array,
+        default: []
+    },
 }, { timestamps: true })
 
 productSchema.index({

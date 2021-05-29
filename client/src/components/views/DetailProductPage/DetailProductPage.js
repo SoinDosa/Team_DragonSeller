@@ -4,7 +4,8 @@ import { Descriptions } from 'antd'
 import ProductImage from './Sections/ProductImage';
 import ProductInfo from './Sections/ProductInfo';
 import Header from '../Header/Header';
-import { Table, TransitionablePortal, Icon} from 'semantic-ui-react'
+import { Table, TransitionablePortal, Rating,Icon} from 'semantic-ui-react'
+import ProductComment from './Sections/ProductComment';
 function DetailProductPage(props) {
 
     const productId = props.match.params.productId
@@ -42,6 +43,19 @@ function DetailProductPage(props) {
         }
     }
 
+    const renderComment = () => (
+         Product.comment && Product.comment.map((product, index) => (
+            <p key={index}>
+                총점<Rating icon="star" defaultRating={product.star} maxRating={5} disabled/> <br/>
+                추천도<Rating icon="star" defaultRating={product.chuchan} maxRating={5} disabled/> <br/>
+                배달속도<Rating icon="star" defaultRating={product.delivery} maxRating={5} disabled/> <br/>
+                {product.comment}
+            </p>
+        )  
+        )
+    )
+
+
     return (
         <div>
             <Header/>
@@ -77,7 +91,13 @@ function DetailProductPage(props) {
             </Table>
            
             <ProductInfo detail={Product} />
+            <br/>
+            <div style={{ justifyContent: 'center' }}>
+                {renderComment()}
+            </div>
+            <br/>
             
+            <ProductComment detail={Product} />
         </div>
     </div>
     )
