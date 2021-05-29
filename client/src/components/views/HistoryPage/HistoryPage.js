@@ -106,7 +106,8 @@ const HistoryPage = (props)=> {
                         return (
                             <Item.Description style={{borderBottom:'solid #D8D8D8'}}>
                                 <div>
-                                    <span>제품명: {purchase.name} <span>{item[5]===2 || item[5]===3? <Link to={`/history/${purchase.id}`}><Button primary floated='right'>후기</Button></Link> :null}</span></span>
+                                    <span>제품명: {purchase.name} <span>{item[5]===2 || item[5]===3? 
+                                    <Link to={`/product/${purchase.id}`}><Button primary floated='right'>후기</Button></Link> :null}</span></span>
                                     <br/>
                                     <span>수량 : {purchase.quantity}</span>
                                 </div>
