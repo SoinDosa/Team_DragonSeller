@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Typography, Button, Form, Input} from 'antd';
 import axios from 'axios';
+import { withRouter } from 'react-router-dom';
 
 const stars = [
     {key:1, value: "1점"},
@@ -11,19 +12,19 @@ const stars = [
 ]
 
 const chuchans = [
-    {key:1, value: "존재해서는 안될 상품"},
-    {key:2, value: "비추천"},
-    {key:3, value: "보통"},
-    {key:4, value: "추천"},
-    {key:5, value: "적극추천"},
+    {key:1, value: "1점"},
+    {key:2, value: "2점"},
+    {key:3, value: "3점"},
+    {key:4, value: "4점"},
+    {key:5, value: "5점"},
 ]
 
 const deliverys = [
-    {key:1, value: "속도=0"},
-    {key:2, value: "느림"},
-    {key:3, value: "보통"},
-    {key:4, value: "빠름"},
-    {key:5, value: "미사일"},
+    {key:1, value: "1점"},
+    {key:2, value: "2점"},
+    {key:3, value: "3점"},
+    {key:4, value: "4점"},
+    {key:5, value: "5점"},
 ]
 
 function ProductComment(props) {
@@ -55,6 +56,7 @@ function ProductComment(props) {
             star: star,
             chuchan: chuchan,
             delivery: delivery,
+            comment: Comment,
         }
 
 
@@ -63,7 +65,7 @@ function ProductComment(props) {
                 if(response.data.success){
                     alert("상품평이 등록되었습니다")
                     console.log(body)
-                    //props.history.push('/')
+                    window.location.reload()
                 } else {
                     alert("상품평 업로드중 오류 발생")
                     console.log(response)
@@ -74,21 +76,25 @@ function ProductComment(props) {
     return (
         <div>
             <Form onSubmit={commentSubmitHandler}>
+                
                 <select onChange={starChangeHandler} value={star}>
                     {stars.map(item => (
                         <option key={item.key} value={item.key}>{item.value}</option> 
                     ))}
                 </select>
+                별점<br/>
                 <select onChange={chuchanChangeHandler} value={chuchan}>
                     {chuchans.map(item => (
                         <option key={item.key} value={item.key}>{item.value}</option> 
                     ))}
                 </select>
+                추천하시나요<br/>
                 <select onChange={deliveryChangeHandler} value={delivery}>
                     {deliverys.map(item => (
                         <option key={item.key} value={item.key}>{item.value}</option> 
                     ))}
                 </select>
+                배달은 어떤가요<br/>
 
 
 
@@ -101,4 +107,4 @@ function ProductComment(props) {
     )
 }
 
-export default ProductComment
+export default withRouter(ProductComment)

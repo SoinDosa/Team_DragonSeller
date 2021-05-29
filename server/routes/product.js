@@ -73,6 +73,7 @@ router.post('/addComment', auth ,(req, res) =>{
       $push: {
         comment: {
           id: req.body.productId,
+          comment : req.body.comment,
           star: req.body.star,
           chuchan: req.body.chuchan,
           delivery: req.body.delivery,
