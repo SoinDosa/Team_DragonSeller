@@ -1,25 +1,22 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect} from 'react';
+import { useDispatch } from 'react-redux';
+import { getCoupon } from '../../../_actions/user_action';
+const s3path = 'https://seonhwi.s3.amazonaws.com/';
 
-function Coupon({ coupon, onRemove }) {
-    return (
-      <div>
-          <ui>
-              <li><b>{coupon.couponname}</b><button onClick={() => onRemove(coupon.id)}>삭제</button></li>
-              
-          </ui>
-        
-      </div>
-    );
-  }
 
-  function CouponList({ coupons, onRemove }) {
-    return (
-      <div>
-        {coupons.map(coupon => (
-          <Coupon coupon={coupon} key={coupon.id}  onRemove={onRemove}/>
-        ))}
-      </div>
-    );
-  }
+function CouponList(props){
 
-  export default CouponList;
+  // const dispath = useDispatch();
+
+  // useEffect(() => {
+  //   axios.get('/api/coupon/getCoupon')
+  // })
+
+  // const rederCoupon = () => (
+   
+  // )
+
+}
+
+ export default CouponList;
