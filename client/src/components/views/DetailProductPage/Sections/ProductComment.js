@@ -59,6 +59,10 @@ function ProductComment(props) {
             comment: Comment,
         }
 
+        if(Comment.length < 5){
+            alert("상품평은 5자 이상으로 써 주세요")
+            return;
+        }
 
         axios.post("/api/product/addComment", body)
             .then(response => {
