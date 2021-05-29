@@ -1,8 +1,9 @@
 import React, { useState, Component } from 'react'
 import { useDispatch } from 'react-redux';
 import { findIdUser } from '../../../_actions/user_action';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { Button, Form, Input, Image } from 'semantic-ui-react';
+
 
 
 function FindIDPage(props) {
@@ -48,12 +49,13 @@ function FindIDPage(props) {
                 display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '0 auto'
                 , width: '400px', height: '100vh', flexDirection: 'column', background: 'white'
             }}>
-                <Image
-                    src="https://i.ibb.co/jf54gZ5/FINDID.png"
-                    as='a'
-                    size='medium'
-                    href='../'
-                />
+                <Link to="/login">
+                    <Image
+                        src="https://i.ibb.co/jf54gZ5/FINDID.png"
+                        as='a'
+                        size='medium'
+                    />
+                </Link>
                 <Form style={{ display: 'flex', flexDirection: 'column', marginTop: '50px' }}
                     onSubmit={onSubmitHandler}>
                     <Form.Field

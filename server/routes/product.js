@@ -115,6 +115,14 @@ router.get('/products_by_id', (req, res) => {
   })
 })
 
+router.post('/updateProduct', (req, res) => {
+	Product.findByIdAndUpdate({_id: req.body._id},
+		{title: req.body.title, description: req.body.description, price: req.body.price, images: req.body.images, computerPart: req.body.computerPart}, (err) => {
+			if(err) return res.status(400).json({success: false, err})
+			return res.status(200).json({success:true})
+		})
+})
+
 router.get('/getNewProducts', (req, res) => {
   Product.find()
   .sort({'_id': -1})
@@ -146,7 +154,6 @@ router.post('/getProducts' ,(req, res) => {
     let allItem = 0;
     let findArgs = {};
     let term = req.body.searchTerm;
-    
 
     
   //여기 고쳐야함.
@@ -224,6 +231,10 @@ router.post('/getProducts' ,(req, res) => {
         })
       }) 
     }
-  })
+})
+
+
+
+  
 
 module.exports = router;

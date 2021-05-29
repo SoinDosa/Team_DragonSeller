@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+
+var d = new Date(Date.now())
 const paymentSchema = mongoose.Schema({
     user: {
         type: Array,
@@ -14,9 +16,8 @@ const paymentSchema = mongoose.Schema({
     },
     buytime: {
         type: String,
-        default: Date.now
+        default: d.toString()
     }
-
 }, { timestamps: true })
 
 const Payment = mongoose.model('Payment', paymentSchema);

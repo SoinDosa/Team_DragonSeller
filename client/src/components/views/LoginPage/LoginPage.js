@@ -61,12 +61,13 @@ function LoginPage(props) {
                 display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '0 auto'
                 , width: '400px', height: '100vh', flexDirection: 'column', background: 'white'
             }}>
-                <Image
-                    src="https://i.ibb.co/84GnTjM/LOGIN.png"
-                    as='a'
-                    size='medium'
-                    href='../'
-                />
+                <Link to="/">
+                    <Image
+                        src="https://i.ibb.co/84GnTjM/LOGIN.png"
+                        as='a'
+                        size='medium'
+                    />
+                </Link>
                 <Form style={{ display: 'flex', flexDirection: 'column', marginTop: '50px' }}
                     onSubmit={onSubmitHandler}>
                     <Form.Field
@@ -88,7 +89,7 @@ function LoginPage(props) {
                     </Button>
                     <br />
                     <div >
-                        <a href="../register" style={{ color: "black" }} >회원가입</a> |<a href="../findId" style={{ color: "black" }}> 아이디 찾기</a> |<a href="../findPw" style={{ color: "black" }}> 비밀번호 찾기</a>
+                        <a style={{ color: "black" }} > <Link to="/register"> 회원가입 </Link></a>|<a style={{ color: "black" }}> <Link to="/findId"> 아이디 찾기 </Link></a> |<a style={{ color: "black" }}> <Link to="/findPw"> 비밀번호 찾기 </Link></a>
                     </div>
                 </Form>
             </div>
