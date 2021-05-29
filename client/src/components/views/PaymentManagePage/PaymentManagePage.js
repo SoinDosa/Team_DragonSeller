@@ -137,13 +137,16 @@ function PaymentManagePage(props) {
                 </Item.Description>
                 {(item[2]).map((purchase)=>{
                     return (
-                        <Item.Description>
-                            <span>제품명: {purchase.name}</span>
-                            <br/>
-                            <span>개당가격: {purchase.price}</span>
-                            <br/>
-                            <span>수량 : {purchase.quantity}</span>
-                            <br/>
+                        <Item.Description style={{borderBottom:'solid #D8D8D8'}}>
+                            <div>
+                                    <span>제품명: {purchase.name} <span>{item[5]===2 || item[5]===3? 
+                                    <Link to={`/product/${purchase.id}`}><Button primary floated='right'>후기확인</Button></Link> :null}</span>
+                                    </span>
+                                    <br/>
+                                    <span>가격{purchase.price}</span>
+                                    <br/>
+                                    <span>수량 : {purchase.quantity}</span>
+                                </div>
                         </Item.Description>
                         )}
                     )
@@ -152,13 +155,12 @@ function PaymentManagePage(props) {
                     <span>계산금액: {item[6]}</span>
                 </Item.Description>
                 <DeliveryStep step={item[5]}/>
+                     <Item.Extra>
                     {
                     item[5]===0 ?
                         <Button onClick={() => {deliveryHander(item)}}>배송하기</Button> : null
                     }
-                    
-                     <Item.Extra>
-                     {item[5]===1 ?
+                    {item[5]===1 ?
                         <Button onClick={() => {completeHandler(item)}}>배송완료</Button>
                         : null
                     }
