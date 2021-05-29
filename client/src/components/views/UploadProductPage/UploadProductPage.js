@@ -22,6 +22,7 @@ function UploadProductPage(props) {
     const [Title, setTitle] = useState("")
     const [Description, setDescription] = useState("")
     const [Price, setPrice] = useState(0)
+    const [DeliverPrice, setDeliverPrice] = useState(0)
     const [ComputerPart, setComputerPart] = useState(1)
 
     const [Images, setImages] = useState([])
@@ -36,6 +37,9 @@ function UploadProductPage(props) {
 
     const priceChangeHandler = (event) => {
         setPrice(event.currentTarget.value)
+    }
+    const deliverPriceChangeHandler = (event) => {
+        setDeliverPrice(event.currentTarget.value)
     }
 
     const partsChangeHandler = (event) => {
@@ -60,7 +64,7 @@ function UploadProductPage(props) {
             return alert("정말 상품이 4글자 조차 안되나요?")
         }
 
-        if(Images.length == 0 || !Title || !Description || !Price || !ComputerPart) {
+        if(Images.length == 0 || !Title || !Description || !Price || !DeliverPrice || !ComputerPart) {
             return alert("왜 값을 채우지 않은 것이지?")
         }
 
@@ -71,6 +75,7 @@ function UploadProductPage(props) {
             title: Title,
             description: Description,
             price: Price,
+            deliverPrice: DeliverPrice,
             computerPart: ComputerPart,
             images: Images
         }
@@ -110,6 +115,10 @@ function UploadProductPage(props) {
                 <br />
                 <label>가격($-달러)</label>
                 <Input type="number" onChange={priceChangeHandler} value={Price}/>
+                <br />
+                <br />
+                <label>배송비($-달러)</label>
+                <Input type="number" onChange={deliverPriceChangeHandler} value={DeliverPrice}/>
                 <br />
                 <br />
                 <select onChange={partsChangeHandler} value={ComputerPart}>
