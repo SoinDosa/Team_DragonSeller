@@ -7,6 +7,8 @@ require('dotenv').config()
 const fs = require('fs')
 const S3 = require('aws-sdk/clients/s3')
 
+const { auth } = require("../middleware/auth")
+
 const bucketName = process.env.AWS_BUCKET_NAME
 const region = process.env.AWS_BUCKET_REGION
 const accessKeyId = process.env.AWS_ACCESS_KEY
@@ -45,7 +47,6 @@ router.post('/', (req, res) => {
 
   // 받아온 정보들을 db에 저장
   const product = new Product(req.body)
-
   product.save((err) => {
     if(err) return res.status(400).json({ success: false, err })
     return res.status(200).json({ success: true })
@@ -60,6 +61,32 @@ router.post('/products', (req, res) => {
       if(err) return res.status(400).json({ success: false, err })
       return res.status(200).json({ success: true, productInfo})
     })
+})
+// TODO : 코멘트용 라우터
+router.post('/addComment', auth ,(req, res) =>{
+  // 카트 올리듯 Product의 comment에 push
+  // ㅇㅠ저 중복을 검사하기 위해서는 foreach로 유저 아이디를 전부 탐색하면 될 것 같다.
+  Product.findOneAndUpdate(
+    { _id: req.body.productId },
+    {
+      $push: {
+        comment: {
+          id: req.body.productId,
+          comment : req.body.comment,
+          star: req.body.star,
+          chuchan: req.body.chuchan,
+          delivery: req.body.delivery,
+          date: Date.now()
+        }
+      }
+    },
+    { new: true },
+    (err) => {
+      if (err) return res.status(400).json({ success: false, err })
+      else return res.status(200).json({ success: true })
+    }
+  )
+  
 })
 
 // 상세 페이지용
@@ -84,6 +111,14 @@ router.get('/products_by_id', (req, res) => {
     if(err) return res.status(400).send(err)
     return res.status(200).send({ success: true, product })
   })
+})
+
+router.post('/updateProduct', (req, res) => {
+	Product.findByIdAndUpdate({_id: req.body._id},
+		{title: req.body.title, description: req.body.description, price: req.body.price, images: req.body.images, computerPart: req.body.computerPart, deliverPrice: req.body.deliverPrice}, (err) => {
+			if(err) return res.status(400).json({success: false, err})
+			return res.status(200).json({success:true})
+		})
 })
 
 router.get('/getNewProducts', (req, res) => {
@@ -196,15 +231,6 @@ router.post('/getProducts' ,(req, res) => {
     }
 })
 
-router.post('/modifyProduct', (req,res) => {
-    // 받아온 정보들을 db에 저장
-    const product = new Product(req.body)
-
-    product.save((err) => {
-      if(err) return res.status(400).json({ success: false, err })
-      return res.status(200).json({ success: true })
-    })
-})
 
 
   

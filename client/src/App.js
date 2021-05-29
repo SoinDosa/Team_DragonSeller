@@ -32,19 +32,17 @@ import Privacy from './components/views/Footer/Link/Privacy';
 import SiteMap from './components/views/Footer/Link/SiteMap';
 import TeamInfo from './components/views/Footer/Link/TeamInfo';
 
+import UpdateBannerPage from './components/views/UploadBannerPage/UpdateBanner'
+import UpdateProductPage from './components/views/UploadProductPage/UpdateProduct'
+
+import DetailHistoryPage from './components/views/HistoryPage/DetailHistoryPage'
 import 'semantic-ui-css/semantic.min.css'
 
 function App() {
   return (
     <Router>
       <div>
-        {/*
-          A <Switch> looks through all its children <Route>
-          elements and renders the first one whose path
-          matches the current URL. Use a <Switch> any time
-          you have multiple routes, but you want only one
-          of them to render at a time
-        */}
+        { }
         <Switch>
           <Route exact path="/" component={Auth(LandingPage, null)} />
           <Route exact path="/login" component={Auth(LoginPage, false)} />
@@ -60,19 +58,26 @@ function App() {
           <Route exact path="/changePw" component={Auth(ChangePWPage, true)} />
           <Route exact path="/banner/upload" component={Auth(UploadBannerPage, true, true)} />
 
-          
+
           <Route exact path="/adminpage" component={Auth(AdminPage, true, true)} />
           <Route exact path="/history" component={Auth(HistoryPage, true)} />
-          <Route exact path="/banner/revise" component={Auth(BannerCheckPage, true, true)}/>
+          <Route exact path="/banner/revise" component={Auth(BannerCheckPage, true, true)} />
           <Route exact path="/banner/:bannerId" component={Auth(BannerDetailPage, null)} />
+          <Route exact path="/payment" component={Auth(PaymentManagePage, true, true)} />
+          <Route exact path="/history/:historyId" component={Auth(DetailHistoryPage, true)}/>
+          <Route exact path="/banner/revise" component={Auth(BannerCheckPage, true, true)}/>
+          <Route exact path="/banner/:bannerId" component={Auth(BannerDetailPage, null)}/>
           <Route exact path="/payment" component={Auth(PaymentManagePage,true,true)}/>
           <Route exact path="/coupon" component={Auth(CouponPage, true, true)} />
-          
+
           <Route exact path="/banner/revise" component={Auth(BannerCheckPage, true, true)} />
           <Route exact path="/policy" component={Auth(Policy, null)} />
           <Route exact path="/privacy" component={Auth(Privacy, null)} />
           <Route exact path="/sitemap" component={Auth(SiteMap, null)} />
-          <Route exact path="/teaminfo" component={Auth(TeamInfo,null)} />
+          <Route exact path="/teaminfo" component={Auth(TeamInfo, null)} />
+
+          <Route exact path="/banner/update/:bannerId" component={Auth(UpdateBannerPage, true)} />
+          <Route exact path="/product/update/:productId" component={Auth(UpdateProductPage, true)} />
 
         </Switch>
       </div>

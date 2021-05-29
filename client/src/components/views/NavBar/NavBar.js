@@ -7,7 +7,7 @@ import {
   Segment,
   Visibility,
 } from 'semantic-ui-react'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Axios from 'axios'
 
 const { MediaContextProvider, Media } = createMedia({
@@ -32,16 +32,16 @@ class DesktopContainer extends Component {
   showFixedMenu = () => this.setState({ fixed: true });
 
   //메뉴 클릭 시에 원하는 정보 보여줌(서버로부터 데이터 가져옴) + eventHandling
-  onClickNavbarHandler = (e,{name}) => {
-    
+  onClickNavbarHandler = (e, { name }) => {
 
-    return this.setState({clickedName: name});
+
+    return this.setState({ clickedName: name });
   }
 
   render() {
     const { children } = this.props
     const { fixed } = this.state
-    const {clickedName} = this.state
+    const { clickedName } = this.state
 
     return (
       <Media greaterThan='mobile'>
@@ -63,13 +63,13 @@ class DesktopContainer extends Component {
               size='large'
             >
               <Container>
-                <Menu.Item link ={true} name='home' active={clickedName === 'home'} onClick={this.onClickNavbarHandler}>
-                <Link to="/">
-                  Home
+                <Menu.Item link={true} name='home' active={clickedName === 'home'} onClick={this.onClickNavbarHandler}>
+                  <Link to="/">
+                    Home
                 </Link>
                 </Menu.Item>
-                  <Menu.Item as='a' name='shop' onClick={this.onClickNavbarHandler} active={clickedName === 'shop'}><Link to="/search">SHOP</Link></Menu.Item>
-                  <Menu.Item position='right'>
+                <Menu.Item as='a' name='shop' onClick={this.onClickNavbarHandler} active={clickedName === 'shop'}><Link to="/search">Shop</Link></Menu.Item>
+                <Menu.Item position='right'>
                 </Menu.Item>
               </Container>
             </Menu>

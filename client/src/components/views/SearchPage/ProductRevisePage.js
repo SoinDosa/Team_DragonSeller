@@ -128,6 +128,7 @@ const ProductRevisePage = (props) =>{
                             <Item.Description></Item.Description>
                             <Item.Extra>
                                 <Button primary floated='right' onClick={() => {deleteHandler(item)}}>삭제</Button>
+                                <Link to={`/product/update/${item._id}`}><Button>수정</Button></Link>
                             </Item.Extra>
                         </Item.Content>
                         </Item>

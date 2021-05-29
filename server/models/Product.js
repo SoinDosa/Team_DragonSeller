@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const productSchema = new mongoose.Schema({
+const productSchema = mongoose.Schema({
     writer: {
         type : Schema.Types.ObjectId,
         ref: 'User'
@@ -22,6 +22,10 @@ const productSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+    deliverPrice: {
+        type: Number,
+        default: 0
+    },
     images: {
         type: Array,
         default: []
@@ -34,7 +38,11 @@ const productSchema = new mongoose.Schema({
     views: {
         type: Number,
         default: 0
-    }
+    },
+    comment: {
+        type: Array,
+        default: []
+    },
 }, { timestamps: true })
 
 productSchema.index({
@@ -47,9 +55,6 @@ productSchema.index({
     }
 })
 
-const mongoose_fuzzy_searching = require('mongoose-fuzzy-searching')
-
-productSchema.plugin(mongoose_fuzzy_searching,{fields: ['title', 'description']});
 const Product = mongoose.model('Product', productSchema)
 
 module.exports = { Product }

@@ -36,6 +36,7 @@ function UserCardBlock(props) {
                             <Table.HeaderCell >상품이름</Table.HeaderCell>
                             <Table.HeaderCell>수량추가</Table.HeaderCell>
                             <Table.HeaderCell>가격</Table.HeaderCell>
+                            <Table.HeaderCell>배송료</Table.HeaderCell>
                             <Table.HeaderCell>항목 삭제</Table.HeaderCell>
                         </Table.Row>
                     </Table.Body>
@@ -56,6 +57,9 @@ function UserCardBlock(props) {
                             </Table.Cell>
                             <Table.Cell>
                             <h3>{product.price*product.quantity} $ </h3>
+                            </Table.Cell>
+                            <Table.Cell>
+                            <h3>{product.deliverPrice} $ </h3>
                             </Table.Cell>
                             <Table.Cell >
                                 <button onClick={ () => props.removeItem(product._id) }>삭제</button>

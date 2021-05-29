@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { Typography, Button, Form, Input} from 'antd';
 import FileUpload from '../../util/FileUpload';
 import axios from 'axios';
@@ -18,6 +18,18 @@ const ComputerParts = [
 ]
 
 function UploadProductPage(props) {
+    const productId = props.match.params.productId
+
+    const [Product, setProduct] = useState({})
+
+    useEffect(() => {
+        axios.get(`/api/product/products_by_id?id=${productId}&type=single`)
+            .then(response => {
+                console.log('response data : ', response.data);
+                setProduct(response.data.product[0])
+            })
+            .catch(err => alert(err))
+    }, [])
 
     const [Title, setTitle] = useState("")
     const [Description, setDescription] = useState("")
@@ -38,6 +50,7 @@ function UploadProductPage(props) {
     const priceChangeHandler = (event) => {
         setPrice(event.currentTarget.value)
     }
+
     const deliverPriceChangeHandler = (event) => {
         setDeliverPrice(event.currentTarget.value)
     }
@@ -50,7 +63,7 @@ function UploadProductPage(props) {
         setImages(newIamges)
     }
     
-    const submitHandler = (event) => {
+    const updateHandler = (event) => {
         // 확인을 누를 떄 자동으로 리프레쉬 안되게
         event.preventDefault();
 
@@ -64,14 +77,14 @@ function UploadProductPage(props) {
             return alert("정말 상품이 4글자 조차 안되나요?")
         }
 
-        if(Images.length == 0 || !Title || !Description || !Price || !DeliverPrice || !ComputerPart) {
+        if(Images.length == 0 || !Title || !Description || !Price || !ComputerPart) {
             return alert("왜 값을 채우지 않은 것이지?")
         }
 
         // 서버에 값들을 request
         const body = {
             // 현재 로그인한 사람
-            writer: props.user.userData._id,
+            _id : productId,
             title: Title,
             description: Description,
             price: Price,
@@ -81,13 +94,13 @@ function UploadProductPage(props) {
         }
 
 
-        axios.post("/api/product", body)
+        axios.post("/api/product/updateProduct", body)
             .then(response => {
                 if(response.data.success){
-                    alert("상품 업로드 성공")
+                    alert("상품 수정 성공")
                     props.history.push('/')
                 } else {
-                    alert("상품 업로드 실패")
+                    alert("상품 수정 실패")
                 }
             })
     }
@@ -95,10 +108,11 @@ function UploadProductPage(props) {
     return (
         <div style={{maxWidth: '700px', margin: '2rem auto'}}>
             <div style={{textAlign: 'center', marginBottom: '2rem'}}>
-                <h2>컴퓨터 상품 업로드</h2>
+                <h2>컴퓨터 상품 수정</h2>
+                <h3>수정 전 제목 : {Product.title}</h3>
             </div>
 
-            <Form onSubmit={submitHandler}>
+            <Form onSubmit={updateHandler}>
 
                 {/*dropzone*/}
                 <FileUpload refreshFunction={uploadImages}/>
@@ -106,7 +120,7 @@ function UploadProductPage(props) {
                 <br />
                 <br />
                 <label>제품명</label>
-                <Input onChange={titleChangeHandler} value={Title}/>
+                <Input onChange={titleChangeHandler} defaultValue={Product.title} value={Title}/>
                 <br />
                 <br />
                 <label>설명</label>
@@ -128,7 +142,7 @@ function UploadProductPage(props) {
                 </select>
                 <br />
                 <br />
-                <Button htmlType="submit" onClick={submitHandler}>Submit</Button>
+                <Button htmlType="submit" onClick={updateHandler}>Update</Button>
             </Form>
 
         </div>

@@ -38,6 +38,7 @@ function CartPage(props) {
 
         cartDetail.product.map(item => {
             total += parseInt(item.price, 10) * item.quantity
+            total += item.deliverPrice
         })
 
         setTotal(total)
@@ -58,12 +59,15 @@ function CartPage(props) {
     const transactionSuccess = (data) => {
         dispatch(onSuccessBuy({
             paymentData: data,
-            cartDetail: props.user.cartDetail
+            cartDetail: props.user.cartDetail,
+            totalPrice: Total
         }))
             .then(response => {
                 if (response.payload.success) {
                     setShowTotal(false)
                     setShowSuccess(true)
+                    
+                    props.history.push('../history')
                 }
             })
     }
@@ -129,6 +133,7 @@ function CartPage(props) {
                     <Table.Cell textAlign="center" bgColor="#62d2a2" fgColor="#eeeeee">
                         <h3>총 가격</h3> 
                     </Table.Cell>
+                    
                     <Table.Cell textAlign="right">
                         {ShowTotal ?
                             <h1 style={{color:"red"}}>{Total}$</h1>
