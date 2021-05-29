@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { registerUser, loginUser, checkIdUser, checkEmailUser } from '../../../_actions/user_action';
 import { withRouter, Link } from 'react-router-dom';
-import Header from '../Header/Header'
 import { Form, Input, Image, Button } from 'semantic-ui-react'
 import { IoT1ClickDevicesService } from 'aws-sdk';
 
