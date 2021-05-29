@@ -13,6 +13,8 @@ import {
     CHANGE_PW_USER,
     CHECK_ID_USER,
     CHECK_EMAIL_USER,
+    CREATE_COUPON,
+    GET_COUPON,
 } from '../_actions/types';
 
 export default function (state = {}, action) {
@@ -45,7 +47,7 @@ export default function (state = {}, action) {
             return { ...state, checkIdSuccess: action.payload }
             break;
         case CHECK_EMAIL_USER:
-            return { ...state, checkIdSuccess: action.payload }
+            return { ...state, checkEmailSuccess: action.payload }
             break;
         case ADD_TO_CART:
             return {
@@ -72,6 +74,15 @@ export default function (state = {}, action) {
                     ...state.userData, cart: action.payload.cart
                 }
             }
+        case CREATE_COUPON:
+            return { ...state, createCouponSuccess: action.payload }
+            break;
+
+
+        case GET_COUPON:
+            return { ...state, getCouponSuccess: action.payload }
+            break;
+           
         default:
             return state;
     }

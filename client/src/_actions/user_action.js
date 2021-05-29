@@ -14,9 +14,12 @@ import {
     CHANGE_PW_USER,
     CHECK_ID_USER,
     CHECK_EMAIL_USER,
+    CREATE_COUPON,
+    GET_COUPON,
 } from './types';
 
 import { USER_SERVER } from '../Config';
+import { responsiveArray } from 'antd/lib/_util/responsiveObserve';
 // import { response } from 'express';
 
 export function loginUser(dataToSubmit) {
@@ -210,4 +213,21 @@ export function onSuccessBuy(data) {
         type: ON_SUCCESS_BUY,
         payload: request
     }
+}
+
+export function createCoupon(dataToSubmit) {
+
+    const request = axios.post('/api/coupon/', dataToSubmit)
+        .then(response => response.data);
+
+    return {
+         type: CREATE_COUPON,
+         payload: request
+    } 
+}
+
+export function getCoupon(couponTitle) {
+
+    const request = axios.get('/api/coupon/getCoupon')
+        .then(response => response.data)
 }
