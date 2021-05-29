@@ -15,6 +15,25 @@ router.post('/deletePayment', (req, res) => {
 	})
 })
 
+router.post('/delivery', (req,res) => {
+	console.log(req.body[3])
+	Payment.findByIdAndUpdate({_id:req.body[3]},{delivery:1},(err)=> {
+		if(err) return res.status(400).json({success:false,err})
+		return res.status(200).json({success:true})
+	})
+})
+router.post('/deliveryComplete', (req,res) => {
+	Payment.findByIdAndUpdate({_id:req.body[3]},{delivery:2},(err)=> {
+		if(err) return res.status(400).json({success:false,err})
+		return res.status(200).json({success:true})
+	})
+})
+router.post('/confirm', (req,res) => {
+	Payment.findByIdAndUpdate({_id:req.body[3]},{delivery:3},(err)=> {
+		if(err) return res.status(400).json({success:false,err})
+		return res.status(200).json({success:true})
+	})
+})
 router.post('/getPayment', (req, res) => {
 	let sorting = req.body.sortBy ? req.body.sortBy : "_id";
 	let order = -1;
@@ -58,7 +77,7 @@ router.post('/getPayment', (req, res) => {
 			
 			//환불은 어떻게?
 			payments.map(variable => {
-				datas.push([variable.user,variable.data[0].address,variable.product,variable._id])
+				datas.push([variable.user,variable.data[0].address,variable.product,variable._id, variable.buytime,variable.delivery])
 
 			})
 			res.status(200).json({success:true, datas, allPage: allItem, postSize: datas.length})

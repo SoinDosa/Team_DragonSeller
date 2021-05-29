@@ -8,6 +8,7 @@ import Header from '../Header/Header';
 import axios from 'axios';
 import Sort from '../SearchPage/Sections/Sort'
 import {payment} from '../SearchPage/Sections/Datas'
+import DeliveryStep from '../HistoryPage/DeliveryStep'
 
 function PaymentManagePage(props) {
     const [SearchTerms, setSearchTerms] = useState("")
@@ -77,6 +78,26 @@ function PaymentManagePage(props) {
         setSkip(skip)
         setActivePage(value.activePage);
     }
+    const deliveryHander = (value) => {
+        axios.post('/api/orderlist/delivery', value)
+        .then(response => {
+            if(response.data.success){
+                alert("배송시작")
+                props.history.push("/adminpage")
+                props.history.push("/payment")
+            }
+        })
+    }
+    const completeHandler = (value) => {
+        axios.post('/api/orderlist/deliveryComplete', value)
+        .then(response => {
+            if(response.data.success){
+                alert("배송완료")
+                props.history.push("/adminpage")
+                props.history.push("/payment")
+            }
+        })
+    }
 
     const deleteHandler = (value) =>{
         axios.post('/api/orderlist/deletePayment', value)
@@ -95,30 +116,39 @@ function PaymentManagePage(props) {
     const renderCards = Products.map((item, index) => {
         console.log(item)
         return (
-            
-
-                        <Item style={{display:'flex', marginBottom: '30px', borderBottom:'solid #A4A4A4'}}>
-                        <Item.Content>
-                            <Item.Header>{item[0][0].name}</Item.Header>
-                            <Item.Description>
-                            <span>상세주소: {item[1].line1}</span>    
-                                {item[1].line2}
-                            </Item.Description>
-                            {(item[2]).map((purchase)=>{
-                                return (
-                                    <Item.Description>
-                                        {purchase.name}
-                                        <br/>
-                                        <span>{purchase.quantity}</span>
-                                    </Item.Description>)}
-                                )
-                            })
-                            <Item.Extra>
-                                <Button primary floated='right' onClick={() => {deleteHandler(item)}}>삭제</Button>
-                            </Item.Extra>
-                        </Item.Content>
-                        </Item>
-     
+            <Item style={{display:'flex', marginBottom: '30px', borderBottom:'solid #A4A4A4'}}>
+            <Item.Content>
+                <Item.Header>{item[0][0].name}</Item.Header>
+                <Item.Description>
+                <span>상세주소: {item[1].line1}</span>    
+                    {item[1].line2}
+                </Item.Description>
+                <Item.Description>
+                <span>제품 구매날짜:{item[4]}</span>
+                </Item.Description>
+                {(item[2]).map((purchase)=>{
+                    return (
+                        <Item.Description>
+                            <span>제품명: {purchase.name}</span>
+                            <br/>
+                            <span>수량 : {purchase.quantity}</span>
+                        </Item.Description>
+                        )}
+                    )
+                })
+                <DeliveryStep step={item[5]}/>
+               
+                    {item[5]!==3 ?
+                     <Item.Extra>
+                        <Button onClick={() => {deliveryHander(item)}}>배송하기</Button>
+                        <Button onClick={() => {completeHandler(item)}}>배송완료</Button>
+                        <Button primary floated='right' onClick={() => {deleteHandler(item)}}>삭제</Button>
+                    </Item.Extra>
+                    : null
+                    }
+                
+            </Item.Content>
+            </Item>
             )
     })
 

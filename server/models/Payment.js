@@ -17,6 +17,10 @@ const paymentSchema = mongoose.Schema({
     buytime: {
         type: String,
         default: d.toString()
+    },
+    delivery: {
+        type: Number,
+        default: 0
     }
 }, { timestamps: true })
 

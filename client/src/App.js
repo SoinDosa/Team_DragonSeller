@@ -35,6 +35,7 @@ import TeamInfo from './components/views/Footer/Link/TeamInfo';
 import UpdateBannerPage from './components/views/UploadBannerPage/UpdateBanner'
 import UpdateProductPage from './components/views/UploadProductPage/UpdateProduct'
 
+import DetailHistoryPage from './components/views/HistoryPage/DetailHistoryPage'
 import 'semantic-ui-css/semantic.min.css'
 
 function App() {
@@ -63,6 +64,10 @@ function App() {
           <Route exact path="/banner/revise" component={Auth(BannerCheckPage, true, true)} />
           <Route exact path="/banner/:bannerId" component={Auth(BannerDetailPage, null)} />
           <Route exact path="/payment" component={Auth(PaymentManagePage, true, true)} />
+          <Route exact path="/history/:historyId" component={Auth(DetailHistoryPage, true)}/>
+          <Route exact path="/banner/revise" component={Auth(BannerCheckPage, true, true)}/>
+          <Route exact path="/banner/:bannerId" component={Auth(BannerDetailPage, null)}/>
+          <Route exact path="/payment" component={Auth(PaymentManagePage,true,true)}/>
           <Route exact path="/coupon" component={Auth(CouponPage, true, true)} />
 
           <Route exact path="/banner/revise" component={Auth(BannerCheckPage, true, true)} />
