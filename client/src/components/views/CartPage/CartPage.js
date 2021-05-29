@@ -36,6 +36,7 @@ function CartPage(props) {
 
         cartDetail.product.map(item => {
             total += parseInt(item.price, 10) * item.quantity
+            total += item.deliverPrice
         })
 
         setTotal(total)
@@ -87,6 +88,7 @@ function CartPage(props) {
                     <Table.Cell textAlign="center" bgColor="#62d2a2" fgColor="#eeeeee">
                         <h3>총 가격</h3> 
                     </Table.Cell>
+                    
                     <Table.Cell textAlign="right">
                         {ShowTotal ?
                             <h1 style={{color:"red"}}>{Total}$</h1>

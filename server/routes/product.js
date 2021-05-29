@@ -47,7 +47,6 @@ router.post('/', (req, res) => {
 
   // 받아온 정보들을 db에 저장
   const product = new Product(req.body)
-
   product.save((err) => {
     if(err) return res.status(400).json({ success: false, err })
     return res.status(200).json({ success: true })
@@ -116,7 +115,7 @@ router.get('/products_by_id', (req, res) => {
 
 router.post('/updateProduct', (req, res) => {
 	Product.findByIdAndUpdate({_id: req.body._id},
-		{title: req.body.title, description: req.body.description, price: req.body.price, images: req.body.images, computerPart: req.body.computerPart}, (err) => {
+		{title: req.body.title, description: req.body.description, price: req.body.price, images: req.body.images, computerPart: req.body.computerPart, deliverPrice: req.body.deliverPrice}, (err) => {
 			if(err) return res.status(400).json({success: false, err})
 			return res.status(200).json({success:true})
 		})

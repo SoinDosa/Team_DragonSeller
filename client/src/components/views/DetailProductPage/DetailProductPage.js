@@ -82,6 +82,12 @@ function DetailProductPage(props) {
                         <Table.Cell>{Product.price}$</Table.Cell>
                     </Table.Row>
                     <Table.Row>
+                        <Table.Cell collapsing>
+                            <Icon name='folder' /> 배송비
+                        </Table.Cell>
+                        <Table.Cell>{Product.deliverPrice}$</Table.Cell>
+                    </Table.Row>
+                    <Table.Row>
                         <Table.Cell>
                             <Icon name='folder' /> 상세
                         </Table.Cell>
