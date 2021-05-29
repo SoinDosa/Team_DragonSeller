@@ -69,10 +69,10 @@ function App() {
           <Route exact path="/coupon" component={Auth(CouponPage, true, true)} />
           
           <Route exact path="/banner/revise" component={Auth(BannerCheckPage, true, true)} />
-          <Route exact path="/policy" component={Policy} />
-          <Route exact path="/privacy" component={Privacy} />
-          <Route exact path="/sitemap" component={SiteMap} />
-          <Route exact path="/teaminfo" component={TeamInfo} />
+          <Route exact path="/policy" component={Auth(Policy, null)} />
+          <Route exact path="/privacy" component={Auth(Privacy, null)} />
+          <Route exact path="/sitemap" component={Auth(SiteMap, null)} />
+          <Route exact path="/teaminfo" component={Auth(TeamInfo,null)} />
 
         </Switch>
       </div>
