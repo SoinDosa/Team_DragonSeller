@@ -30,7 +30,7 @@ function SiteMap(props) {
                 <h3>외부 페이지</h3>
                 <List bulleted>
                     <List.Item href="http://eclass.seoultech.ac.kr">서울과학기술대학교 E-Class</List.Item>
-                    <List.Item href="http://eclass.seoultech.ac.kr">서울과학기술대학교 포털</List.Item>
+                    <List.Item href="http://portal.seoultech.ac.kr">서울과학기술대학교 포털</List.Item>
                     <List.Item href="https://github.com/SoinDosa/Team_DragonSeller">19팀 드래곤샐러 깃허브</List.Item>
                     <List.Item href="https://www.notion.so/b900c39f0ab94437bcb3f44f3e55a6b7?v=23a81c3576554f489894bc42b1384e61">19팀 드래곤샐러 노션</List.Item>
                 </List>
