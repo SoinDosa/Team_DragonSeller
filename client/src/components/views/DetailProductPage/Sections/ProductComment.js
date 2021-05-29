@@ -86,6 +86,7 @@ function ProductComment(props) {
                         <option key={item.key} value={item.key}>{item.value}</option> 
                     ))}
                 </select>
+                
                 별점<br/>
                 <select onChange={chuchanChangeHandler} value={chuchan}>
                     {chuchans.map(item => (
