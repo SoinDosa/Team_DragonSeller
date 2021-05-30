@@ -18,20 +18,36 @@ router.post('/', (req, res) => {
 })
 
 router.get('/getRequires', (req, res) => {
+  console.log(req.body)
   let sortBy = req.body.sortBy ? req.body.sortBy : "_id";
   let findArgs = {};
+  let limit = req.body.limit ? parseInt(req.body.limit) : 100;
+  let skip = parseInt(req.body.skip);
+  let allItem = 0;
+
   Require.find(findArgs)
+  .then((productAll) => {
+    return Promise.resolve(allItem = productAll.length)
+  })
+  .then((result) => {
+    Require.find(findArgs)
     .sort([[sortBy, 1]])
+    .limit(limit)
+    .skip(skip)
     .exec((err, requires) => {
       if (err) return res.status(400).json({ success: false, err })
-      res.status(200).json({ success: true, requires })
+      res.status(200).json({ success: true, requires, allItem })
     })
+  })
+  
 })
 router.post('/getRequireList', (req, res) => {
-  let sortBy = req.body.sortBy ? req.body.sortBy : "createAt";
-  let term = req.body.searchTerm;
-  let order = -1;
+  let sortBy = req.body.sortBy ? req.body.sortBy : "_id";
   let findArgs = {};
+  let limit = req.body.limit ? parseInt(req.body.limit) : 100;
+  let skip = parseInt(req.body.skip);
+  let allItem = 0;
+
   console.log(req.body)
   for (let key in req.body.filters) {
     if (req.body.filters[key] > 0) {
@@ -51,23 +67,20 @@ router.post('/getRequireList', (req, res) => {
     console.log(findArgs)
   }
 
-
-  if (term) {
+  Require.find(findArgs)
+  .then((productAll) => {
+    return Promise.resolve(allItem = productAll.length)
+  })
+  .then((result) => {
     Require.find(findArgs)
-      .find({ 'title': { '$regex': term, '$options': 'i' } })
-      .sort([[sortBy, order]])
-      .exec((err, requires) => {
-        if (err) return res.status(400).json({ success: false, err })
-        res.status(200).json({ success: true, requires })
-      })
-  } else {
-    Require.find(findArgs)
-      .sort([[sortBy, order]])
-      .exec((err, requires) => {
-        if (err) return res.status(400).json({ success: false, err })
-        res.status(200).json({ success: true, requires })
-      })
-  }
+    .sort([[sortBy, 1]])
+    .limit(limit)
+    .skip(skip)
+    .exec((err, requires) => {
+      if (err) return res.status(400).json({ success: false, err })
+      res.status(200).json({ success: true, requires, allPage: allItem })
+    })
+  })
 })
 
 router.get('/requires_by_id', (req, res) => {
@@ -82,7 +95,34 @@ router.get('/requires_by_id', (req, res) => {
     })
 })
 
-router.post('/addComment', auth, (req, res) => {
+router.post('/addComment', auth ,(req, res) =>{
+  // 카트 올리듯 Product의 comment에 push
+  // ㅇㅠ저 중복을 검사하기 위해서는 foreach로 유저 아이디를 전부 탐색하면 될 것 같다.
+  Product.findOneAndUpdate(
+    { _id: req.body.productId },
+    {
+      $push: {
+        comment: {
+          id: req.body.productId,
+          comment : req.body.comment,
+          star: req.body.star,
+          chuchan: req.body.chuchan,
+          delivery: req.body.delivery,
+          date: Date.now()
+        }
+      }
+    },
+    { new: true },
+    (err) => {
+      if (err) return res.status(400).json({ success: false, err })
+      else return res.status(200).json({ success: true })
+    }
+  )
+  
+})
+
+router.post('/adminComment', (req, res) => {
+  console.log(req.body.requireId)
   Require.findOneAndUpdate(
     { _id: req.body.requireId },
     {

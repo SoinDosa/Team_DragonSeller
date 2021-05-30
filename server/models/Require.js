@@ -28,7 +28,7 @@ const requireSchema = new mongoose.Schema({
         default: 1
     },
     comment: {
-        type: String,
+        type: Array,
         maxlength: 400,
     },
 }, { timestamps: true })

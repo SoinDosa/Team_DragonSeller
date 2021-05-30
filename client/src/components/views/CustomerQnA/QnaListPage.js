@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Item } from 'semantic-ui-react';
+import { Button, Item,Pagination } from 'semantic-ui-react';
 import { Link } from 'react-router-dom'
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import Sort from '../SearchPage/Sections/Sort'
-
 import Header from '../Header/Header';
 import { requirePart, sortTime } from '../SearchPage/Sections/Datas'
 //...
@@ -12,15 +11,28 @@ function QnaListPage(props) {
     const s3path = 'https://seonhwi.s3.amazonaws.com/';
     const [RequireEvent, setRequireEvent] = useState([])
     const [SearchTerms, setSearchTerms] = useState("")
+    const [Allpage, setAllpage] = useState(1)
+    const [Limit, setLimit] = useState(8)
+    const [ActivePage, setActivePage] = useState(0)
+    const [Skip, setSkip] = useState(0)
+    const [checkAdmin, setcheckAdmin] = useState(false)
     const [Filters, setFilters] = useState({
         requirePart: [],
         sortBy: [],
     })
     useEffect(() => {
         const variables = {
-            filters: Filters
+            skip : Skip,
+            limit: Limit,
+            filters: Filters,
         }
         getRequires(variables)
+        axios.get('/api/users/auth')
+        .then((response)=>{
+            if(response.data){
+                setcheckAdmin(response.data.isAdmin)
+            }
+        } )
     }, [])
 
     const updateSearchTerm = (newSearchTerm) => {
@@ -31,6 +43,17 @@ function QnaListPage(props) {
         setSearchTerms(newSearchTerm);
         getRequires(variables)
     }
+    const handlePaginationChange = (e, value) => {
+        let skip = (value.activePage-1)*Limit;
+        const variables = {
+            skip : skip,
+            limit: Limit,
+            filters: Filters,
+        }
+        getRequires(variables)
+        setSkip(skip)
+        setActivePage(value.activePage);
+    }
 
     const getRequires = (variables) => {
         axios.post('/api/require/getRequireList', variables)
@@ -39,12 +62,12 @@ function QnaListPage(props) {
                     console.log("require data")
                     console.log(response.data.requires)
                     //여기 바꿔야될듯..?
-                    if (response.data.length > 0) {
+                    if (response.data.loadMore) {
                         setRequireEvent([...RequireEvent, ...response.data.requires])
                     } else {
                         setRequireEvent(response.data.requires)
                     }
-
+                    setAllpage(response.data.allPage)
                 } else {
                     alert('Failed to fetch require images')
                 }
@@ -76,6 +99,9 @@ function QnaListPage(props) {
                 <Item style={{ display: 'flex', marginBottom: '30px' }}>
                     <Item.Content>
                         <Item.Header><Link to={`./qnalist/${item._id}`}>{item.title}</Link></Item.Header>
+                        <Item.Description>{`${new Date(item.createAt)}`}</Item.Description>
+                        <Item.Description>{item.comment.length>0 ? <span>답변완료</span> : <div>답변대기</div>}</Item.Description>
+                        <Item.Extra>{checkAdmin ? <Link to=""><Button>답변하기</Button></Link> : null}</Item.Extra>
                     </Item.Content>
                 </Item>
             </div>
@@ -105,6 +131,11 @@ function QnaListPage(props) {
                             {renderCards}
                         </Item.Group>
                     </div>
+                }
+                {
+            <div style={{ justifyContent: 'center', display: 'flex'}}>
+               <Pagination defaultActivePage={1} totalPages={Allpage%8!==0 || Allpage===0 ? Math.ceil(Allpage/8) : Allpage/8} onPageChange={handlePaginationChange} />
+            </div>
                 }
             </div>
         </div>

@@ -19,7 +19,7 @@ function Comment(props) {
             comment: Comment,
         }
 
-        axios.post("/api/require/addComment", body)
+        axios.post("/api/require/adminComment", body)
             .then(response => {
                 if (response.data.success) {
                     alert("답변이 작성되었습니다.")
