@@ -5,7 +5,7 @@ const { Payment } = require("../models/Payment")
 
 router.post('/deletePayment', (req, res) => {
 	console.log(req.body)
-	let paymentId = req.body[req.body.length-1]
+	let paymentId = req.body[req.body.length-4]
 	console.log(paymentId)
 
 	Payment.deleteOne({_id: paymentId})

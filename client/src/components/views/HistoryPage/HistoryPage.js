@@ -117,7 +117,7 @@ const HistoryPage = (props)=> {
                     })
                     <DeliveryStep step={item[5]}/>
                             <Item.Extra>
-                            {item[5]===1 || item[5]===2? <Button onClick>문의</Button> : null}
+                            {item[5]===1 || item[5]===2? <Link to='/write'><Button onClick>문의</Button></Link> : null}
                             {item[5]===2 ?
                             <div> 
                                 <Button onClick={() => {confirmPurchase(item)}}>구매확정</Button>

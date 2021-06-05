@@ -101,7 +101,7 @@ function QnaListPage(props) {
                         <Item.Header><Link to={`./qnalist/${item._id}`}>{item.title}</Link></Item.Header>
                         <Item.Description>{`${new Date(item.createAt)}`}</Item.Description>
                         <Item.Description>{item.comment.length>0 ? <span>답변완료</span> : <div>답변대기</div>}</Item.Description>
-                        <Item.Extra>{checkAdmin ? <Link to=""><Button>답변하기</Button></Link> : null}</Item.Extra>
+                        <Item.Extra>{checkAdmin ? <Link to={`./qnalist/${item._id}`}><Button>답변하기</Button></Link> : null}</Item.Extra>
                     </Item.Content>
                 </Item>
             </div>
