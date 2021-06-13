@@ -16,7 +16,6 @@ const HistoryPage = (props)=> {
     const [Limit, setLimit] = useState(8)
     const [Products, setProducts] = useState([])
     //post사이즈가 loadmore버튼 더이상 생기게 할 거 없으면 숨겨줌.
-    const [PostSize, setPostSize] = useState(0)
     const [ActivePage, setActivePage] = useState(1)
     const [Allpage, setAllpage] = useState(1)
     const [Filters, setFilters] = useState({
@@ -25,27 +24,12 @@ const HistoryPage = (props)=> {
     const [UserName, setUserName] = useState([])
 
   
-    
-    const updateSearchTerm = (newSearchTerm) => {
-        const variables = {
-            skip : 0,
-            limit: Limit,
-            filters: Filters,
-            searchTerm : newSearchTerm
-        }
-        setSkip(0)
-        setSearchTerms(newSearchTerm);
-        getPayment(variables)
-        
-    }
-
     useEffect(() => {
         const variables = {
             skip: Skip,
             limit: Limit,
             filters: Filters
         }
-        
         axios.get('api/users/auth/')
         .then((response) => {
             if(response.data){
@@ -53,7 +37,6 @@ const HistoryPage = (props)=> {
             }
             }
         )
-        
         getPayment(variables)
     }, [])
 
@@ -61,8 +44,8 @@ const HistoryPage = (props)=> {
         Axios.post('/api/orderlist/getPayment',variables)
         .then(response => {
             if(response.data.success){
-                //여기 바꿔야될듯..?
-                if(response.data.datas.length>0){
+                //variables.loadMore -> 이거쓰니까 전에거 짤림.
+                if(variables.loadMore){
                     setProducts([...Products, ...response.data.datas])
                 }else{
                     setProducts(response.data.datas)
@@ -123,7 +106,8 @@ const HistoryPage = (props)=> {
                         return (
                             <Item.Description style={{borderBottom:'solid #D8D8D8'}}>
                                 <div>
-                                    <span>제품명: {purchase.name} <span>{item[5]===3 ? <Link to={`/history/${purchase.id}`}><Button primary floated='right'>후기</Button></Link> :null}</span></span>
+                                    <span>제품명: {purchase.name} <span>{item[5]===2 || item[5]===3? 
+                                    <Link to={`/product/${purchase.id}`}><Button primary floated='right'>후기</Button></Link> :null}</span></span>
                                     <br/>
                                     <span>수량 : {purchase.quantity}</span>
                                 </div>
@@ -133,7 +117,12 @@ const HistoryPage = (props)=> {
                     })
                     <DeliveryStep step={item[5]}/>
                             <Item.Extra>
-                            {item[5]===2 ? <Button onClick={() => {confirmPurchase(item)}}>구매확정</Button> : null}
+                            {item[5]===1 || item[5]===2? <Button onClick>문의</Button> : null}
+                            {item[5]===2 ?
+                            <div> 
+                                <Button onClick={() => {confirmPurchase(item)}}>구매확정</Button>
+                            </div>
+                             : null}
                             </Item.Extra>
                     </Item.Content>
                 </Item>
@@ -196,19 +185,20 @@ const HistoryPage = (props)=> {
 
         {Products.length === 0?
             <div style={{display: 'flex', height: '300px', justifyContent: 'center', alignItems: 'Center'}}>
-                <h2>No post yet...</h2>
+                <h2>구매목록이 아직 없습니다.</h2>
             </div> :
             <div style={{width: '75%', margin: '3rem auto'}}>
                 <Item.Group>
                     {renderCards}
                 </Item.Group>  
             </div>
+            
         }
-       {/* {
+       {
             <div style={{ justifyContent: 'center', display: 'flex'}}>
                 <Pagination defaultActivePage={1} totalPages={Allpage%8!==0 || Allpage===0 ? Math.ceil(Allpage/8) : Allpage/8} onPageChange={handlePaginationChange} />
              </div>
-        } */}
+        }
         
 
         </div>

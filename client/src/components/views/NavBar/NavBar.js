@@ -64,11 +64,14 @@ class DesktopContainer extends Component {
             >
               <Container>
                 <Menu.Item link={true} name='home' active={clickedName === 'home'} onClick={this.onClickNavbarHandler}>
-                  <Link to="/">
-                    Home
-                </Link>
+                  <Link to="/"> Home</Link>
                 </Menu.Item>
-                <Menu.Item as='a' name='shop' onClick={this.onClickNavbarHandler} active={clickedName === 'shop'}><Link to="/search">Shop</Link></Menu.Item>
+                <Menu.Item as='a' name='shop' onClick={this.onClickNavbarHandler} active={clickedName === 'shop'}>
+                  <Link to="/search">Shop</Link>
+                </Menu.Item>
+                <Menu.Item as='a' name='qna' onClick={this.onClickNavbarHandler} active={clickedName === 'qna'}>
+                  <Link to="/qnalist">Q&A</Link>
+                </Menu.Item>
                 <Menu.Item position='right'>
                 </Menu.Item>
               </Container>

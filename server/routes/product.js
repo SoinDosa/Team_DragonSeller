@@ -53,6 +53,7 @@ router.post('/', (req, res) => {
   })
 })
 
+
 router.post('/products', (req, res) => {
   // product 컬렉션에 있는 모든 상품 정보 가져오기
   Product.find()
